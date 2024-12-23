@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import SoftballStatsApp from "./pages/SoftballStatsApp";
+import {Provider} from "react-redux";
+import {store} from "./store/store";
 
 function App() {
   return (
@@ -19,7 +21,9 @@ function App() {
       {/*    Learn React*/}
       {/*  </a>*/}
       {/*</header>*/}
-      <SoftballStatsApp />
+        <Provider store={store}>
+            <SoftballStatsApp />
+        </Provider>
     </div>
   );
 }

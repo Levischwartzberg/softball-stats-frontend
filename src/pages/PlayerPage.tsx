@@ -1,24 +1,20 @@
-import getPlayers from "../api/getPlayers";
 import PlayerTable from "../components/PlayerTable/PlayerTable";
-import {Player} from "@/types/types";
-import {useEffect, useState} from "react";
+import {useGetPlayersQuery} from "../store/players/playerApiSlice";
+import AsyncStateWrapper, {QueryState} from "../components/common/AsyncStateWrapper";
+import CircularProgress from '@mui/material/CircularProgress';
+import React from "react";
 
 const PlayerPage = () => {
 
-    const [players, setPlayers] = useState([] as Player[]);
-
-    useEffect(() => {
-        getPlayers().then(players => {
-            setPlayers(players);
-        });
-
-    }, []);
+    const useGetPlayers = useGetPlayersQuery();
 
     return (
         <>
             Player Page
 
-            <PlayerTable players={players} />
+            <AsyncStateWrapper query={useGetPlayers as QueryState} >
+                <PlayerTable players={useGetPlayers.data!} />
+            </AsyncStateWrapper>
         </>
     )
 }
