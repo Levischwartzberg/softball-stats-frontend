@@ -1,0 +1,69 @@
+.modal {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  height: 400px;
+  background-color: white;
+  border: 2px solid #000;
+}
+
+.popover {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  height: 800px;
+  background-color: white;
+  border: 2px solid #000;
+  z-index: 1301;
+}
+
+.diamond {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  transform: rotate(45deg);
+  margin: auto;
+  border: black solid 1px;
+}
+
+.firstBase {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  position: absolute;
+  border: black solid 1px;
+  top: -1%;
+  left: 101%;
+  transform: translateX(-100%);
+}
+
+.secondBase {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  position: absolute;
+  border: black solid 1px;
+  top: -1%;
+  left: -1%;
+}
+
+.thirdBase {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  position: absolute;
+  border: black solid 1px;
+  top: 80%;
+  left: 20%;
+  transform: translateX(-100%);
+}
+
+.initial {
+  transform: rotate(-45deg);
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  z-index: 1.5;
+}
