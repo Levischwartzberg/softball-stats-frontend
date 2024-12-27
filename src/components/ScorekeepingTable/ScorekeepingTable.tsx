@@ -4,7 +4,7 @@ import ScorekeepingAtBat from "./ScorekeepingAtBat/ScorekeepingAtBat";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import EditIcon from '@mui/icons-material/Edit';
 import SelectPlayerModal from "./SelectPlayerModal/SelectPlayerModal";
-import {JSX, useState} from "react";
+import {JSX, useEffect, useState} from "react";
 import EditPlateAppearanceModal from "./EditPlateAppearanceModal/EditPlateAppearanceModal";
 
 type ScorekeepingTableProps = {
@@ -21,6 +21,22 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
     const [addPlayerModalOpen, setAddPlayerModalOpen] = useState(false);
     const [editPlayerModalOpen, setEditPlayerModalOpen] = useState(false);
     const [addNewPlateAppearanceOpen, setAddNewPlateAppearanceOpen] = useState(false);
+
+    useEffect(() => {
+        if (selectedPlayerAndInning.inning !== undefined) {
+            const inningOuts = props.innings[selectedPlayerAndInning.inning!.inning-1].atBats.map(ab => ab.outs.length).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+            if (inningOuts === 3) {
+                const inningsCopy = [...props.innings];
+                if (inningsCopy.length === selectedPlayerAndInning.inning!.inning) {
+                    inningsCopy.push({
+                        inning : selectedPlayerAndInning.inning!.inning + 1,
+                        atBats : []
+                    });
+                }
+                props.setInnings(inningsCopy);
+            }
+        }
+    }, [props.innings]);
 
     const timesBattedAround = (inning : Inning) : number => {
         if (inning.atBats.length) {
@@ -42,6 +58,9 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
             return (previousPlateAppearanceLineupIndex + 1 === playerLineupIndex) || ((previousPlateAppearanceLineupIndex + 1 === lineupLength) && playerLineupIndex === 0);
         } else {
             if (inning.atBats.length > 0) {
+                if (inning.atBats.map(ab => ab.outs.length).reduce((accumulator, currentValue) => accumulator + currentValue, 0) === 3) {
+                    return false;
+                }
                 const previousPlateAppearanceLineupIndex = props.lineup.indexOf(props.innings[totalInnings-1].atBats[props.innings[totalInnings-1].atBats.length-1].player);
                 return (previousPlateAppearanceLineupIndex + 1 === playerLineupIndex) || ((previousPlateAppearanceLineupIndex + 1 === lineupLength) && playerLineupIndex === 0);
             } else {
