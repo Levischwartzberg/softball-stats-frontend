@@ -4,7 +4,7 @@ import ScorekeepingAtBat from "./ScorekeepingAtBat/ScorekeepingAtBat";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import EditIcon from '@mui/icons-material/Edit';
 import SelectPlayerModal from "./SelectPlayerModal/SelectPlayerModal";
-import {JSX, useState} from "react";
+import {JSX, useEffect, useState} from "react";
 import EditPlateAppearanceModal from "./EditPlateAppearanceModal/EditPlateAppearanceModal";
 
 type ScorekeepingTableProps = {
@@ -22,11 +22,26 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
     const [editPlayerModalOpen, setEditPlayerModalOpen] = useState(false);
     const [addNewPlateAppearanceOpen, setAddNewPlateAppearanceOpen] = useState(false);
 
+    useEffect(() => {
+        if (selectedPlayerAndInning.inning !== undefined) {
+            const inningOuts = props.innings[selectedPlayerAndInning.inning!.inning-1].atBats.map(ab => ab.outs.length).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+            if (inningOuts === 3) {
+                const inningsCopy = [...props.innings];
+                if (inningsCopy.length === selectedPlayerAndInning.inning!.inning) {
+                    inningsCopy.push({
+                        inning : selectedPlayerAndInning.inning!.inning + 1,
+                        atBats : []
+                    });
+                }
+                props.setInnings(inningsCopy);
+            }
+        }
+    }, [props.innings]);
+
     const timesBattedAround = (inning : Inning) : number => {
         if (inning.atBats.length) {
-            const player = inning.atBats[0].player;
-
-            return inning.atBats.filter(atBat => atBat.player.id === player.id).length;
+            const outs = inning.atBats.map(ab => ab.outs.length).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+            return Math.ceil((inning.atBats.length + 1 - (outs / 3)) / props.lineup.length);
         }
         return 1;
     }
@@ -42,6 +57,9 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
             return (previousPlateAppearanceLineupIndex + 1 === playerLineupIndex) || ((previousPlateAppearanceLineupIndex + 1 === lineupLength) && playerLineupIndex === 0);
         } else {
             if (inning.atBats.length > 0) {
+                if (inning.atBats.map(ab => ab.outs.length).reduce((accumulator, currentValue) => accumulator + currentValue, 0) === 3) {
+                    return false;
+                }
                 const previousPlateAppearanceLineupIndex = props.lineup.indexOf(props.innings[totalInnings-1].atBats[props.innings[totalInnings-1].atBats.length-1].player);
                 return (previousPlateAppearanceLineupIndex + 1 === playerLineupIndex) || ((previousPlateAppearanceLineupIndex + 1 === lineupLength) && playerLineupIndex === 0);
             } else {
@@ -55,7 +73,7 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
         if (props.innings[inning.inning-1].atBats.length === 0) {
             index = 1;
         } else if (props.innings[inning.inning-1].atBats.filter(ab => ab.player === player).length > 0) {
-            index = props.innings[inning.inning-1].atBats.find(ab => ab.player === player)!.index;
+            index = props.innings[inning.inning-1].atBats.find(ab => ab.player === player)!.index + (timesBattedAround(inning) - 1) * props.lineup.length;
         } else {
             index = props.innings[inning.inning-1].atBats.length + 1;
         }
@@ -81,26 +99,27 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
         const playerPlateAppearanceRow = [] as JSX.Element[];
         props.innings.forEach(inning => {
             const playerAtBats = inning.atBats.filter(ab => ab.player.id === player.id);
-            if (playerAtBats.length === 0) {
-                playerPlateAppearanceRow.push(
-                    <TableCell>
-                        {isEditable(player, inning) ? (
-                            <Button onClick={() => openEditor(player, inning)}>
-                                <ScorekeepingAtBat atBat={null} canEdit={true}/>
-                            </Button>
-                        ) : (
-                            <ScorekeepingAtBat atBat={null} canEdit={false}/>
-                        )}
-                    </TableCell>
-                );
-            } else {
-                playerAtBats.forEach(ab => {
+            for (let i = 0; i < timesBattedAround(inning); i++) {
+                if (playerAtBats[i] === undefined) {
+                    playerPlateAppearanceRow.push(
+                            <TableCell>
+                                {isEditable(player, inning) ? (
+                                    <Button onClick={() => openEditor(player, inning)}>
+                                        <ScorekeepingAtBat atBat={null} canEdit={true}/>
+                                    </Button>
+                                ) : (
+                                    <ScorekeepingAtBat atBat={null} canEdit={false}/>
+                                )}
+                            </TableCell>
+                        );
+                } else {
+                    const ab = playerAtBats[i];
                     playerPlateAppearanceRow.push(
                         <TableCell>
                             <ScorekeepingAtBat atBat={ab} inningUpUntil={inning.atBats.filter(pa => pa.index <= ab.index)} canEdit={true} />
                         </TableCell>
                     )
-                })
+                }
             }
         })
         return playerPlateAppearanceRow;
