@@ -1,4 +1,4 @@
-import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import {AtBat, Inning, Player} from "../../types/types";
 import ScorekeepingAtBat from "./ScorekeepingAtBat/ScorekeepingAtBat";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import SelectPlayerModal from "./SelectPlayerModal/SelectPlayerModal";
 import {JSX, useEffect, useState} from "react";
 import EditPlateAppearanceModal from "./EditPlateAppearanceModal/EditPlateAppearanceModal";
+import css from "./ScorekeepingTable.module.scss";
 
 type ScorekeepingTableProps = {
     innings : Inning[],
@@ -116,7 +117,9 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
                     const ab = playerAtBats[i];
                     playerPlateAppearanceRow.push(
                         <TableCell>
-                            <ScorekeepingAtBat atBat={ab} inningUpUntil={inning.atBats.filter(pa => pa.index <= ab.index)} canEdit={true} />
+                            <Box className={css.editPlateAppearanceButton} onClick={() => openEditor(player, inning)}>
+                                <ScorekeepingAtBat atBat={ab} inningUpUntil={inning.atBats.filter(pa => pa.index <= ab.index)} canEdit={true} />
+                            </Box>
                         </TableCell>
                     )
                 }
