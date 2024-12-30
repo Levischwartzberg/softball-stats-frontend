@@ -21,6 +21,7 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
     const [selectedPlayerAndInning, setSelectedPlayerAndInning] = useState({player : undefined, inning : undefined, index : 0} as {player : Player | undefined, inning : Inning | undefined , index : number});
     const [addPlayerModalOpen, setAddPlayerModalOpen] = useState(false);
     const [editPlayerModalOpen, setEditPlayerModalOpen] = useState(false);
+    const [editPlayerIndex, setEditPlayerIndex] = useState(0);
     const [addNewPlateAppearanceOpen, setAddNewPlateAppearanceOpen] = useState(false);
 
     useEffect(() => {
@@ -42,6 +43,7 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
     const timesBattedAround = (inning : Inning) : number => {
         if (inning.atBats.length) {
             const outs = inning.atBats.map(ab => ab.outs.length).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+            console.log(Math.ceil((inning.atBats.length + 1 - (outs / 3)) / props.lineup.length))
             return Math.ceil((inning.atBats.length + 1 - (outs / 3)) / props.lineup.length);
         }
         return 1;
@@ -160,20 +162,23 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
                 </TableHead>
                 <TableBody>
                     {props.lineup.map((player, index) => (
-                        <TableRow>
+                        <TableRow key={index}>
                             <TableCell>
                                 {index + 1}
                             </TableCell>
                             <TableCell>
                                 {`${player.firstName} ${player.lastName}`}
-                                <Button onClick={() => setEditPlayerModalOpen(true)}>
+                                <Button onClick={() => {
+                                    setEditPlayerModalOpen(true);
+                                    setEditPlayerIndex(index);
+                                }}>
                                     <EditIcon />
                                 </Button>
                             </TableCell>
                             {playerAtBatRows(player)}
                             <SelectPlayerModal
                                 title={"Change Player"}
-                                lineupSpot={index}
+                                lineupSpot={editPlayerIndex}
                                 open={editPlayerModalOpen}
                                 players={props.allPlayers}
                                 lineup={props.lineup}
