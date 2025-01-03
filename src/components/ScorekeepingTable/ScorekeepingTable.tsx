@@ -54,15 +54,18 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
         }
     }
 
-    const openEditor = (player : Player, inning : Inning) => {
-        let index;
-        if (props.innings[inning.inning-1].atBats.length === 0) {
-            index = 1;
-        } else if (props.innings[inning.inning-1].atBats.filter(ab => ab.player === player).length > 0) {
-            index = props.innings[inning.inning-1].atBats.find(ab => ab.player === player)!.index + (timesBattedAround(inning) - 1) * props.lineup.length;
-        } else {
+    const openEditor = (player : Player, inning : Inning, index? : number) => {
+        // if (props.innings[inning.inning-1].atBats.length === 0) {
+        //     index = 1;
+        // } else if (props.innings[inning.inning-1].atBats.filter(ab => ab.player === player).length > 0) {
+        //     index = props.innings[inning.inning-1].atBats.find(ab => ab.player === player)!.index + (timesBattedAround(inning) - 1) * props.lineup.length;
+        // } else {
+        //     index = props.innings[inning.inning-1].atBats.length + 1;
+        // }
+        if (index === undefined) {
             index = props.innings[inning.inning-1].atBats.length + 1;
         }
+
         const playerInningAndIndex = {player, inning, index};
         setSelectedPlayerAndInning(playerInningAndIndex);
         setAddNewPlateAppearanceOpen(true)
@@ -107,7 +110,7 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
                     playerPlateAppearanceRow.push(
                             <TableCell>
                                 {isEditable(player, inning) ? (
-                                    <Button onClick={() => openEditor(player, inning)}>
+                                    <Button onClick={() => openEditor(player, inning, undefined)}>
                                         <ScorekeepingAtBat atBat={null} canEdit={true}/>
                                     </Button>
                                 ) : (
@@ -119,7 +122,7 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
                     const ab = playerAtBats[i];
                     playerPlateAppearanceRow.push(
                         <TableCell>
-                            <Box className={css.editPlateAppearanceButton} onClick={() => openEditor(player, inning)}>
+                            <Box className={css.editPlateAppearanceButton} onClick={() => openEditor(player, inning, ab.index)}>
                                 <ScorekeepingAtBat atBat={ab} inningUpUntil={inning.atBats.filter(pa => pa.index <= ab.index)} canEdit={true} />
                             </Box>
                         </TableCell>
