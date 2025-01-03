@@ -19,13 +19,24 @@ function EditPlateAppearanceModal(props : EditPlateAppearanceModalProps) {
 
     const [plateAppearanceCopy, setPlateAppearanceCopy] = useState({...props.plateAppearance, index : props.index, player : props.player} as AtBat);
     const [baserunners, setBaserunners] = useState({first : null, second : null, third : null} as Baserunners);
-    let availableRunners = props.availablePlayers.filter(player => !Object.values(baserunners).map(runner => runner?.id).includes(player.id)) as Player[];
 
     const updateBaserunners = (player : Player | null, base : BaseENUM) => {
         const baserunnersCopy = {...baserunners};
+
+        Object.keys(baserunners).forEach(base1 => {
+
+            if (base1 !== base) {
+                // @ts-ignore
+                const player1 = baserunnersCopy[base1];
+                if (player === player1) {
+                    // @ts-ignore
+                    baserunnersCopy[base1] = null;
+                }
+            }
+        });
+
         baserunnersCopy[base] = player;
         setBaserunners(baserunnersCopy);
-        availableRunners = props.availablePlayers.filter(player => Object.values(baserunners).map(runner => runner?.id).includes(player.id));
     }
 
     const savePlateAppearance = () => {
@@ -39,6 +50,19 @@ function EditPlateAppearanceModal(props : EditPlateAppearanceModalProps) {
 
     useEffect(() => {
         setPlateAppearanceCopy({...props.plateAppearance, index : props.index, player : props.player} as AtBat);
+
+        const baserunnersCopy = {...baserunners};
+        Object.keys(baserunners).forEach(base => {
+
+            // @ts-ignore
+            const player = baserunners[base];
+            if (!props.availablePlayers.includes(player)) {
+                // @ts-ignore
+                baserunnersCopy[base] = null;
+            }
+        });
+        setBaserunners(baserunnersCopy);
+
     }, [props.player, props.index])
 
     return <Modal open={props.open} onClose={props.closeModal} className={css.modal}>
@@ -48,9 +72,9 @@ function EditPlateAppearanceModal(props : EditPlateAppearanceModalProps) {
             <EditPlateAppearanceResultPopover plateAppearance={plateAppearanceCopy} setPlateAppearance={setPlateAppearanceCopy} availablePlayers={props.availablePlayers}/>
             <Box>
                 <div className={css.diamond}>
-                    <EditBase className={css.firstBase} base={BaseENUM.FIRST} runner={baserunners.first} availablePlayers={availableRunners} setSelectedRunner={updateBaserunners}/>
-                    <EditBase className={css.secondBase} base={BaseENUM.SECOND} runner={baserunners.second} availablePlayers={availableRunners} setSelectedRunner={updateBaserunners}/>
-                    <EditBase className={css.thirdBase} base={BaseENUM.THIRD} runner={baserunners.third} availablePlayers={availableRunners} setSelectedRunner={updateBaserunners}/>
+                    <EditBase className={css.firstBase} base={BaseENUM.FIRST} runner={baserunners.first} availablePlayers={props.availablePlayers} setSelectedRunner={updateBaserunners}/>
+                    <EditBase className={css.secondBase} base={BaseENUM.SECOND} runner={baserunners.second} availablePlayers={props.availablePlayers} setSelectedRunner={updateBaserunners}/>
+                    <EditBase className={css.thirdBase} base={BaseENUM.THIRD} runner={baserunners.third} availablePlayers={props.availablePlayers} setSelectedRunner={updateBaserunners}/>
                 </div>
             </Box>
             <Button onClick={() => savePlateAppearance()}>Confirm</Button>
