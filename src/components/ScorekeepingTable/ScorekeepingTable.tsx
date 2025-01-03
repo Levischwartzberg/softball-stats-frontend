@@ -71,10 +71,10 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
         setAddNewPlateAppearanceOpen(true)
     }
 
-    const availablePlayers = (player : Player, inning : Inning) : Player[] => {
+    const availablePlayers = (player : Player, inning : Inning, index : number) : Player[] => {
         const players = [player] as Player[];
-        if (inning.atBats.length > 0) {
-            const baserunners = inning.atBats[inning.atBats.length-1].baserunners;
+        if (index > 1) {
+            const baserunners = inning.atBats[index-2].baserunners;
             Object.values(baserunners).forEach(value => {
                 if (value !== null) {
                     players.push(value);
@@ -208,8 +208,8 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
                                           index={selectedPlayerAndInning.index}
                                           player={selectedPlayerAndInning.player}
                                           closeModal={setAddNewPlateAppearanceOpen}
-                                          availablePlayers={availablePlayers(selectedPlayerAndInning.player!, selectedPlayerAndInning.inning!)}
-                                          plateAppearance={props.innings[selectedPlayerAndInning.inning.inning - 1].atBats.filter(ab => ab.index === selectedPlayerAndInning.index)[0]}
+                                          availablePlayers={availablePlayers(selectedPlayerAndInning.player!, selectedPlayerAndInning.inning!, selectedPlayerAndInning.index!)}
+                                          plateAppearance={props.innings[selectedPlayerAndInning.inning.inning - 1].atBats.find(ab => ab.index === selectedPlayerAndInning.index)!}
                                           setPlateAppearance={updateInning}
                 />
             )}
