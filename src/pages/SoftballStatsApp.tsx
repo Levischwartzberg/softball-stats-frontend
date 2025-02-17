@@ -22,7 +22,7 @@ const Layout = () => {
 }
 
 const guestUsername = process.env.REACT_APP_GUEST_USERNAME as string;
-const guestPassword = process.env.REACT_APP_GUEST_USERNAME as string;
+const guestPassword = process.env.REACT_APP_GUEST_PASSWORD as string;
 
 const SoftballStatsApp : React.FC = () => {
 
