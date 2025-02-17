@@ -9,6 +9,7 @@
     "@mui/icons-material": "^6.3.0",
     "@mui/material": "^6.3.0",
     "@reduxjs/toolkit": "^2.5.0",
+    "amazon-cognito-identity-js": "^6.3.12",
     "axios": "^1.7.9",
     "cra-template": "1.2.0",
     "react": "^19.0.0",
