@@ -70,3 +70,15 @@ export type Statline = {
     slg : number,
     ops : number
 }
+
+export type Result = {
+    id : number,
+    result : string,
+    score : string,
+    date : Date
+}
+
+export type SeasonResults = {
+    season : Season,
+    results : Result[]
+}
