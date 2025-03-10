@@ -30,7 +30,11 @@ export enum AtBatResult {
 export type Player = {
     id : number,
     firstName : string,
-    lastName : string
+    lastName : string,
+    height : string,
+    weight : number,
+    throwHand : string,
+    batHand : string
 }
 
 export type Baserunners = {

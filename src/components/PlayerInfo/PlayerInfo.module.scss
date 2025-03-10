@@ -1,0 +1,13 @@
+.playerName {
+  display: flex;
+}
+
+.playerAttributes {
+  display: flex;
+}
+
+.playerAttributes > ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
