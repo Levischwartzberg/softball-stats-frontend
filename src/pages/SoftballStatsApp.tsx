@@ -14,8 +14,10 @@ const Layout = () => {
     const menu = menuItems(navigate, location);
 
     return <>
-        <TopMenu links={menu.map(menuItem => menuItem.link)} />
-        <div>
+        <div style={{display : "block"}}>
+            <TopMenu links={menu.map(menuItem => menuItem.link)} />
+        </div>
+        <div style={{paddingTop : "30px"}}>
             <Outlet />
         </div>
     </>

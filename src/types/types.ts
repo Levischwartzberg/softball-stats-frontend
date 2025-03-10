@@ -38,3 +38,31 @@ export type Baserunners = {
     second : Player | null,
     third : Player | null
 }
+
+export type SeasonStatline = {
+    season : Season,
+    statline : Statline
+}
+
+export type Season = {
+    id : number,
+    session : string,
+    year : number
+}
+
+export type Statline = {
+    games? : number,
+    atBats : number,
+    hits : number,
+    singles : number,
+    doubles : number,
+    triples : number,
+    homeruns : number,
+    walks : number,
+    runs : number,
+    rbi : number,
+    avg : number,
+    obp : number,
+    slg : number,
+    ops : number
+}
