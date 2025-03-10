@@ -20,8 +20,8 @@
     "sass": "^1.83.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -44,6 +44,8 @@
     ]
   },
   "devDependencies": {
-    "@types/react": "^19.0.2"
+    "@types/react": "^19.0.2",
+    "customize-cra": "^1.0.0",
+    "react-app-rewired": "^2.2.1"
   }
 }
