@@ -5,39 +5,44 @@ import {useGetLifetimeStatsQuery} from "../store/playerLifetimeStats/playerLifet
 import StatlineData from "../components/Statline/StatlineData";
 import {useGetSeasonStatsQuery} from "../store/playerSeasonStats/playerSeasonStatsApiSlice";
 import StatlineHeader from "../components/Statline/StatlineHeader";
+import PlayerInfo from "../components/PlayerInfo/PlayerInfo";
 import {Table} from "@mui/material";
 import PlayerSeasonStatsTable from "../components/PlayerSeasonStatsTable/PlayerSeasonStatsTable";
+import {useGetPlayerInfoQuery} from "../store/players/playerApiSlice";
 
 const PlayerPage = () => {
 
     const {playerId} = useParams();
 
-    const useGetPlayerLifetimeStats = useGetLifetimeStatsQuery(parseInt(playerId!));
-    const useGetPlayerSeasonStats = useGetSeasonStatsQuery(parseInt(playerId!));
-
-    console.log(useGetPlayerSeasonStats.data);
+    const getPlayerInfo = useGetPlayerInfoQuery(parseInt(playerId!));
+    const getPlayerLifetimeStatsQuery = useGetLifetimeStatsQuery(parseInt(playerId!));
+    const getPlayerSeasonStatsQuery = useGetSeasonStatsQuery(parseInt(playerId!));
 
     return (
         <>
             Player Page
 
-            <AsyncStateWrapper query={useGetPlayerLifetimeStats as QueryState} >
+            <AsyncStateWrapper query={getPlayerInfo as QueryState} >
+                <PlayerInfo player={getPlayerInfo.data!} />
+            </AsyncStateWrapper>
+
+            <AsyncStateWrapper query={getPlayerLifetimeStatsQuery as QueryState} >
                 <h3>
                     Lifetime Stats
                 </h3>
                 <Table>
-                    <StatlineHeader statline={useGetPlayerLifetimeStats.data!} season={false}/>
-                    <StatlineData statline={useGetPlayerLifetimeStats.data!} />
+                    <StatlineHeader statline={getPlayerLifetimeStatsQuery.data!} season={false}/>
+                    <StatlineData statline={getPlayerLifetimeStatsQuery.data!} />
                 </Table>
             </AsyncStateWrapper>
 
             {
-                useGetPlayerSeasonStats.data && (
-                    <AsyncStateWrapper query={useGetPlayerSeasonStats as QueryState} >
+                getPlayerSeasonStatsQuery.data && (
+                    <AsyncStateWrapper query={getPlayerSeasonStatsQuery as QueryState} >
                         <h3>
                             Season Stats
                         </h3>
-                        <PlayerSeasonStatsTable seasonStats={useGetPlayerSeasonStats.data!} />
+                        <PlayerSeasonStatsTable seasonStats={getPlayerSeasonStatsQuery.data!} />
                     </AsyncStateWrapper>
                 )
             }

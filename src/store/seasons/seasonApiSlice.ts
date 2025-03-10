@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import {Player} from "@/types/types";
+import {Season} from "@/types/types";
 
 const userAccessToken = localStorage.getItem("userAccessToken");
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
-export const playerApiSlice = createApi({
+export const seasonApiSlice = createApi({
 
-    reducerPath: "players",
+    reducerPath: "seasons",
 
     baseQuery: fetchBaseQuery({
         baseUrl: baseURL,
@@ -18,18 +18,13 @@ export const playerApiSlice = createApi({
 
     endpoints: (build) => ({
 
-        getPlayers: build.query<Player[], void>({
-            query: () => "/players",
-        }),
-
-        getPlayerInfo: build.query<Player, number>({
-            query: (playerId) => `playerInfo/${playerId}`,
+        getSeasons: build.query<Season[], void>({
+            query: () => "/seasons",
         }),
     }),
 
 });
 
 export const {
-    useGetPlayersQuery,
-    useGetPlayerInfoQuery
-} = playerApiSlice;
+    useGetSeasonsQuery
+} = seasonApiSlice;

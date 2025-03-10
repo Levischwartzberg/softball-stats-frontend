@@ -19,11 +19,18 @@ export default function menuItems(navigate : NavigateFunction, location : Locati
         },
         {
             link: {
+                label: "Seasons",
+                selected: location.pathname.startsWith("/seasons"),
+                onClick: () => navigate("/seasons")
+            }
+        },
+        {
+            link: {
                 label: "Scorekeeping",
                 selected: location.pathname.startsWith("/scorekeeping"),
                 onClick: () => navigate("/scorekeeping")
             }
-        },
+        }
     ];
 
     return menuItems;
