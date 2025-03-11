@@ -4,6 +4,7 @@ import ScorekeepingInputPage from "@/pages/ScorekeepingInputPage";
 import PlayerPage from "@/pages/PlayerPage";
 import SeasonsPage from "@/pages/SeasonsPage";
 import SeasonInfoPage from "@/pages/SeasonInfoPage";
+import ResultPage from "@/pages/ResultPage";
 
 export const routes = [
 
@@ -12,6 +13,7 @@ export const routes = [
     { path: "/scorekeeping", element: <ScorekeepingInputPage /> },
     { path: "/player/:playerId", element: <PlayerPage />},
     { path: "/seasons", element: <SeasonsPage />},
-    { path: "/season/:seasonId", element: <SeasonInfoPage />}
+    { path: "/season/:seasonId", element: <SeasonInfoPage />},
+    { path: "game/:gameId", element: <ResultPage />}
 
 ];
