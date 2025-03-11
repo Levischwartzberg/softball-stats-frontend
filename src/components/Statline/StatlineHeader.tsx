@@ -4,7 +4,9 @@ import css from "../Statline/Statline.module.scss";
 
 type StatlineProps = {
     statline : Statline,
-    season : boolean
+    season? : boolean,
+    result? : boolean,
+    lineupSpot? : boolean
 }
 
 function StatlineHeader(props : StatlineProps) {
@@ -13,12 +15,18 @@ function StatlineHeader(props : StatlineProps) {
 
     return <TableHead>
                 <TableRow className={css.header}>
-                        {props.season && (
-                            <TableCell>Season</TableCell>
-                        )}
-                        {stats.games !== undefined && (
-                            <TableCell>Games</TableCell>
-                        )}
+                    {props.result && (
+                        <TableCell>Game</TableCell>
+                    )}
+                    {props.lineupSpot && (
+                        <TableCell>LineupSpot</TableCell>
+                    )}
+                    {props.season && (
+                        <TableCell>Season</TableCell>
+                    )}
+                    {stats.games !== undefined && (
+                        <TableCell>Games</TableCell>
+                    )}
                     <TableCell>AB</TableCell>
                     <TableCell>Hits</TableCell>
                     <TableCell>1B</TableCell>

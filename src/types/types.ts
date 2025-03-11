@@ -48,6 +48,11 @@ export type SeasonStatline = {
     statline : Statline
 }
 
+export type PlayerStatline = {
+    player : Player,
+    statline : Statline
+}
+
 export type Season = {
     id : number,
     session : string,
@@ -56,6 +61,7 @@ export type Season = {
 
 export type Statline = {
     games? : number,
+    lineupSpot? : number,
     atBats : number,
     hits : number,
     singles : number,
