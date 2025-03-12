@@ -1,47 +1,45 @@
-import {Statline} from "../../types/types";
-import {TableCell, TableHead, TableRow} from "@mui/material";
-import css from "../Statline/Statline.module.scss";
+import {Statline} from "@/types/types";
 
 type StatlineProps = {
-    statline : Statline,
+    games? : boolean,
     season? : boolean,
     result? : boolean,
-    lineupSpot? : boolean
+    lineupSpot? : boolean,
+    playerName? : boolean,
 }
 
 function StatlineHeader(props : StatlineProps) {
 
-    const stats = props.statline;
-
-    return <TableHead>
-                <TableRow className={css.header}>
-                    {props.result && (
-                        <TableCell>Game</TableCell>
-                    )}
-                    {props.lineupSpot && (
-                        <TableCell>LineupSpot</TableCell>
-                    )}
-                    {props.season && (
-                        <TableCell>Season</TableCell>
-                    )}
-                    {stats.games !== undefined && (
-                        <TableCell>Games</TableCell>
-                    )}
-                    <TableCell>AB</TableCell>
-                    <TableCell>Hits</TableCell>
-                    <TableCell>1B</TableCell>
-                    <TableCell>2B</TableCell>
-                    <TableCell>3B</TableCell>
-                    <TableCell>HR</TableCell>
-                    <TableCell>BB</TableCell>
-                    <TableCell>R</TableCell>
-                    <TableCell>RBI</TableCell>
-                    <TableCell>AVG</TableCell>
-                    <TableCell>OBP</TableCell>
-                    <TableCell>SLG</TableCell>
-                    <TableCell>OPS</TableCell>
-                </TableRow>
-        </TableHead>
+    return <>
+                {props.result && (
+                    <th>Game</th>
+                )}
+                {props.lineupSpot && (
+                    <th>LineupSpot</th>
+                )}
+                {props.season && (
+                    <th>Season</th>
+                )}
+                {props.playerName && (
+                    <th>Player</th>
+                )}
+                {props.games && (
+                    <th>Games</th>
+                )}
+                <th>AB</th>
+                <th>Hits</th>
+                <th>1B</th>
+                <th>2B</th>
+                <th>3B</th>
+                <th>HR</th>
+                <th>BB</th>
+                <th>R</th>
+                <th>RBI</th>
+                <th>AVG</th>
+                <th>OBP</th>
+                <th>SLG</th>
+                <th>OPS</th>
+    </>
 }
 
 export default StatlineHeader;

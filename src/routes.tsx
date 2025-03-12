@@ -5,6 +5,7 @@ import PlayerPage from "@/pages/PlayerPage";
 import SeasonsPage from "@/pages/SeasonsPage";
 import SeasonInfoPage from "@/pages/SeasonInfoPage";
 import ResultPage from "@/pages/ResultPage";
+import LifetimeStatsPage from "@/pages/LifetimeStatsPage";
 
 export const routes = [
 
@@ -14,6 +15,7 @@ export const routes = [
     { path: "/player/:playerId", element: <PlayerPage />},
     { path: "/seasons", element: <SeasonsPage />},
     { path: "/season/:seasonId", element: <SeasonInfoPage />},
-    { path: "game/:gameId", element: <ResultPage />}
+    { path: "/game/:gameId", element: <ResultPage />},
+    { path: "/lifetimeStats", element: <LifetimeStatsPage />}
 
 ];

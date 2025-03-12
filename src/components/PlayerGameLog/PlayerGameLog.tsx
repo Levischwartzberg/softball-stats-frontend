@@ -8,12 +8,18 @@ type PlayerGameLogProps = {
 
 const PlayerGameLog = (props : PlayerGameLogProps) => {
 
-    return <>
-        <StatlineHeader  statline={props.games[0].statline} result={true} />
-        {props.games.map(game => (
-            <StatlineData  statline={game.statline} result={game.result} />
-        ))}
-    </>
+    return <table>
+        <thead>
+            <StatlineHeader result={true} lineupSpot={true} />
+        </thead>
+        <tbody>
+            {props.games.map(game => (
+                <tr>
+                    <StatlineData statline={game.statline} result={game.result} />
+                </tr>
+            ))}
+        </tbody>
+    </table>
 }
 
 export default PlayerGameLog;

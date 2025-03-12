@@ -11,13 +11,21 @@ type PlayerSeasonStatsProps = {
 const PlayerSeasonStatsTable = (props : PlayerSeasonStatsProps) => {
 
     return (
-        <Table className={css.statsTable}>
-            <StatlineHeader statline={props.seasonStats[0].statline} season={true} />
-            {props.seasonStats.map(seasonStatline => (
-                <StatlineData statline={seasonStatline.statline} season={seasonStatline.season} />
-                )
-            )}
-        </Table>
+        <table className={css.statsTable}>
+            <thead>
+                <tr>
+                    <StatlineHeader games={true} season={true} />
+                </tr>
+            </thead>
+            <tbody>
+                {props.seasonStats.map(seasonStatline => (
+                    <tr>
+                        <StatlineData statline={seasonStatline.statline} season={seasonStatline.season} />
+                    </tr>
+                    )
+                )}
+            </tbody>
+        </table>
     )
 }
 
