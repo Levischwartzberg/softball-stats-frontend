@@ -26,6 +26,13 @@ export default function menuItems(navigate : NavigateFunction, location : Locati
         },
         {
             link: {
+                label: "Lifetime Stats",
+                selected: location.pathname.startsWith("/lifetimeStats"),
+                onClick: () => navigate("/lifetimeStats")
+            }
+        },
+        {
+            link: {
                 label: "Scorekeeping",
                 selected: location.pathname.startsWith("/scorekeeping"),
                 onClick: () => navigate("/scorekeeping")

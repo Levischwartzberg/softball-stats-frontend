@@ -7,7 +7,6 @@ import StatlineData from "../components/Statline/StatlineData";
 import {useGetSeasonStatsQuery} from "../store/playerSeasonStats/playerSeasonStatsApiSlice";
 import StatlineHeader from "../components/Statline/StatlineHeader";
 import PlayerInfo from "../components/PlayerInfo/PlayerInfo";
-import {Table} from "@mui/material";
 import PlayerSeasonStatsTable from "../components/PlayerSeasonStatsTable/PlayerSeasonStatsTable";
 import {useGetPlayerInfoQuery} from "../store/players/playerApiSlice";
 import {useLazyGetPlayerGameLogsQuery} from "@/store/playerGameLog/playerGameLogApiSlice";
@@ -38,10 +37,18 @@ const PlayerPage = () => {
                 <h3>
                     Lifetime Stats
                 </h3>
-                <Table>
-                    <StatlineHeader statline={getPlayerLifetimeStatsQuery.data!} season={false}/>
-                    <StatlineData statline={getPlayerLifetimeStatsQuery.data!} />
-                </Table>
+                <table className="table">
+                    <thead className="table-header">
+                        <tr>
+                            <StatlineHeader games={true}/>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <StatlineData statline={getPlayerLifetimeStatsQuery.data!} />
+                        </tr>
+                    </tbody>
+                </table>
             </AsyncStateWrapper>
 
             {
@@ -73,9 +80,11 @@ const PlayerPage = () => {
                 )
             }
 
-            <AsyncStateWrapper query={getPlayerGameLogsQuery as QueryState} >
-                <PlayerGameLog games={getPlayerGameLogsQuery.data!} />
-            </AsyncStateWrapper>
+            {selectedSeasonId > 0 && (
+                <AsyncStateWrapper query={getPlayerGameLogsQuery as QueryState} >
+                    <PlayerGameLog games={getPlayerGameLogsQuery.data!} />
+                </AsyncStateWrapper>
+            )}
         </>
     )
 }

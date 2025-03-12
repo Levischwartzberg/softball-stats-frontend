@@ -1,4 +1,4 @@
-import {Result, Season, Statline} from "../../types/types";
+import {Player, Result, Season, Statline} from "../../types/types";
 import {TableCell, TableRow} from "@mui/material";
 import {Link} from "react-router-dom";
 
@@ -6,6 +6,7 @@ type StatlineProps = {
     statline : Statline,
     season? : Season,
     result? : Result,
+    player? : Player
 }
 
 function StatlineData(props : StatlineProps) {
@@ -16,37 +17,40 @@ function StatlineData(props : StatlineProps) {
         return (rate >= 1) ? rate.toPrecision(4) : rate.toPrecision(3);
     }
 
-    return (<TableRow>
+    return (<>
                     {props.result && (
-                        <TableCell>
+                        <td>
                             <Link to={`/game/${props.result.id}`}>
                                 {props.result.date.toString()}
                             </Link>
-                        </TableCell>
+                        </td>
                     )}
                     {stats.lineupSpot !== undefined && (
-                        <TableCell>{stats.lineupSpot}</TableCell>
+                        <td>{stats.lineupSpot}</td>
                     )}
                     {props.season && (
-                        <TableCell>{`${props.season.session} ${props.season.year}`}</TableCell>
+                        <td>{`${props.season.session} ${props.season.year}`}</td>
+                    )}
+                    {props.player && (
+                        <td>{`${props.player.lastName}, ${props.player.firstName}`}</td>
                     )}
                     {stats.games !== undefined && (
-                        <TableCell>{stats.games}</TableCell>
+                        <td>{stats.games}</td>
                     )}
-                    <TableCell>{stats.atBats}</TableCell>
-                    <TableCell>{stats.hits}</TableCell>
-                    <TableCell>{stats.singles}</TableCell>
-                    <TableCell>{stats.doubles}</TableCell>
-                    <TableCell>{stats.triples}</TableCell>
-                    <TableCell>{stats.homeruns}</TableCell>
-                    <TableCell>{stats.walks}</TableCell>
-                    <TableCell>{stats.runs}</TableCell>
-                    <TableCell>{stats.rbi}</TableCell>
-                    <TableCell>{roundRates(stats.avg)}</TableCell>
-                    <TableCell>{roundRates(stats.obp)}</TableCell>
-                    <TableCell>{roundRates(stats.slg)}</TableCell>
-                    <TableCell>{roundRates(stats.ops)}</TableCell>
-                </TableRow>
+                    <td>{stats.atBats}</td>
+                    <td>{stats.hits}</td>
+                    <td>{stats.singles}</td>
+                    <td>{stats.doubles}</td>
+                    <td>{stats.triples}</td>
+                    <td>{stats.homeruns}</td>
+                    <td>{stats.walks}</td>
+                    <td>{stats.runs}</td>
+                    <td>{stats.rbi}</td>
+                    <td>{roundRates(stats.avg)}</td>
+                    <td>{roundRates(stats.obp)}</td>
+                    <td>{roundRates(stats.slg)}</td>
+                    <td>{roundRates(stats.ops)}</td>
+                </>
     )
 }
 

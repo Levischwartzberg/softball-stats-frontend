@@ -5,6 +5,8 @@ import {playerSeasonStatsApiSlice} from "@/store/playerSeasonStats/playerSeasonS
 import {seasonApiSlice} from "@/store/seasons/seasonApiSlice";
 import {boxscoreApiSlice} from "@/store/boxscore/boxscoreApiSlice";
 import {playerGameLogApiSlice} from "@/store/playerGameLog/playerGameLogApiSlice";
+import {seasonTeamStatsApiSlice} from "@/store/seasonTeamStats/seasonTeamStatsApiSlice";
+import {teamLifetimeStatsApiSlice} from "@/store/teamLifetimeStats/teamLifetimeStats";
 
 export const store = configureStore({
     reducer: {
@@ -13,7 +15,9 @@ export const store = configureStore({
         [playerSeasonStatsApiSlice.reducerPath]: playerSeasonStatsApiSlice.reducer,
         [seasonApiSlice.reducerPath]: seasonApiSlice.reducer,
         [boxscoreApiSlice.reducerPath]: boxscoreApiSlice.reducer,
-        [playerGameLogApiSlice.reducerPath]: playerGameLogApiSlice.reducer
+        [playerGameLogApiSlice.reducerPath]: playerGameLogApiSlice.reducer,
+        [seasonTeamStatsApiSlice.reducerPath]: seasonTeamStatsApiSlice.reducer,
+        [teamLifetimeStatsApiSlice.reducerPath]: teamLifetimeStatsApiSlice.reducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false,
@@ -24,4 +28,6 @@ export const store = configureStore({
         .concat(seasonApiSlice.middleware)
         .concat(boxscoreApiSlice.middleware)
         .concat(playerGameLogApiSlice.middleware)
+        .concat(seasonTeamStatsApiSlice.middleware)
+        .concat(teamLifetimeStatsApiSlice.middleware)
 });
