@@ -1,3 +1,5 @@
+import {Dayjs} from "dayjs";
+
 export type Inning = {
     inning : number,
     atBats : AtBat[]
@@ -87,4 +89,30 @@ export type Result = {
 export type SeasonResults = {
     season : Season,
     results : Result[]
+}
+
+export type GameInfo = {
+    date : Dayjs,
+    result : string,
+    runsFor : string,
+    runsAgainst : string,
+    opponent? : Opponent,
+    season : Season,
+    field? : string,
+    temperature? : number,
+    weather? : WeatherENUM
+}
+
+export type Opponent = {
+    id : number,
+    teamName : string
+}
+
+export enum WeatherENUM {
+    RAIN,
+    CLOUDY,
+    PARTLY_CLOUDY,
+    SUNNY,
+    NIGHT,
+    WINDY
 }

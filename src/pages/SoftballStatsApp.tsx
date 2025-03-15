@@ -5,6 +5,8 @@ import menuItems from "../menuItems";
 import TopMenu from "../components/TopMenu/TopMenu";
 import {CognitoUser, AuthenticationDetails} from "amazon-cognito-identity-js";
 import UserPool from "../UserPool";
+import {LocalizationProvider} from "@mui/x-date-pickers";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 const Layout = () => {
 
@@ -18,7 +20,9 @@ const Layout = () => {
             <TopMenu links={menu.map(menuItem => menuItem.link)} />
         </div>
         <div style={{paddingTop : "30px"}}>
-            <Outlet />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <Outlet />
+            </LocalizationProvider>
         </div>
     </>
 }
