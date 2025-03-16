@@ -94,13 +94,14 @@ export type SeasonResults = {
 export type GameInfo = {
     date : Dayjs,
     result : string,
-    runsFor : string,
-    runsAgainst : string,
+    home : boolean | undefined,
+    runsFor : number[],
+    runsAgainst : number[],
     opponent? : Opponent,
     season : Season,
     field? : string,
     temperature? : number,
-    weather? : WeatherENUM
+    weatherConditions? : WeatherConditionENUM[]
 }
 
 export type Opponent = {
@@ -108,7 +109,7 @@ export type Opponent = {
     teamName : string
 }
 
-export enum WeatherENUM {
+export enum WeatherConditionENUM {
     RAIN,
     CLOUDY,
     PARTLY_CLOUDY,

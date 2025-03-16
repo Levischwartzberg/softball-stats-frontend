@@ -10,7 +10,7 @@ import {GameInfo, Player, Season} from "@/types/types";
 import ChooseSeasonPage from "@/pages/SaveNewGameFlow/ChooseSeasonPage";
 import SetGameInfoPage from "@/pages/SaveNewGameFlow/SetGameInfoPage";
 
-const steps = ["Choose Season", "Game Info", "Create Lineup", "Scorekeeping", "Confirmation"];
+const steps = ["Choose Season", "Game Info", "Create Lineup", "Scorekeeping", "Game Notes", "Confirmation"];
 
 type SaveNewGameFlowProps = {
     season : Season;
@@ -82,6 +82,12 @@ const SaveNewGameFlow = (props : SaveNewGameFlowProps) => {
                     )}
                     {activeStep === 2 && (
                         <SetStartingLineup players={props.players} lineup={props.lineup} setLineup={props.setLineup} />
+                    )}
+                    {activeStep === 3 && (
+                        <> </>
+                    )}
+                    {activeStep === 4 && (
+                        <> </>
                     )}
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button

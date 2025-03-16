@@ -14,10 +14,13 @@ const ChooseSeasonDropdown = (props : ChooseSeasonDropdownProps) => {
 
     const selectSeason = (seasonId : number) => {
         setSelectedSeasonId(seasonId);
-        props.setSeason(props.seasons.find(season => season.id === seasonId)!);
+        if (seasonId > 0) {
+            props.setSeason(props.seasons.find(season => season.id === seasonId)!);
+        }
     }
 
     return <Select
+        style={{textAlign: "left"}}
         value={selectedSeasonId}
         label="Player"
         onChange={(e) => selectSeason(e.target.value as number)}

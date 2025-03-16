@@ -1,5 +1,5 @@
 import {Season} from "@/types/types";
-import {Autocomplete, Button, TextField} from "@mui/material";
+import {Autocomplete, Button, FormControl, InputAdornment, InputLabel, OutlinedInput, TextField} from "@mui/material";
 import {useState} from "react";
 
 type CreateNewSeasonProps = {
@@ -14,10 +14,16 @@ const CreateNewSeason = (props : CreateNewSeasonProps) => {
     const yearOptions = [{label : "Choose Year", id: 0}, {label : "2025", id: 2025}, {label : "2026", id: 2026}];
 
     return <>
-        <TextField label="session"
-                   variant="standard"
-                   onChange={(event) => setSession(event.target.value)}
-        />
+        <FormControl sx={{ m: 1 }}>
+            <InputLabel htmlFor="outlined-adornment-session">Session</InputLabel>
+            <OutlinedInput
+                className="outlined-input"
+                id="outlined-adornment-session"
+                label="Session"
+                value={session}
+                onChange={(event) => setSession(event.target.value)}
+            />
+        </FormControl>
         <Autocomplete
             disablePortal
             blurOnSelect={true}

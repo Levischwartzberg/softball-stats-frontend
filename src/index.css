@@ -200,6 +200,16 @@ tbody tr:hover td {
 
 .game-flow-content {
   margin: 50px 20px 10px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-flow-content * {
+  max-width: 300px;
+}
+
+.outlined-input {
+  margin-left: -8px;
 }
 
 

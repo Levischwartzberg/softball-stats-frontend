@@ -39,7 +39,7 @@ function SaveNewGamePage() {
                 />
             </AsyncStateWrapper>
 
-            <Button onClick={() => console.log(lineup)}> Submit </Button>
+            <Button onClick={() => console.log(gameInfo, season)}> Submit </Button>
         </div>
     )
 }
