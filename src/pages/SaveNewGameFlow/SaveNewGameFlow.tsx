@@ -6,9 +6,10 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import SetStartingLineup from "@/components/SetStartingLineup/SetStartingLineup";
-import {GameInfo, Player, Season} from "@/types/types";
+import {GameInfo, Inning, Player, Season} from "@/types/types";
 import ChooseSeasonPage from "@/pages/SaveNewGameFlow/ChooseSeasonPage";
 import SetGameInfoPage from "@/pages/SaveNewGameFlow/SetGameInfoPage";
+import ScorekeepingTable from "@/components/ScorekeepingTable/ScorekeepingTable";
 
 const steps = ["Choose Season", "Game Info", "Create Lineup", "Scorekeeping", "Game Notes", "Confirmation"];
 
@@ -17,9 +18,11 @@ type SaveNewGameFlowProps = {
     gameInfo : GameInfo;
     players : Player[];
     lineup : Player[];
+    gameSequence : Inning[];
     setSeason : (season : Season) => void;
     setGameInfo : (gameInfo : GameInfo) => void;
     setLineup : (lineup : Player[]) => void;
+    setGameSequence : (innings : Inning[]) => void;
 }
 
 const SaveNewGameFlow = (props : SaveNewGameFlowProps) => {
@@ -84,7 +87,13 @@ const SaveNewGameFlow = (props : SaveNewGameFlowProps) => {
                         <SetStartingLineup players={props.players} lineup={props.lineup} setLineup={props.setLineup} />
                     )}
                     {activeStep === 3 && (
-                        <> </>
+                        <ScorekeepingTable
+                        innings={props.gameSequence}
+                        lineup={props.lineup}
+                        allPlayers={props.players}
+                        setLineup={props.setLineup}
+                        setInnings={props.setGameSequence}
+                    />
                     )}
                     {activeStep === 4 && (
                         <> </>

@@ -26,7 +26,7 @@ function EditPlateAppearanceResultPopover(props : EditPlateAppearanceResultPopov
     const [open, setOpen] = useState(false);
     const [runs, setRuns] = useState(props.plateAppearance.runs !== undefined ? props.plateAppearance.runs.length : 0);
     const [additionalOuts, setAdditionalOuts] = useState(false);
-    const potentialAdditionalOuts = [AtBatResult.SINGLE, AtBatResult.DOUBLE, AtBatResult.TRIPLE, AtBatResult.HOMERUN];
+    const potentialAdditionalOuts = [AtBatResult.SINGLE, AtBatResult.DOUBLE, AtBatResult.TRIPLE, AtBatResult.HOMERUN, AtBatResult.ERROR];
 
     const setPlayersScored = (players : Player[]) => {
 
