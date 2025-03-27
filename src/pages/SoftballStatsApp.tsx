@@ -6,7 +6,10 @@ import TopMenu from "../components/TopMenu/TopMenu";
 import {CognitoUser, AuthenticationDetails} from "amazon-cognito-identity-js";
 import UserPool from "../UserPool";
 import {LocalizationProvider} from "@mui/x-date-pickers";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import {Provider, useDispatch} from 'react-redux';
+import store from "../store/store";
+import {setUserAccessToken} from "@/store/token/tokenSlice";
 
 const Layout = () => {
 
@@ -15,7 +18,7 @@ const Layout = () => {
 
     const menu = menuItems(navigate, location);
 
-    return <>
+    return <Provider store={store}>
         <div style={{display : "block"}}>
             <TopMenu links={menu.map(menuItem => menuItem.link)} />
         </div>
@@ -24,7 +27,7 @@ const Layout = () => {
                 <Outlet />
             </LocalizationProvider>
         </div>
-    </>
+    </ Provider>
 }
 
 const guestUsername = process.env.REACT_APP_GUEST_USERNAME as string;
@@ -32,25 +35,25 @@ const guestPassword = process.env.REACT_APP_GUEST_PASSWORD as string;
 
 const SoftballStatsApp : React.FC = () => {
 
-    const [username, setUsername] = useState(guestUsername);
-    const [password, setPassword] = useState(guestPassword);
+    const dispatch = useDispatch();
 
     useEffect(() => {
 
         const user = new CognitoUser({
-            Username : username,
+            Username : guestUsername,
             Pool : UserPool
         })
 
         const authDetails = new AuthenticationDetails({
-            Username : username,
-            Password : password
+            Username : guestUsername,
+            Password : guestPassword
         })
 
         user.authenticateUser(authDetails, {
             onSuccess : (data) => {
                 console.log("Success: ", data);
                 localStorage.setItem("userAccessToken", data.getIdToken().getJwtToken());
+                dispatch(setUserAccessToken(data.getIdToken().getJwtToken()));
             },
             onFailure : (data) => {
                 console.error("Error: ", data);
@@ -59,7 +62,7 @@ const SoftballStatsApp : React.FC = () => {
                 console.log(data);
             }
         })
-    },[username, password]);
+    },[]);
 
     const router = createBrowserRouter([
         {

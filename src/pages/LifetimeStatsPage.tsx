@@ -1,4 +1,4 @@
-import {useGetTeamLifetimeStatsQuery} from "@/store/teamLifetimeStats/teamLifetimeStats";
+import {useGetTeamLifetimeStatsQuery} from "@/store/teamLifetimeStats/teamLifetimeStatsApiSlice";
 import {GameTableFieldNameENUM} from "@/store/teamLifetimeStats/teamLifetimeStatsTypes";
 import AsyncStateWrapper, {QueryState} from "@/components/common/AsyncStateWrapper";
 import TeamStatsTable from "@/components/TeamStatsTable/TeamStatsTable";

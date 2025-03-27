@@ -3,6 +3,8 @@ import {AuthenticationDetails, CognitoUser} from "amazon-cognito-identity-js";
 import UserPool from "@/UserPool";
 import {Button, Checkbox, FormControl, InputLabel, OutlinedInput, FormControlLabel, Alert} from "@mui/material";
 import css from "./AdminLogin.module.scss"
+import {setUserAccessToken} from "@/store/token/tokenSlice";
+import {useDispatch} from "react-redux";
 
 const AdminLogin = () => {
 
@@ -10,6 +12,8 @@ const AdminLogin = () => {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [showLoginError, setShowLoginError] = useState(false);
+
+    const dispatch = useDispatch();
 
     const login = () => {
         const user = new CognitoUser({
@@ -26,6 +30,7 @@ const AdminLogin = () => {
             onSuccess : (data) => {
                 console.log("Success: ", data);
                 localStorage.setItem("userAccessToken", data.getIdToken().getJwtToken());
+                dispatch(setUserAccessToken(data.getIdToken().getJwtToken()));
             },
             onFailure : (data) => {
                 console.log(username, password);
