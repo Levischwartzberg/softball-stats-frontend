@@ -6,11 +6,13 @@ import {seasonApiSlice} from "@/store/seasons/seasonApiSlice";
 import {boxscoreApiSlice} from "@/store/boxscore/boxscoreApiSlice";
 import {playerGameLogApiSlice} from "@/store/playerGameLog/playerGameLogApiSlice";
 import {seasonTeamStatsApiSlice} from "@/store/seasonTeamStats/seasonTeamStatsApiSlice";
-import {teamLifetimeStatsApiSlice} from "@/store/teamLifetimeStats/teamLifetimeStats";
+import {teamLifetimeStatsApiSlice} from "@/store/teamLifetimeStats/teamLifetimeStatsApiSlice";
 import {opponentApiSlice} from "@/store/opponents/opponentApiSlice";
+import tokenSlice from "@/store/token/tokenSlice";
 
 export const store = configureStore({
     reducer: {
+        token: tokenSlice,
         [playerApiSlice.reducerPath]: playerApiSlice.reducer,
         [playerLifetimeStatsApiSlice.reducerPath]: playerLifetimeStatsApiSlice.reducer,
         [playerSeasonStatsApiSlice.reducerPath]: playerSeasonStatsApiSlice.reducer,
@@ -34,3 +36,8 @@ export const store = configureStore({
         .concat(teamLifetimeStatsApiSlice.middleware)
         .concat(opponentApiSlice.middleware)
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+export default store;

@@ -134,7 +134,7 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
     }
 
     return (
-        <TableContainer>
+        <TableContainer className={css.scorekeepingTable}>
             <Table stickyHeader>
                 <TableHead>
                     <TableRow>

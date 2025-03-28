@@ -61,6 +61,11 @@ export type Season = {
     year : number
 }
 
+export type CreateSeasonDTO = {
+    session : string,
+    year : number
+}
+
 export type Statline = {
     games? : number,
     lineupSpot? : number,
@@ -92,6 +97,7 @@ export type SeasonResults = {
 }
 
 export type GameInfo = {
+    id : number,
     date : Dayjs,
     result : string,
     home : boolean | undefined,
