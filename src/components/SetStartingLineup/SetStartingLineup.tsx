@@ -15,23 +15,25 @@ const SetStartingLineup = (props : SetStartingLineupProps) => {
         props.setLineup(modifiedLineup);
     }
 
-    return <table>
-        <thead>
+    return <div className="content">
+        <table>
+            <thead>
             <tr>
                 <th>
                     Player
                 </th>
             </tr>
-        </thead>
-        <tbody>
-        {props.lineup.map((player, index) => (
-            <tr>
-                <SelectPlayerAutocomplete players={props.players} player={player} index={index} setSelectedPlayer={setPlayer} />
-            </tr>
-        ))}
-        <tr><SelectPlayerAutocomplete players={props.players.filter(player => !props.lineup.includes(player))} index={props.lineup.length} setSelectedPlayer={setPlayer} /></tr>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {props.lineup.map((player, index) => (
+                <tr>
+                    <SelectPlayerAutocomplete players={props.players} player={player} index={index} setSelectedPlayer={setPlayer} />
+                </tr>
+            ))}
+            <tr><SelectPlayerAutocomplete players={props.players.filter(player => !props.lineup.includes(player))} index={props.lineup.length} setSelectedPlayer={setPlayer} /></tr>
+            </tbody>
+        </table>
+    </div>
 }
 
 export default SetStartingLineup;

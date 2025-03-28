@@ -34,35 +34,35 @@
   background-color: white;
   position: absolute;
   border: black solid 1px;
-  top: 80%;
-  left: 20%;
+  top: 77%;
+  left: 23%;
   transform: translateX(-100%);
 }
 
 .result {
   position: relative;
   top: 10%;
-  left: 10%;
+  left: 0;
   display: inline-block;
 }
 
 .runsOnPlay {
   position: relative;
   top: -50%;
-  left: 80%;
+  left: 50%;
   display: inline-block;
 }
 
 .totalOuts {
   position: relative;
   top: 90%;
-  left: 10%;
+  left: 0;
   display: inline-block;
 }
 
 .totalRuns {
   position: relative;
   top: 90%;
-  left: 80%;
+  left: 50%;
   display: inline-block;
 }
