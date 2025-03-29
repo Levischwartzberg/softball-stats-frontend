@@ -2,7 +2,8 @@ import {Dayjs} from "dayjs";
 
 export type Inning = {
     inning : number,
-    atBats : AtBat[]
+    atBats : AtBat[],
+    opponentRuns? : number
 }
 
 export type AtBat = {
@@ -107,7 +108,8 @@ export type GameInfo = {
     season : Season,
     field? : string,
     temperature? : number,
-    weatherConditions? : WeatherConditionENUM[]
+    weatherConditions? : WeatherConditionENUM[],
+    gameNotes? : string;
 }
 
 export type Opponent = {
