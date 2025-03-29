@@ -10,6 +10,7 @@ import {GameInfo, Inning, Player, Season} from "@/types/types";
 import ChooseSeasonPage from "@/pages/SaveNewGameFlow/ChooseSeasonPage";
 import SetGameInfoPage from "@/pages/SaveNewGameFlow/SetGameInfoPage";
 import ScorekeepingTable from "@/components/ScorekeepingTable/ScorekeepingTable";
+import GameNotesPage from "@/pages/SaveNewGameFlow/GameNotesPage";
 
 const steps = ["Choose Season", "Game Info", "Create Lineup", "Scorekeeping", "Game Notes", "Confirmation"];
 
@@ -96,7 +97,7 @@ const SaveNewGameFlow = (props : SaveNewGameFlowProps) => {
                     />
                     )}
                     {activeStep === 4 && (
-                        <> </>
+                        <GameNotesPage gameInfo={props.gameInfo} innings={props.gameSequence} setGameInfo={props.setGameInfo} setInnings={props.setGameSequence} />
                     )}
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button
