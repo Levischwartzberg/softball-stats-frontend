@@ -20,10 +20,12 @@ const GameNotesPage = (props : GameNotesPageProps) => {
         props.setGameInfo(gameInfoCopy);
     }
 
-    return <>
-        <RunsByInning opponentName={props.gameInfo.opponent?.teamName} homeAway={props.gameInfo.home} innings={props.innings} setInnings={props.setInnings} />
+    return <div className={css.gameNotes}>
+        <div className={css.leftAlignContentInOwnLine}>
+            <RunsByInning opponentName={props.gameInfo.opponent?.teamName} homeAway={props.gameInfo.home} gameInfo={props.gameInfo} innings={props.innings} setGameInfo={props.setGameInfo} setInnings={props.setInnings} />
+        </div>
 
-        <div className={css.gameNotesTextArea}>
+        <div className={css.leftAlignContentInOwnLine}>
             <FormControl>
                 <FormLabel>Game Notes</FormLabel>
                 <TextareaAutosize placeholder="..."
@@ -33,7 +35,7 @@ const GameNotesPage = (props : GameNotesPageProps) => {
                 />
             </FormControl>
         </div>
-    </>
+    </div>
 }
 
 export default GameNotesPage;
