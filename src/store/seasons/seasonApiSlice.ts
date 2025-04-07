@@ -40,7 +40,8 @@ export const seasonApiSlice = createApi({
                 method: "POST",
                 body: createSeasonDTO,
             }),
-            invalidatesTags: [SEASONS_TAG]
+            transformResponse: (response: { message: string; season: Season }) => response.season,
+            invalidatesTags: (result, error) => error ? [] : [SEASONS_TAG]
         })
     }),
 

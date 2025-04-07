@@ -212,4 +212,15 @@ tbody tr:hover td {
   margin-left: -8px;
 }
 
+.create-new-object-modal-contents {
+  align-items: center;
+  width: 500px;
+  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  padding: 20px;
+}
 

@@ -67,6 +67,15 @@ export type CreateSeasonDTO = {
     year : number
 }
 
+export type CreatePlayerDTO = {
+    firstName : string,
+    lastName : string,
+    height : string,
+    weight : number,
+    throwHand : string,
+    batHand : string
+}
+
 export type Statline = {
     games? : number,
     lineupSpot? : number,
@@ -114,6 +123,10 @@ export type GameInfo = {
 
 export type Opponent = {
     id : number,
+    teamName : string
+}
+
+export type CreateOpponentDTO = {
     teamName : string
 }
 
