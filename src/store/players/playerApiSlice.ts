@@ -48,5 +48,6 @@ export const playerApiSlice = createApi({
 
 export const {
     useGetPlayersQuery,
-    useGetPlayerInfoQuery
+    useGetPlayerInfoQuery,
+    useCreatePlayerMutation
 } = playerApiSlice;

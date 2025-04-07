@@ -12,6 +12,7 @@ const AdminLogin = () => {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [showLoginError, setShowLoginError] = useState(false);
+    const [showLoginSuccess, setShowLoginSuccess] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -31,6 +32,9 @@ const AdminLogin = () => {
                 console.log("Success: ", data);
                 localStorage.setItem("userAccessToken", data.getIdToken().getJwtToken());
                 dispatch(setUserAccessToken(data.getIdToken().getJwtToken()));
+                setShowLoginSuccess(true);
+                setUsername("");
+                setPassword("");
             },
             onFailure : (data) => {
                 console.log(username, password);
@@ -83,6 +87,9 @@ const AdminLogin = () => {
 
             {showLoginError && (
                 <Alert severity="error" onClose={() => setShowLoginError(false)}>Invalid Credentials</Alert>
+            )}
+            {showLoginSuccess && (
+                <Alert severity="success" onClose={() => setShowLoginSuccess(false)}>Admin Logged In</Alert>
             )}
         </div>;
 

@@ -1,5 +1,8 @@
 import {Player} from "@/types/types";
-import {Autocomplete, TextField} from "@mui/material";
+import {Autocomplete, Button, TextField} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import {useState} from "react";
+import CreateNewPlayerModal from "@/components/CreateNewPlayerModal/CreateNewPlayerModal";
 
 type SelectPlayerAutocompleteProps= {
     player? : Player
@@ -10,7 +13,11 @@ type SelectPlayerAutocompleteProps= {
 
 function SelectPlayerAutocomplete(props : SelectPlayerAutocompleteProps) {
 
-    return <Autocomplete
+    const [createPlayerModalOpen, setCreatePlayerModalOpen] = useState(false);
+
+    return <div style={{display : "flex"}}>
+        <CreateNewPlayerModal open={createPlayerModalOpen} index={props.index} setOpen={setCreatePlayerModalOpen} setSelectedPlayer={props.setSelectedPlayer} />
+        <Autocomplete
             disablePortal
             value={props.player ? props.player : null}
             blurOnSelect={true}
@@ -20,6 +27,10 @@ function SelectPlayerAutocomplete(props : SelectPlayerAutocompleteProps) {
             onChange={(event, value) => props.setSelectedPlayer(value!, props.index)}
             renderInput={(params) => <TextField {...params} label="Player" />}
         />
+        <Button onClick={() => setCreatePlayerModalOpen(!createPlayerModalOpen)}>
+            <AddIcon />
+        </Button>
+    </div>
 
 }
 
