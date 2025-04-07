@@ -112,7 +112,7 @@ const SetGameInfoPage = (props : SetGameInfoProps) => {
         </div>
 
         <AsyncStateWrapper query={getOpponentsQuery as QueryState} >
-            <SelectOpponentAutocomplete opponents={getOpponentsQuery.data!} opponent={props.gameInfo.opponent} setSelectedOpponent={updateOpponent} />
+            <SelectOpponentAutocomplete opponents={getOpponentsQuery.data!} gameInfo={props.gameInfo} setSelectedOpponent={updateOpponent} setGameInfo={props.setGameInfo} />
         </AsyncStateWrapper>
     </ div>
 
