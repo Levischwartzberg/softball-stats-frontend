@@ -3,7 +3,7 @@ import {GameTableFieldNameENUM} from "@/store/teamLifetimeStats/teamLifetimeStat
 import AsyncStateWrapper, {QueryState} from "@/components/common/AsyncStateWrapper";
 import TeamStatsTable from "@/components/TeamStatsTable/TeamStatsTable";
 import {useState} from "react";
-import {FormControl, InputAdornment, InputLabel, OutlinedInput} from "@mui/material";
+import {FormControl, InputLabel, OutlinedInput} from "@mui/material";
 import {isNumber} from "@mui/base/unstable_useNumberInput/utils";
 
 const LifetimeStatsPage = () => {
