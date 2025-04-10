@@ -15,6 +15,10 @@ function SaveNewGamePage() {
 
     const getPlayersQuery = useGetPlayersQuery();
 
+    const saveGame = () => {
+        console.log(gameInfo, season, gameSequence);
+    }
+
     return (
         <div>
             <AsyncStateWrapper query={getPlayersQuery as QueryState} >
@@ -28,10 +32,12 @@ function SaveNewGamePage() {
                                  setGameInfo={setGameInfo}
                                  setLineup={setLineup}
                                  setGameSequence={setGameSequence}
+                                 saveGame={saveGame}
                 />
             </AsyncStateWrapper>
 
-            <Button onClick={() => console.log(gameInfo, season, gameSequence)}> Submit </Button>
+            {/*TODO :: delete this once testing is complete*/}
+            <Button onClick={() => console.log(gameInfo, season, gameSequence)}> Submit (delete this button eventually) </Button>
         </div>
     )
 }

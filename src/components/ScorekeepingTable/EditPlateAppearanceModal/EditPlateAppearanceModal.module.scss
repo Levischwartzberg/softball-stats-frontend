@@ -2,6 +2,7 @@
   position: relative;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 20px;
   width: 400px;
   height: 400px;
   background-color: white;
@@ -10,13 +11,17 @@
 
 .popover {
   position: absolute;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 25px;
+  margin-top: 20px;
   width: 400px;
-  height: 800px;
+  height: 650px;
   background-color: white;
   border: 2px solid #000;
   z-index: 1301;
+}
+
+.popoverContent {
+  padding: 15px;
 }
 
 .diamond {
@@ -33,9 +38,9 @@
   height: 40px;
   background-color: white;
   position: absolute;
-  border: black solid 1px;
-  top: -1%;
-  left: 101%;
+  border: black solid 2px;
+  top: -.5%;
+  left: 100.5%;
   transform: translateX(-100%);
 }
 
@@ -44,9 +49,9 @@
   height: 40px;
   background-color: white;
   position: absolute;
-  border: black solid 1px;
-  top: -1%;
-  left: -1%;
+  border: black solid 2px;
+  top: -.5%;
+  left: -.5%;
 }
 
 .thirdBase {
@@ -54,9 +59,9 @@
   height: 40px;
   background-color: white;
   position: absolute;
-  border: black solid 1px;
-  top: 80%;
-  left: 20%;
+  border: black solid 2px;
+  top: 78.5%;
+  left: 21.5%;
   transform: translateX(-100%);
 }
 

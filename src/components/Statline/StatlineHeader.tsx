@@ -1,14 +1,20 @@
-import {Statline} from "@/types/types";
-
 type StatlineProps = {
     games? : boolean,
     season? : boolean,
     result? : boolean,
     lineupSpot? : boolean,
     playerName? : boolean,
+    sortedColumn? : string
 }
 
 function StatlineHeader(props : StatlineProps) {
+
+    const addSortIcon = (columnName : string) => {
+        if (props.sortedColumn && props.sortedColumn === columnName) {
+            return true;
+        }
+        return false;
+    }
 
     return <>
                 {props.result && (
@@ -24,21 +30,21 @@ function StatlineHeader(props : StatlineProps) {
                     <th>Player</th>
                 )}
                 {props.games && (
-                    <th>Games</th>
+                    <th id={"games"}>Games {addSortIcon("games") && <span>&#8681;</span>} </th>
                 )}
-                <th>AB</th>
-                <th>Hits</th>
-                <th>1B</th>
-                <th>2B</th>
-                <th>3B</th>
-                <th>HR</th>
-                <th>BB</th>
-                <th>R</th>
-                <th>RBI</th>
-                <th>AVG</th>
-                <th>OBP</th>
-                <th>SLG</th>
-                <th>OPS</th>
+                <th id={"atBats"}>AB {addSortIcon("atBats") && <span>&#8681;</span>} </th>
+                <th id={"hits"}>Hits {addSortIcon("hits") && <span>&#8681;</span>} </th>
+                <th id={"singles"}>1B {addSortIcon("singles") && <span>&#8681;</span>} </th>
+                <th id={"doubles"}>2B {addSortIcon("doubles") && <span>&#8681;</span>} </th>
+                <th id={"triples"}>3B {addSortIcon("triples") && <span>&#8681;</span>} </th>
+                <th id={"homeruns"}>HR {addSortIcon("homeruns") && <span>&#8681;</span>} </th>
+                <th id={"walks"}>BB {addSortIcon("walks") && <span>&#8681;</span>} </th>
+                <th id={"runs"}>R {addSortIcon("runs") && <span>&#8681;</span>} </th>
+                <th id={"rbi"}>RBI {addSortIcon("rbi") && <span>&#8681;</span>} </th>
+                <th id={"avg"}>AVG {addSortIcon("avg") && <span>&#8681;</span>} </th>
+                <th id={"obp"}>OBP {addSortIcon("obp") && <span>&#8681;</span>} </th>
+                <th id={"slg"}>SLG {addSortIcon("slg") && <span>&#8681;</span>} </th>
+                <th id={"ops"}>OPS {addSortIcon("ops") && <span>&#8681;</span>} </th>
     </>
 }
 

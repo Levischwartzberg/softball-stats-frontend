@@ -57,8 +57,8 @@ function EditPlateAppearanceModal(props : EditPlateAppearanceModalProps) {
 
     }, [props.player, props.index, props.open])
 
-    return <Modal open={props.open} onClose={props.closeModal} className={css.modal}>
-        <>
+    return <Modal open={props.open} onClose={() => props.closeModal(false)}>
+        <Box className={css.modal}>
             <Typography> Add Plate Appearance </Typography>
             <Button onClick={() => props.closeModal(false)}>X</Button>
             <EditPlateAppearanceResultPopover plateAppearance={plateAppearanceCopy} setPlateAppearance={setPlateAppearanceCopy} availablePlayers={props.availablePlayers}/>
@@ -70,7 +70,7 @@ function EditPlateAppearanceModal(props : EditPlateAppearanceModalProps) {
                 </div>
             </Box>
             <Button onClick={() => savePlateAppearance()}>Confirm</Button>
-        </>
+        </Box>
     </Modal>
 }
 

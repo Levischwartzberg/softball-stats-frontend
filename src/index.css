@@ -122,6 +122,14 @@ table th.click-header:hover {
   cursor: pointer;
 }
 
+.sortable {
+  cursor: pointer;
+}
+
+.sortable th:hover {
+  background-color: var(--darkestGray) !important;
+}
+
 table td {
   border: var(--darkGray) solid 1px;
   background-color: var(--lightestGray);

@@ -109,18 +109,24 @@ const CreateNewPlayerModal = (props : CreateNewPlayerModalProps) => {
                 style={{display : "inline-block", width : "200px"}}
                 disablePortal
                 blurOnSelect={true}
-                options={[{label : "Feet", id: 0}, {label : "5", id: 5}, {label : "6", id: 6}]}
-                sx={{ width: 300 }}
-                onChange={(event, value) => setHeightFeet(value!.id)}
+                options={["5", "6"]}
+                sx={{ width: 300, '& .MuiInputBase-root': {
+                        borderTopRightRadius: '0px',
+                        borderBottomRightRadius: '0px'
+                    } }}
+                onChange={(event, value) => setHeightFeet(parseInt(value!))}
                 renderInput={(params) => <TextField {...params} label="Height (Feet)" />}
             />
             <Autocomplete
                 style={{display : "inline-block", width : "200px"}}
                 disablePortal
                 blurOnSelect={true}
-                options={[{label : "Inches", id: 0}, {label : "1", id: 1}, {label : "2", id: 2}, {label : "3", id: 3}, {label : "4", id: 4}, {label : "5", id: 5}, {label : "6", id: 6}, {label : "7", id: 7}, {label : "8", id: 8}, {label : "9", id: 9}, {label : "10", id: 10}, {label : "11", id: 11}, {label : "12", id: 12}]}
-                sx={{ width: 300 }}
-                onChange={(event, value) => setHeightInches(value!.id)}
+                options={["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]}
+                sx={{ width: 300, '& .MuiInputBase-root': {
+                        borderTopLeftRadius: '0px',
+                        borderBottomLeftRadius: '0px'
+                    } }}
+                onChange={(event, value) => setHeightInches(parseInt(value!))}
                 renderInput={(params) => <TextField {...params} label="Height (Inches)" />}
             />
             <FormControl sx={{ m: 1 }} style={{display : "block"}}>
@@ -135,6 +141,7 @@ const CreateNewPlayerModal = (props : CreateNewPlayerModalProps) => {
                 />
             </FormControl>
             <Autocomplete
+                style={{marginBottom : "10px"}}
                 disablePortal
                 blurOnSelect={true}
                 options={["Right", "Left"]}

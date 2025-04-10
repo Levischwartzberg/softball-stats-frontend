@@ -11,6 +11,7 @@ import ChooseSeasonPage from "@/pages/SaveNewGameFlow/ChooseSeasonPage";
 import SetGameInfoPage from "@/pages/SaveNewGameFlow/SetGameInfoPage";
 import ScorekeepingTable from "@/components/ScorekeepingTable/ScorekeepingTable";
 import GameNotesPage from "@/pages/SaveNewGameFlow/GameNotesPage";
+import ConfirmAndSubmitPage from "@/pages/SaveNewGameFlow/ConfirmAndSubmitPage";
 
 const steps = ["Choose Season", "Game Info", "Create Lineup", "Scorekeeping", "Game Notes", "Confirmation"];
 
@@ -24,6 +25,7 @@ type SaveNewGameFlowProps = {
     setGameInfo : (gameInfo : GameInfo) => void;
     setLineup : (lineup : Player[]) => void;
     setGameSequence : (innings : Inning[]) => void;
+    saveGame : () => void;
 }
 
 const SaveNewGameFlow = (props : SaveNewGameFlowProps) => {
@@ -39,6 +41,10 @@ const SaveNewGameFlow = (props : SaveNewGameFlowProps) => {
         if (isStepSkipped(activeStep)) {
             newSkipped = new Set(newSkipped.values());
             newSkipped.delete(activeStep);
+        }
+
+        if (activeStep === steps.length - 1) {
+            props.saveGame();
         }
 
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -69,12 +75,8 @@ const SaveNewGameFlow = (props : SaveNewGameFlowProps) => {
             {activeStep === steps.length ? (
                 <React.Fragment>
                     <Typography sx={{ mt: 2, mb: 1 }}>
-                        All steps completed - you&apos;re finished
+                        Game Submitted
                     </Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                        <Box sx={{ flex: '1 1 auto' }} />
-                        <Button onClick={handleReset}>Reset</Button>
-                    </Box>
                 </React.Fragment>
             ) : (
                 <React.Fragment>
@@ -99,6 +101,9 @@ const SaveNewGameFlow = (props : SaveNewGameFlowProps) => {
                     {activeStep === 4 && (
                         <GameNotesPage gameInfo={props.gameInfo} innings={props.gameSequence} setGameInfo={props.setGameInfo} setInnings={props.setGameSequence} />
                     )}
+                    {activeStep === 5 && (
+                        <ConfirmAndSubmitPage gameInfo={props.gameInfo} innings={props.gameSequence} season={props.season} />
+                    )}
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button
                             color="inherit"
@@ -110,7 +115,7 @@ const SaveNewGameFlow = (props : SaveNewGameFlowProps) => {
                         </Button>
                         <Box sx={{ flex: '1 1 auto' }} />
                         <Button onClick={handleNext}>
-                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                            {activeStep === steps.length - 1 ? 'Save Game' : 'Next'}
                         </Button>
                     </Box>
                 </React.Fragment>

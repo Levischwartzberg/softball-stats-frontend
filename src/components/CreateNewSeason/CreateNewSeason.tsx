@@ -17,8 +17,6 @@ const CreateNewSeason = (props : CreateNewSeasonProps) => {
 
     const [createSeasonTrigger, createSeasonMutation] = useCreateSeasonMutation();
 
-    const yearOptions = [{label : "Choose Year", id: 0}, {label : "2021", id: 2021}, {label : "2022", id: 2022}, {label : "2023", id: 2023}, {label : "2024", id: 2024}, {label : "2025", id: 2025}, {label : "2026", id: 2026}];
-
     const createSeason = async () => {
         const season = {
             session : session,
@@ -52,9 +50,9 @@ const CreateNewSeason = (props : CreateNewSeasonProps) => {
         <Autocomplete
             disablePortal
             blurOnSelect={true}
-            options={yearOptions}
+            options={["2021", "2022", "2023", "2024", "2025", "2026"]}
             sx={{ width: 300 }}
-            onChange={(event, value) => setYear(value!.id)}
+            onChange={(event, value) => setYear(parseInt(value!))}
             renderInput={(params) => <TextField {...params} label="Year" />}
         />
         <div className={css.createSeasonButton}>
