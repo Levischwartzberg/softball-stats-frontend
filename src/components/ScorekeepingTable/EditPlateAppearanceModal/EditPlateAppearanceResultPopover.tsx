@@ -1,4 +1,5 @@
 import {
+    Box,
     Button,
     Checkbox,
     FormControlLabel,
@@ -7,8 +8,7 @@ import {
     Radio,
     RadioGroup,
     TextField,
-    Typography,
-    Box
+    Typography
 } from "@mui/material";
 import {useEffect, useState} from "react";
 import css from "./EditPlateAppearanceModal.module.scss";
@@ -36,6 +36,12 @@ function EditPlateAppearanceResultPopover(props : EditPlateAppearanceResultPopov
         }
     }, [runs, props.plateAppearance.runs]);
 
+    useEffect(() => {
+        if (validationErrorMessage !== "" && props.plateAppearance.outs) {
+            setValidationErrorMessage("");
+        }
+    }, [props.plateAppearance.outs]);
+
     const setPlayersScored = (players : Player[]) => {
 
         props.setPlateAppearance({...props.plateAppearance, runs : players});
@@ -50,6 +56,11 @@ function EditPlateAppearanceResultPopover(props : EditPlateAppearanceResultPopov
         const playersScored = props.plateAppearance.runs ? props.plateAppearance.runs.length : 0;
         if (runs !== playersScored) {
             setValidationErrorMessage("Runs scored on the play must equal the amount of players entered into the 'driven in' multiselect.")
+            return;
+        }
+        const playersOut = props.plateAppearance.outs ? props.plateAppearance.outs.length : 0;
+        if (props.plateAppearance.result === AtBatResult.OUT && playersOut === 0) {
+            setValidationErrorMessage("If the result of the at bat is Out(s), you must select at least one player to be out of the play.")
             return;
         }
         setOpen(false);
