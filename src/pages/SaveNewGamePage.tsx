@@ -16,6 +16,8 @@ function SaveNewGamePage() {
     const getPlayersQuery = useGetPlayersQuery();
 
     const saveGame = () => {
+        // clean up and validate....
+        gameInfo.runsFor = gameSequence.flatMap(inning => inning.atBats).map(atBat => atBat.runs.length).reduce((partialSum, a) => partialSum + a, 0);
         console.log(gameInfo, season, gameSequence);
     }
 
