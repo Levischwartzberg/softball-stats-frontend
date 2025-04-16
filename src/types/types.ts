@@ -130,6 +130,12 @@ export type CreateOpponentDTO = {
     teamName : string
 }
 
+export type CreateScorekeepingGameDTO = {
+    season : Season,
+    gameInfo : GameInfo,
+    innings : Inning[]
+}
+
 export enum WeatherConditionENUM {
     RAIN,
     CLOUDY,
