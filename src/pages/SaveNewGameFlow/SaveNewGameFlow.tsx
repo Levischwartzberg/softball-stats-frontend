@@ -25,7 +25,7 @@ type SaveNewGameFlowProps = {
     setGameInfo : (gameInfo : GameInfo) => void;
     setLineup : (lineup : Player[]) => void;
     setGameSequence : (innings : Inning[]) => void;
-    saveGame : () => void;
+    confirmGameInfo : () => void;
 }
 
 const SaveNewGameFlow = (props : SaveNewGameFlowProps) => {
@@ -44,7 +44,7 @@ const SaveNewGameFlow = (props : SaveNewGameFlowProps) => {
         }
 
         if (activeStep === steps.length - 1) {
-            props.saveGame();
+            props.confirmGameInfo();
         }
 
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -75,7 +75,7 @@ const SaveNewGameFlow = (props : SaveNewGameFlowProps) => {
             {activeStep === steps.length ? (
                 <React.Fragment>
                     <Typography sx={{ mt: 2, mb: 1 }}>
-                        Game Submitted
+                        Ready to Save?
                     </Typography>
                 </React.Fragment>
             ) : (

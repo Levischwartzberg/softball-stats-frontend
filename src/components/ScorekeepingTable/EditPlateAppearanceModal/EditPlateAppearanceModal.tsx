@@ -17,7 +17,7 @@ type EditPlateAppearanceModalProps = {
 
 function EditPlateAppearanceModal(props : EditPlateAppearanceModalProps) {
 
-    const [plateAppearanceCopy, setPlateAppearanceCopy] = useState({...props.plateAppearance, index : props.index, player : props.player} as AtBat);
+    const [plateAppearanceCopy, setPlateAppearanceCopy] = useState({...props.plateAppearance, inningIndex : props.index, player : props.player} as AtBat);
     const [baserunners, setBaserunners] = useState(props.plateAppearance !== undefined ? props.plateAppearance.baserunners : {first : null, second : null, third : null} as Baserunners);
 
     const updateBaserunners = (player : Player | null, base : BaseENUM) => {
@@ -49,7 +49,7 @@ function EditPlateAppearanceModal(props : EditPlateAppearanceModalProps) {
     }
 
     useEffect(() => {
-        setPlateAppearanceCopy({...props.plateAppearance, index : props.index, player : props.player} as AtBat);
+        setPlateAppearanceCopy({...props.plateAppearance, inningIndex : props.index, player : props.player} as AtBat);
 
         if (props.plateAppearance !== undefined) {
             setBaserunners(props.plateAppearance.baserunners);

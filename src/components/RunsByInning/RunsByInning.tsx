@@ -50,7 +50,7 @@ const RunsByInning = (props : RunsByInningProps) => {
     const updateOpponentRuns = (runs : string) => {
         if (isNumber(parseInt(runs)) || runs === "") {
             const modifiedGameInfo = {...props.gameInfo};
-            modifiedGameInfo.opponentRuns = parseInt(runs);
+            modifiedGameInfo.runsAgainst = parseInt(runs);
 
             if (props.setGameInfo && props.gameInfo) {
                 props.setGameInfo(modifiedGameInfo as GameInfo);
@@ -64,7 +64,7 @@ const RunsByInning = (props : RunsByInningProps) => {
                 className="outlined-input"
                 id="outlined-adornment-opp-runs"
                 label="Total Opponent Runs"
-                value={props.gameInfo?.opponentRuns ? props.gameInfo.opponentRuns : ""}
+                value={props.gameInfo?.runsAgainst ? props.gameInfo.runsAgainst : ""}
                 onChange={(event) => updateOpponentRuns(event.target.value)}
             />
         </FormControl>

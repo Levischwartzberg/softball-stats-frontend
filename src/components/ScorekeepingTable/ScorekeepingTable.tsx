@@ -86,7 +86,7 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
 
     const updateInning = (plateAppearance : AtBat) => {
         const inningsCopy = [...props.innings];
-        inningsCopy[selectedPlayerAndInning.inning?.inning!-1].atBats[plateAppearance.index-1] = plateAppearance;
+        inningsCopy[selectedPlayerAndInning.inning?.inning!-1].atBats[plateAppearance.inningIndex-1] = plateAppearance;
         props.setInnings(inningsCopy);
 
         const inningOuts = inningsCopy[selectedPlayerAndInning.inning!.inning-1].atBats.map(ab => ab.outs.length).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
@@ -122,8 +122,8 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
                     const ab = playerAtBats[i];
                     playerPlateAppearanceRow.push(
                         <TableCell>
-                            <Box className={css.editPlateAppearanceButton} onClick={() => openEditor(player, inning, ab.index)}>
-                                <ScorekeepingAtBat atBat={ab} inningUpUntil={inning.atBats.filter(pa => pa.index <= ab.index)} canEdit={true} />
+                            <Box className={css.editPlateAppearanceButton} onClick={() => openEditor(player, inning, ab.inningIndex)}>
+                                <ScorekeepingAtBat atBat={ab} inningUpUntil={inning.atBats.filter(pa => pa.inningIndex <= ab.inningIndex)} canEdit={true} />
                             </Box>
                         </TableCell>
                     )
@@ -209,7 +209,7 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
                                           player={selectedPlayerAndInning.player}
                                           closeModal={setAddNewPlateAppearanceOpen}
                                           availablePlayers={availablePlayers(selectedPlayerAndInning.player!, selectedPlayerAndInning.inning!, selectedPlayerAndInning.index!)}
-                                          plateAppearance={props.innings[selectedPlayerAndInning.inning.inning - 1].atBats.find(ab => ab.index === selectedPlayerAndInning.index)!}
+                                          plateAppearance={props.innings[selectedPlayerAndInning.inning.inning - 1].atBats.find(ab => ab.inningIndex === selectedPlayerAndInning.index)!}
                                           setPlateAppearance={updateInning}
                 />
             )}

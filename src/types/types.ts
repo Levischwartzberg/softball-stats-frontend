@@ -7,7 +7,7 @@ export type Inning = {
 }
 
 export type AtBat = {
-    index : number,
+    inningIndex : number,
     player : Player,
     result : AtBatResult,
     scoring : string,
@@ -26,7 +26,7 @@ export enum AtBatResult {
     HOMERUN = "Homerun",
     WALK = "Walk",
     OUT = "Out(s)",
-    ERROR = "Error(s)"
+    ERROR = "Error"
 
 }
 
@@ -111,8 +111,8 @@ export type GameInfo = {
     date : Dayjs,
     result : string,
     home : boolean | undefined,
-    opponentRuns? : number,
-    runsAgainst? : number[],
+    runsFor : number,
+    runsAgainst : number,
     opponent? : Opponent,
     season : Season,
     field? : string,
@@ -128,6 +128,12 @@ export type Opponent = {
 
 export type CreateOpponentDTO = {
     teamName : string
+}
+
+export type CreateScorekeepingGameDTO = {
+    season : Season,
+    gameInfo : GameInfo,
+    innings : Inning[]
 }
 
 export enum WeatherConditionENUM {

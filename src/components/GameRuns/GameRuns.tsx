@@ -79,7 +79,7 @@ const GameRuns = (props : RunsByInningProps) => {
                     Total
                 </th>
             </tr>
-            {mortsRuns >= props.gameInfo.opponentRuns! && (
+            {mortsRuns >= props.gameInfo.runsAgainst! && (
                 <tr>
                     <td>
                         Morts
@@ -94,10 +94,10 @@ const GameRuns = (props : RunsByInningProps) => {
                     {props.opponentName ? props.opponentName : "Unknown"}
                 </td>
                 <td>
-                    {props.gameInfo.opponentRuns}
+                    {props.gameInfo.runsAgainst}
                 </td>
             </tr>
-            {mortsRuns < props.gameInfo.opponentRuns! && (
+            {mortsRuns < props.gameInfo.runsAgainst! && (
                 <tr>
                     <td>
                         Morts
