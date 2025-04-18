@@ -1,6 +1,6 @@
-import {PlayerStatline, Result} from "@/types/types";
+import {GameInfo, PlayerStatline, Result} from "@/types/types";
 
 export type BoxscoreDTO = {
-    result : Result,
+    gameInfo : GameInfo,
     playerStatlines : PlayerStatline[]
 }

@@ -1,11 +1,10 @@
-import {Player, Result, Season, Statline} from "../../types/types";
-import {TableCell, TableRow} from "@mui/material";
+import {GameInfo, Player, Season, Statline} from "../../types/types";
 import {Link} from "react-router-dom";
 
 type StatlineProps = {
     statline : Statline,
     season? : Season,
-    result? : Result,
+    gameInfo? : GameInfo,
     player? : Player
 }
 
@@ -18,10 +17,10 @@ function StatlineData(props : StatlineProps) {
     }
 
     return (<>
-                    {props.result && (
+                    {props.gameInfo && (
                         <td>
-                            <Link to={`/game/${props.result.id}`}>
-                                {props.result.date.toString()}
+                            <Link to={`/game/${props.gameInfo.gameInfoId}`}>
+                                {props.gameInfo.date.toString()}
                             </Link>
                         </td>
                     )}
