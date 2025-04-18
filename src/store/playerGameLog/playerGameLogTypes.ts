@@ -1,11 +1,11 @@
-import {Result, Statline} from "@/types/types";
+import {GameInfo, Statline} from "@/types/types";
 
 export type PlayerGameLogQueryParams = {
     playerId : number,
     seasonId : number
 }
 
-export type ResultStatline = {
-    result : Result,
+export type GameInfoStatline = {
+    gameInfo : GameInfo,
     statline : Statline
 }

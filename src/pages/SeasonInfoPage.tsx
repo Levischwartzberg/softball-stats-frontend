@@ -1,7 +1,7 @@
 import {useParams} from "react-router-dom";
-import {useGetSeasonResultsQuery} from "@/store/seasons/seasonApiSlice";
+import {useGetSeasonGamesQuery} from "@/store/seasons/seasonApiSlice";
 import AsyncStateWrapper, {QueryState} from "@/components/common/AsyncStateWrapper";
-import SeasonResultsTable from "@/components/SeasonResultsTable/SeasonResultsTable";
+import SeasonGamesTable from "@/components/SeasonGamesTable/SeasonGamesTable";
 import {useGetSeasonTeamStatsQuery} from "@/store/seasonTeamStats/seasonTeamStatsApiSlice";
 import TeamStatsTable from "@/components/TeamStatsTable/TeamStatsTable";
 
@@ -9,19 +9,19 @@ const SeasonInfoPage = () => {
 
     const {seasonId} = useParams();
 
-    const getSeasonResultsQuery = useGetSeasonResultsQuery(parseInt(seasonId!));
+    const getSeasonGamesQuery = useGetSeasonGamesQuery(parseInt(seasonId!));
     const getSeasonTeamStatsQuery = useGetSeasonTeamStatsQuery(parseInt(seasonId!));
 
     return <>
-        <AsyncStateWrapper query={getSeasonResultsQuery as QueryState} >
-            {getSeasonResultsQuery.data && (
+        <AsyncStateWrapper query={getSeasonGamesQuery as QueryState} >
+            {getSeasonGamesQuery.data && (
                 <div>
                     <h1>
-                        {getSeasonResultsQuery.data!.season.session} {getSeasonResultsQuery.data!.season.year}
+                        {getSeasonGamesQuery.data!.season.session} {getSeasonGamesQuery.data!.season.year}
                     </h1>
                 </div>
             )}
-            <SeasonResultsTable seasonResults={getSeasonResultsQuery.data!} />
+            <SeasonGamesTable seasonGames={getSeasonGamesQuery.data!} />
         </AsyncStateWrapper>
 
         <AsyncStateWrapper query={getSeasonTeamStatsQuery as QueryState} >

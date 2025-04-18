@@ -101,13 +101,13 @@ export type Result = {
     date : Date
 }
 
-export type SeasonResults = {
+export type SeasonGames = {
     season : Season,
-    results : Result[]
+    games : GameInfo[]
 }
 
 export type GameInfo = {
-    id : number,
+    gameInfoId : number,
     date : Dayjs,
     result : string,
     home : boolean | undefined,
@@ -122,7 +122,7 @@ export type GameInfo = {
 }
 
 export type Opponent = {
-    id : number,
+    opponentId : number,
     teamName : string
 }
 

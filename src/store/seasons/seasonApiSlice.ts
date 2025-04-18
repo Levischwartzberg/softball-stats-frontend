@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import {CreateSeasonDTO, Season, SeasonResults} from "@/types/types";
+import {CreateSeasonDTO, Season, SeasonGames} from "@/types/types";
 import {RootState} from "@/store/store";
 
 const baseURL = process.env.REACT_APP_API_BASE_URL;
@@ -30,8 +30,8 @@ export const seasonApiSlice = createApi({
             providesTags: [SEASONS_TAG]
         }),
 
-        getSeasonResults: build.query<SeasonResults, number>({
-            query: (seasonId) => `/seasonResults/${seasonId}`
+        getSeasonGames: build.query<SeasonGames, number>({
+            query: (seasonId) => `/seasonGames/${seasonId}`
         }),
 
         createSeason: build.mutation<Season, CreateSeasonDTO>({
@@ -49,6 +49,6 @@ export const seasonApiSlice = createApi({
 
 export const {
     useGetSeasonsQuery,
-    useGetSeasonResultsQuery,
+    useGetSeasonGamesQuery,
     useCreateSeasonMutation
 } = seasonApiSlice;
