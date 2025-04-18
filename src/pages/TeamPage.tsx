@@ -8,13 +8,15 @@ const TeamPage = () => {
     const useGetPlayers = useGetPlayersQuery();
 
     return (
-        <>
-            Players
+        <div className="content">
+            <h1 className="page-header">
+                Players
+            </h1>
 
             <AsyncStateWrapper query={useGetPlayers as QueryState} >
                 <PlayerTable players={useGetPlayers.data!} />
             </AsyncStateWrapper>
-        </>
+        </div>
     )
 }
 

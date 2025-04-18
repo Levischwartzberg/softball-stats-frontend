@@ -28,7 +28,7 @@ const ResultPage = () => {
         return "Tie";
     }
 
-    return <>
+    return <div className="content">
         <AsyncStateWrapper query={getBoxscoreQuery as QueryState} >
             {getBoxscoreQuery.data && (
                 <div>
@@ -43,7 +43,7 @@ const ResultPage = () => {
 
             <Boxscore boxscore={getBoxscoreQuery.data!}/>
         </AsyncStateWrapper>
-    </>
+    </div>
 }
 
 export default ResultPage;

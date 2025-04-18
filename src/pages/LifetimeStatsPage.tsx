@@ -21,6 +21,7 @@ const LifetimeStatsPage = () => {
     }
 
     return (<div className="content">
+            <h1>Lifetime Stats</h1>
             <div style={{display : "flex", alignItems : "start"}}>
                 <FormControl sx={{ m: 1 }} style={{display : "block"}}>
                     <InputLabel htmlFor="outlined-adornment-min-abs">Min. ABs</InputLabel>
@@ -34,7 +35,6 @@ const LifetimeStatsPage = () => {
                 </FormControl>
             </div>
         <AsyncStateWrapper query={getTeamLifetimeStatsQuery as QueryState} >
-            <h1>Lifetime Stats</h1>
             <TeamStatsTable playerStatlines={getTeamLifetimeStatsQuery.data!} />
         </AsyncStateWrapper>
     </div>

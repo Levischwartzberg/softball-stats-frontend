@@ -3,12 +3,12 @@ import AdminLogin from "@/components/AdminLogin/AdminLogin";
 const HomePage = () => {
 
     return (
-        <>
-            HOME PAGE
-            <div className="content">
-                <AdminLogin />
-            </div>
-        </>
+        <div className="content">
+            <h1>
+                Home
+            </h1>
+            <AdminLogin />
+        </div>
     )
 }
 

@@ -28,36 +28,36 @@ const SeasonGamesTable = (props : SeasonResultsTableProps) => {
         return "Tie";
     }
 
-    return <Table>
-        <TableHead>
-            <TableRow className={css.header}>
-                <TableCell>
+    return <table>
+        <thead>
+            <tr className={css.header}>
+                <th>
                     Result
-                </TableCell>
-                <TableCell>
+                </th>
+                <th>
                     Score
-                </TableCell>
-                <TableCell>
+                </th>
+                <th>
                     Date
-                </TableCell>
-            </TableRow>
-        </TableHead>
+                </th>
+            </tr>
+        </thead>
         {props.seasonGames.games.map(game =>
-            <TableRow>
-                <TableCell>
+            <tr>
+                <td>
                     {determineResult(game.runsFor, game.runsAgainst)}
-                </TableCell>
-                <TableCell>
+                </td>
+                <td>
                     {formatScore(game.runsFor, game.runsAgainst)}
-                </TableCell>
-                <TableCell>
+                </td>
+                <td>
                     <Link to={`/game/${game.gameInfoId}`}>
                         {game.date.toString()}
                     </Link>
-                </TableCell>
-            </TableRow>
+                </td>
+            </tr>
         )}
-    </Table>
+    </table>
 }
 
 export default SeasonGamesTable;

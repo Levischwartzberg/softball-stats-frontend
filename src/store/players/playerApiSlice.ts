@@ -27,6 +27,7 @@ export const playerApiSlice = createApi({
 
         getPlayers: build.query<Player[], void>({
             query: () => "/players",
+            providesTags: [PLAYERS_TAG]
         }),
 
         getPlayerInfo: build.query<Player, number>({

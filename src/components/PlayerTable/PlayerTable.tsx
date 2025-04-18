@@ -18,47 +18,53 @@ const PlayerTable = (props : PlayerTableProps) => {
     });
 
     return (
-        <Table className={css.playerTable}>
-            <TableHead>
-                <TextField
-                    id="input-with-icon-textfield"
-                    label="search"
-                    slotProps={{
-                        input: {
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon />
-                                </InputAdornment>
-                            ),
-                        },
-                    }}
-                    variant="standard"
-                    onChange={(event) => setSearchText(event.target.value)}
-                />
-                <TableRow className={css.header}>
-                    <TableCell>
+        <table className={css.playerTable}>
+            <thead>
+                <tr>
+                    <th colSpan={2} className={css.searchInput}>
+                        <TextField
+                            id="input-with-icon-textfield"
+                            label="search"
+                            slotProps={{
+                                input: {
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <SearchIcon />
+                                        </InputAdornment>
+                                    ),
+                                },
+                            }}
+                            variant="standard"
+                            onChange={(event) => setSearchText(event.target.value)}
+                        />
+                    </th>
+                </tr>
+                <tr className={css.header}>
+                    <th>
                         First Name
-                    </TableCell>
-                    <TableCell>
+                    </th>
+                    <th>
                         Last Name
-                    </TableCell>
-                </TableRow>
-            </TableHead>
-            {filteredPlayers.map(player =>
-            <TableRow>
-                <TableCell>
-                    <Link to={`/player/${player.id}`}>
-                        {player.firstName}
-                    </Link>
-                </TableCell>
-                <TableCell>
-                    <Link to={`/player/${player.id}`}>
-                        {player.lastName}
-                    </Link>
-                </TableCell>
-            </TableRow>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {filteredPlayers.map(player =>
+                    <tr>
+                        <td>
+                            <Link to={`/player/${player.id}`}>
+                                {player.firstName}
+                            </Link>
+                        </td>
+                        <td>
+                            <Link to={`/player/${player.id}`}>
+                                {player.lastName}
+                            </Link>
+                        </td>
+                    </tr>
                 )}
-        </Table>
+            </tbody>
+        </table>
     )
 }
 

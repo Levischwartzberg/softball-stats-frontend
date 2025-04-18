@@ -10,6 +10,7 @@ type EditPlateAppearanceModalProps = {
     index : number;
     player : Player;
     availablePlayers : Player[];
+    baserunners : Baserunners;
     plateAppearance : AtBat;
     closeModal : (close : boolean) => void;
     setPlateAppearance : (atBat : AtBat) => void;
@@ -18,7 +19,7 @@ type EditPlateAppearanceModalProps = {
 function EditPlateAppearanceModal(props : EditPlateAppearanceModalProps) {
 
     const [plateAppearanceCopy, setPlateAppearanceCopy] = useState({...props.plateAppearance, inningIndex : props.index, player : props.player} as AtBat);
-    const [baserunners, setBaserunners] = useState(props.plateAppearance !== undefined ? props.plateAppearance.baserunners : {first : null, second : null, third : null} as Baserunners);
+    const [baserunners, setBaserunners] = useState(props.baserunners);
 
     const updateBaserunners = (player : Player | null, base : BaseENUM) => {
         const baserunnersCopy = {...baserunners};
@@ -49,13 +50,13 @@ function EditPlateAppearanceModal(props : EditPlateAppearanceModalProps) {
     }
 
     useEffect(() => {
+        setBaserunners(props.baserunners);
+    }, [props.baserunners]);
+
+    useEffect(() => {
         setPlateAppearanceCopy({...props.plateAppearance, inningIndex : props.index, player : props.player} as AtBat);
 
-        if (props.plateAppearance !== undefined) {
-            setBaserunners(props.plateAppearance.baserunners);
-        }
-
-    }, [props.player, props.index, props.open])
+    }, [props.player, props.index, props.open]);
 
     return <Modal open={props.open} onClose={() => props.closeModal(false)}>
         <Box className={css.modal}>

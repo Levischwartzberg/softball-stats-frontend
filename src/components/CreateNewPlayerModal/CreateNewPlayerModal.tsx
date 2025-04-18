@@ -46,7 +46,7 @@ const CreateNewPlayerModal = (props : CreateNewPlayerModalProps) => {
         const newPlayer = {
             firstName : firstName,
             lastName : lastName,
-            height : `${heightFeet} ${heightInches}`,
+            height : `${heightFeet}''${heightInches}`,
             weight : weight!,
             throwHand : throwHand,
             batHand : batHand
@@ -121,7 +121,7 @@ const CreateNewPlayerModal = (props : CreateNewPlayerModalProps) => {
                 style={{display : "inline-block", width : "200px"}}
                 disablePortal
                 blurOnSelect={true}
-                options={["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]}
+                options={["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]}
                 sx={{ width: 300, '& .MuiInputBase-root': {
                         borderTopLeftRadius: '0px',
                         borderBottomLeftRadius: '0px'
