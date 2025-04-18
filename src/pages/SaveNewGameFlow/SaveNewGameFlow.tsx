@@ -18,7 +18,6 @@ const steps = ["Choose Season", "Game Info", "Create Lineup", "Scorekeeping", "G
 type SaveNewGameFlowProps = {
     season : Season;
     gameInfo : GameInfo;
-    players : Player[];
     lineup : Player[];
     gameSequence : Inning[];
     setSeason : (season : Season) => void;
@@ -87,13 +86,12 @@ const SaveNewGameFlow = (props : SaveNewGameFlowProps) => {
                         <SetGameInfoPage gameInfo={props.gameInfo} setGameInfo={props.setGameInfo} />
                     )}
                     {activeStep === 2 && (
-                        <SetStartingLineup players={props.players} lineup={props.lineup} setLineup={props.setLineup} />
+                        <SetStartingLineup lineup={props.lineup} setLineup={props.setLineup} />
                     )}
                     {activeStep === 3 && (
                         <ScorekeepingTable
                         innings={props.gameSequence}
                         lineup={props.lineup}
-                        allPlayers={props.players}
                         setLineup={props.setLineup}
                         setInnings={props.setGameSequence}
                     />

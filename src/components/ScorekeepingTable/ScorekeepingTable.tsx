@@ -1,5 +1,5 @@
 import {Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import {AtBat, Inning, Player} from "../../types/types";
+import {AtBat, Baserunners, Inning, Player} from "../../types/types";
 import ScorekeepingAtBat from "./ScorekeepingAtBat/ScorekeepingAtBat";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import EditIcon from '@mui/icons-material/Edit';
@@ -11,7 +11,6 @@ import css from "./ScorekeepingTable.module.scss";
 type ScorekeepingTableProps = {
     innings : Inning[],
     lineup : Player[],
-    allPlayers : Player[],
     setLineup : (lineup : Player[]) => void;
     setInnings : (innings : Inning[]) => void;
 }
@@ -19,9 +18,6 @@ type ScorekeepingTableProps = {
 function ScorekeepingTable(props : ScorekeepingTableProps) {
 
     const [selectedPlayerAndInning, setSelectedPlayerAndInning] = useState({player : undefined, inning : undefined, index : 0} as {player : Player | undefined, inning : Inning | undefined , index : number});
-    const [addPlayerModalOpen, setAddPlayerModalOpen] = useState(false);
-    const [editPlayerModalOpen, setEditPlayerModalOpen] = useState(false);
-    const [editPlayerIndex, setEditPlayerIndex] = useState(0);
     const [addNewPlateAppearanceOpen, setAddNewPlateAppearanceOpen] = useState(false);
 
     const timesBattedAround = (inning : Inning) : number => {
@@ -55,13 +51,6 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
     }
 
     const openEditor = (player : Player, inning : Inning, index? : number) => {
-        // if (props.innings[inning.inning-1].atBats.length === 0) {
-        //     index = 1;
-        // } else if (props.innings[inning.inning-1].atBats.filter(ab => ab.player === player).length > 0) {
-        //     index = props.innings[inning.inning-1].atBats.find(ab => ab.player === player)!.index + (timesBattedAround(inning) - 1) * props.lineup.length;
-        // } else {
-        //     index = props.innings[inning.inning-1].atBats.length + 1;
-        // }
         if (index === undefined) {
             index = props.innings[inning.inning-1].atBats.length + 1;
         }
@@ -165,41 +154,14 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
                             </TableCell>
                             <TableCell>
                                 {`${player.firstName} ${player.lastName}`}
-                                <Button onClick={() => {
-                                    setEditPlayerModalOpen(true);
-                                    setEditPlayerIndex(index);
-                                }}>
-                                    <EditIcon />
-                                </Button>
                             </TableCell>
                             {playerAtBatRows(player)}
-                            <SelectPlayerModal
-                                title={"Change Player"}
-                                lineupSpot={editPlayerIndex}
-                                open={editPlayerModalOpen}
-                                players={props.allPlayers}
-                                lineup={props.lineup}
-                                closeModal={setEditPlayerModalOpen}
-                                setLineup={props.setLineup} />
                         </TableRow>
                     ))}
                     <TableRow>
                         <TableCell>
                             {props.lineup.length + 1}
                         </TableCell>
-                        <TableCell>
-                            <Button onClick={() => setAddPlayerModalOpen(true)}>
-                                <PersonAddIcon />
-                            </Button>
-                        </TableCell>
-                        <SelectPlayerModal
-                            title={"Add Player"}
-                            lineupSpot={props.lineup.length}
-                            open={addPlayerModalOpen}
-                            players={props.allPlayers}
-                            lineup={props.lineup}
-                            closeModal={setAddPlayerModalOpen}
-                            setLineup={props.setLineup} />
                     </TableRow>
                 </TableBody>
             </Table>
@@ -210,6 +172,7 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
                                           closeModal={setAddNewPlateAppearanceOpen}
                                           availablePlayers={availablePlayers(selectedPlayerAndInning.player!, selectedPlayerAndInning.inning!, selectedPlayerAndInning.index!)}
                                           plateAppearance={props.innings[selectedPlayerAndInning.inning.inning - 1].atBats.find(ab => ab.inningIndex === selectedPlayerAndInning.index)!}
+                                          baserunners={selectedPlayerAndInning.index > 1 ? props.innings[selectedPlayerAndInning.inning.inning - 1].atBats.find(ab => ab.inningIndex === selectedPlayerAndInning.index - 1)!.baserunners : {first : null, second : null, third : null} as Baserunners}
                                           setPlateAppearance={updateInning}
                 />
             )}

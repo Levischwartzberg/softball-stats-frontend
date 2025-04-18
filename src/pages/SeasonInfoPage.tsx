@@ -12,8 +12,8 @@ const SeasonInfoPage = () => {
     const getSeasonGamesQuery = useGetSeasonGamesQuery(parseInt(seasonId!));
     const getSeasonTeamStatsQuery = useGetSeasonTeamStatsQuery(parseInt(seasonId!));
 
-    return <>
-        <AsyncStateWrapper query={getSeasonGamesQuery as QueryState} >
+    return <div className="content">
+        <AsyncStateWrapper query={getSeasonGamesQuery as QueryState}>
             {getSeasonGamesQuery.data && (
                 <div>
                     <h1>
@@ -21,13 +21,17 @@ const SeasonInfoPage = () => {
                     </h1>
                 </div>
             )}
-            <SeasonGamesTable seasonGames={getSeasonGamesQuery.data!} />
-        </AsyncStateWrapper>
+            <div style={{display : "flex", gap : "20px", alignContent : "space-between", justifyContent : "space-between"}}>
+                <AsyncStateWrapper query={getSeasonGamesQuery as QueryState}>
+                    <SeasonGamesTable seasonGames={getSeasonGamesQuery.data!} />
+                </AsyncStateWrapper>
 
-        <AsyncStateWrapper query={getSeasonTeamStatsQuery as QueryState} >
-            <TeamStatsTable  playerStatlines={getSeasonTeamStatsQuery.data!} />
+                <AsyncStateWrapper query={getSeasonTeamStatsQuery as QueryState} >
+                    <TeamStatsTable playerStatlines={getSeasonTeamStatsQuery.data!} />
+                </AsyncStateWrapper>
+            </div>
         </AsyncStateWrapper>
-    </>
+    </div>
 
 }
 

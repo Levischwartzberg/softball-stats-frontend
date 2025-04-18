@@ -7,9 +7,15 @@ const SeasonsPage = () => {
     const getSeasonsQuery = useGetSeasonsQuery();
 
     return (
-        <AsyncStateWrapper query={getSeasonsQuery as QueryState}>
-            <SeasonTable seasons={getSeasonsQuery.data!} />
-        </AsyncStateWrapper>
+        <div className="content">
+            <h1>
+                Seasons
+            </h1>
+
+            <AsyncStateWrapper query={getSeasonsQuery as QueryState}>
+                <SeasonTable seasons={getSeasonsQuery.data!} />
+            </AsyncStateWrapper>
+        </div>
     )
 
 }

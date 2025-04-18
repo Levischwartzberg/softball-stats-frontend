@@ -1,4 +1,4 @@
-import {Table, TableCell, TableHead, TableRow, TextField, InputAdornment} from "@mui/material";
+import {TextField, InputAdornment} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import {Season} from "@/types/types";
 import css from "./SeasonTable.module.scss";
@@ -18,47 +18,52 @@ const SeasonTable = (props : SeasonTableProps) => {
     });
 
     return (
-        <Table className={css.seasonTable}>
-            <TableHead>
-                <TextField
-                    id="input-with-icon-textfield"
-                    label="search"
-                    slotProps={{
-                        input: {
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon />
-                                </InputAdornment>
-                            ),
-                        },
-                    }}
-                    variant="standard"
-                    onChange={(event) => setSearchText(event.target.value)}
-                />
-                <TableRow className={css.header}>
-                    <TableCell>
+        <table className={css.seasonTable}>
+            <thead>
+                <tr>
+                    <th colSpan={2} className={css.searchInput}>
+                        <TextField
+                            id="input-with-icon-textfield"
+                            label="search"
+                            slotProps={{
+                                input: {
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <SearchIcon />
+                                        </InputAdornment>
+                                    ),
+                                },
+                            }}
+                            className="table-search"
+                            variant="standard"
+                            onChange={(event) => setSearchText(event.target.value)}
+                        />
+                    </th>
+                </tr>
+                <tr className={css.header}>
+                    <th>
                         Session
-                    </TableCell>
-                    <TableCell>
+                    </th>
+                    <th>
                         Year
-                    </TableCell>
-                </TableRow>
-            </TableHead>
+                    </th>
+                </tr>
+            </thead>
             {filteredSeasons.map(season =>
-                <TableRow>
-                    <TableCell>
+                <tr>
+                    <td>
                         <Link to={`/season/${season.id}`}>
                             {season.session}
                         </Link>
-                    </TableCell>
-                    <TableCell>
+                    </td>
+                    <td>
                         <Link to={`/season/${season.id}`}>
                             {season.year}
                         </Link>
-                    </TableCell>
-                </TableRow>
+                    </td>
+                </tr>
             )}
-        </Table>
+        </table>
     )
 }
 

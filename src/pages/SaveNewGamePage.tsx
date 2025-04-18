@@ -17,8 +17,6 @@ function SaveNewGamePage() {
 
     const [createScorekeepingGameTrigger, createScorekeepingGameQuery] = useCreateScorekeepingGameMutation();
 
-    const getPlayersQuery = useGetPlayersQuery();
-
     const confirmGameInfo = () => {
         setShowConfirmButton(true);
     }
@@ -45,21 +43,17 @@ function SaveNewGamePage() {
     }
 
     return (
-        <div>
-            <AsyncStateWrapper query={getPlayersQuery as QueryState} >
-
-                <SaveNewGameFlow season={season}
-                                 gameInfo={gameInfo}
-                                 players={getPlayersQuery.data!}
-                                 lineup={lineup}
-                                 gameSequence={gameSequence}
-                                 setSeason={setSeason}
-                                 setGameInfo={setGameInfo}
-                                 setLineup={setLineup}
-                                 setGameSequence={setGameSequence}
-                                 confirmGameInfo={confirmGameInfo}
-                />
-            </AsyncStateWrapper>
+        <div className="content">
+            <SaveNewGameFlow season={season}
+                             gameInfo={gameInfo}
+                             lineup={lineup}
+                             gameSequence={gameSequence}
+                             setSeason={setSeason}
+                             setGameInfo={setGameInfo}
+                             setLineup={setLineup}
+                             setGameSequence={setGameSequence}
+                             confirmGameInfo={confirmGameInfo}
+            />
 
             {showConfirmButton && (
                 <AsyncButton onClick={() => saveGame()} isLoading={createScorekeepingGameQuery.isLoading}> Confirm Save Game </AsyncButton>

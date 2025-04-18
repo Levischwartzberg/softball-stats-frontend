@@ -1,7 +1,7 @@
 .seasonTable {
   max-width: 500px;
-  margin: 20px;
   border: 1px solid darkgray;
+  border-radius: 5px;
 }
 
 .header {
@@ -10,4 +10,11 @@
 
 .search {
   width : 100%;
+}
+
+.searchInput {
+  background-color: lightgrey;
+  border: none;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
 }

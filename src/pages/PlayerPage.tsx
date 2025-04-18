@@ -28,7 +28,7 @@ const PlayerPage = () => {
     }
 
     return (
-        <>
+        <div className="content">
             <AsyncStateWrapper query={getPlayerInfo as QueryState} >
                 <PlayerInfo player={getPlayerInfo.data!} />
             </AsyncStateWrapper>
@@ -85,7 +85,7 @@ const PlayerPage = () => {
                     <PlayerGameLog games={getPlayerGameLogsQuery.data!} />
                 </AsyncStateWrapper>
             )}
-        </>
+        </div>
     )
 }
 
