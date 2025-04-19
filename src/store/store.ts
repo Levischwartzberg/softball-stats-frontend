@@ -10,6 +10,7 @@ import {teamLifetimeStatsApiSlice} from "@/store/teamLifetimeStats/teamLifetimeS
 import {opponentApiSlice} from "@/store/opponents/opponentApiSlice";
 import tokenSlice from "@/store/token/tokenSlice";
 import {scorekeepingGameApiSlice} from "@/store/scorekeepingGame/scorekeepingGameApiSlice";
+import {scoresheetApiSlice} from "@/store/scoresheet/scoresheetApiSlice";
 
 export const store = configureStore({
     reducer: {
@@ -23,7 +24,8 @@ export const store = configureStore({
         [seasonTeamStatsApiSlice.reducerPath]: seasonTeamStatsApiSlice.reducer,
         [teamLifetimeStatsApiSlice.reducerPath]: teamLifetimeStatsApiSlice.reducer,
         [opponentApiSlice.reducerPath]: opponentApiSlice.reducer,
-        [scorekeepingGameApiSlice.reducerPath]: scorekeepingGameApiSlice.reducer
+        [scorekeepingGameApiSlice.reducerPath]: scorekeepingGameApiSlice.reducer,
+        [scoresheetApiSlice.reducerPath]: scoresheetApiSlice.reducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false,
@@ -38,6 +40,7 @@ export const store = configureStore({
         .concat(teamLifetimeStatsApiSlice.middleware)
         .concat(opponentApiSlice.middleware)
         .concat(scorekeepingGameApiSlice.middleware)
+        .concat(scoresheetApiSlice.middleware)
 });
 
 export type RootState = ReturnType<typeof store.getState>;

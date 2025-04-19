@@ -136,6 +136,10 @@ export type CreateScorekeepingGameDTO = {
     innings : Inning[]
 }
 
+export type Scoresheet = {
+    innings : Inning[];
+}
+
 export enum WeatherConditionENUM {
     RAIN,
     CLOUDY,

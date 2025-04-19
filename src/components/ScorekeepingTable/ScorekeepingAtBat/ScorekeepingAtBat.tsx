@@ -11,6 +11,8 @@ type ScorekeepingAtBatProps = {
 
 function ScorekeepingAtBat(props : ScorekeepingAtBatProps) {
 
+    console.log(props.inningUpUntil);
+
     if (props.atBat === null) {
         if (props.canEdit) {
             return <AddCircleOutlineIcon />
@@ -28,9 +30,9 @@ function ScorekeepingAtBat(props : ScorekeepingAtBatProps) {
                 </div>
             </div>
             <div className={css.diamond}>
-                <Base className={css.firstBase} hasRunner={props.atBat.baserunners.first !== null} />
-                <Base className={css.secondBase} hasRunner={props.atBat.baserunners.second !== null} />
-                <Base className={css.thirdBase} hasRunner={props.atBat.baserunners.third !== null} />
+                <Base className={css.firstBase} hasRunner={props.atBat.baserunners.first !== undefined && props.atBat.baserunners.first !== null} />
+                <Base className={css.secondBase} hasRunner={props.atBat.baserunners.second !== undefined && props.atBat.baserunners.second !== null} />
+                <Base className={css.thirdBase} hasRunner={props.atBat.baserunners.third !== undefined && props.atBat.baserunners.third !== null} />
             </div>
             <div>
                 <div className={css.totalOuts}>
