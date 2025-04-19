@@ -1,9 +1,6 @@
 import {Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import {AtBat, Baserunners, Inning, Player} from "../../types/types";
 import ScorekeepingAtBat from "./ScorekeepingAtBat/ScorekeepingAtBat";
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import EditIcon from '@mui/icons-material/Edit';
-import SelectPlayerModal from "./SelectPlayerModal/SelectPlayerModal";
 import {JSX, useState} from "react";
 import EditPlateAppearanceModal from "./EditPlateAppearanceModal/EditPlateAppearanceModal";
 import css from "./ScorekeepingTable.module.scss";
