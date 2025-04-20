@@ -1,7 +1,8 @@
-import {AtBat} from "../../../types/types";
+import {AtBat, AtBatResult} from "../../../types/types";
 import css from "./ScorekeepingAtBat.module.scss";
 import Base from "./Base";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 type ScorekeepingAtBatProps = {
     atBat : AtBat | null,
@@ -11,13 +12,17 @@ type ScorekeepingAtBatProps = {
 
 function ScorekeepingAtBat(props : ScorekeepingAtBatProps) {
 
-    console.log(props.inningUpUntil);
-
     if (props.atBat === null) {
         if (props.canEdit) {
             return <AddCircleOutlineIcon />
         }
         return <></>
+    }
+    else if (props.atBat.result === AtBatResult.SKIP || props.atBat.result.toString() === "SKIP") {
+        return <div style={{textAlign : "center"}}>
+            <p>No PA</p>
+            <ArrowDownwardIcon />
+        </div>
     }
     return (
         <>

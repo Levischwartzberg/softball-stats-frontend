@@ -14,6 +14,7 @@ export type AtBat = {
     region? : number,
     angle? : number,
     velocity? : number,
+    ballsAndStrikes? : string,
     baserunners : Baserunners,
     outs : Player[],
     runs : Player[]
@@ -26,8 +27,8 @@ export enum AtBatResult {
     HOMERUN = "Homerun",
     WALK = "Walk",
     OUT = "Out(s)",
-    ERROR = "Error"
-
+    ERROR = "Error",
+    SKIP = "Skip"
 }
 
 export type Player = {
