@@ -66,6 +66,28 @@ function EditPlateAppearanceResultPopover(props : EditPlateAppearanceResultPopov
         setOpen(false);
     }
 
+    const editResult = (atBatResult : AtBatResult) => {
+        if (atBatResult === AtBatResult.SKIP) {
+            const skippedPlateAppearance = {
+                inningIndex : props.plateAppearance.inningIndex,
+                player : props.plateAppearance.player,
+                result : AtBatResult.SKIP,
+                scoring : "Skip",
+                baserunners : {
+                    first: null,
+                    second : null,
+                    third : null
+                },
+                outs : [] as Player[],
+                runs : [] as Player[]
+            } as AtBat;
+
+            props.setPlateAppearance(skippedPlateAppearance);
+        } else {
+            props.setPlateAppearance({...props.plateAppearance, result : atBatResult});
+        }
+    }
+
     const atBatSet = props.plateAppearance !== undefined;
 
     return (
@@ -84,9 +106,7 @@ function EditPlateAppearanceResultPopover(props : EditPlateAppearanceResultPopov
                             aria-labelledby="demo-radio-buttons-group-label"
                             value={atBatSet ? props.plateAppearance.result : null}
                             name="radio-buttons-group"
-                            onChange={(e) => {
-                                props.setPlateAppearance({...props.plateAppearance, result : e.target.value as AtBatResult});
-                            }}
+                            onChange={(e) => editResult(e.target.value as AtBatResult)}
                         >
                             <FormControlLabel value={AtBatResult.SINGLE} control={<Radio />} label="1B" />
                             <FormControlLabel value={AtBatResult.DOUBLE} control={<Radio />} label="2B" />
@@ -95,6 +115,7 @@ function EditPlateAppearanceResultPopover(props : EditPlateAppearanceResultPopov
                             <FormControlLabel value={AtBatResult.WALK} control={<Radio />} label="BB" />
                             <FormControlLabel value={AtBatResult.OUT} control={<Radio />} label="Out(s)" />
                             <FormControlLabel value={AtBatResult.ERROR} control={<Radio />} label="Error" />
+                            <FormControlLabel value={AtBatResult.SKIP} control={<Radio />} label="Skip Plate Appearance" />
                         </RadioGroup>
                         {(atBatSet && potentialAdditionalOuts.filter(result => result === props.plateAppearance.result).length > 0) && (
                             <>
@@ -117,6 +138,7 @@ function EditPlateAppearanceResultPopover(props : EditPlateAppearanceResultPopov
                                 aria-label="RBI"
                                 placeholder="0"
                                 value={runs}
+                                disabled={props.plateAppearance.result === AtBatResult.SKIP}
                                 onChange={(event, val) => setRuns(val || 0)}
                             />
                         }
@@ -141,6 +163,7 @@ function EditPlateAppearanceResultPopover(props : EditPlateAppearanceResultPopov
                                variant="outlined"
                                style={{marginTop : "10px"}}
                                value={atBatSet ? props.plateAppearance.scoring : ""}
+                               disabled={props.plateAppearance.result === AtBatResult.SKIP}
                                onChange={(e) => props.setPlateAppearance({...props.plateAppearance, scoring : e.target.value})}
                     />
 
