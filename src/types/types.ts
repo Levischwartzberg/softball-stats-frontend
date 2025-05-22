@@ -131,12 +131,6 @@ export type CreateOpponentDTO = {
     teamName : string
 }
 
-export type CreateScorekeepingGameDTO = {
-    season : Season,
-    gameInfo : GameInfo,
-    innings : Inning[]
-}
-
 export type Scoresheet = {
     innings : Inning[];
 }

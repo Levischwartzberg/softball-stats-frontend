@@ -18,7 +18,7 @@ function ScorekeepingAtBat(props : ScorekeepingAtBatProps) {
         }
         return <></>
     }
-    else if (props.atBat.result === AtBatResult.SKIP || props.atBat.result.toString() === "SKIP") {
+    else if (props.atBat.result && (props.atBat.result === AtBatResult.SKIP || props.atBat.result.toString() === "SKIP")) {
         return <div style={{textAlign : "center"}}>
             <p>No PA</p>
             <ArrowDownwardIcon />

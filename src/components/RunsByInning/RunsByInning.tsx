@@ -64,7 +64,7 @@ const RunsByInning = (props : RunsByInningProps) => {
                 className="outlined-input"
                 id="outlined-adornment-opp-runs"
                 label="Total Opponent Runs"
-                value={props.gameInfo?.runsAgainst ? props.gameInfo.runsAgainst : ""}
+                value={(props.gameInfo?.runsAgainst || props.gameInfo?.runsAgainst! > -1) ? props.gameInfo?.runsAgainst : ""}
                 onChange={(event) => updateOpponentRuns(event.target.value)}
             />
         </FormControl>

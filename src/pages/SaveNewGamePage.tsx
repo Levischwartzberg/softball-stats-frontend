@@ -29,9 +29,11 @@ function SaveNewGamePage() {
 
         const createScorekeepingGameDTO = {
             season : season,
-            gameInfo : gameInfo,
+            gameInfo : {...gameInfo, date : gameInfo.date.format("YYYY-MM-DDTHH:mm")},
             innings : gameSequence
         }
+
+        console.log(createScorekeepingGameDTO);
 
         await createScorekeepingGameTrigger(createScorekeepingGameDTO);
 
