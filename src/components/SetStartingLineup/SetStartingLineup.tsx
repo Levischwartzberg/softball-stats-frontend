@@ -14,7 +14,7 @@ const SetStartingLineup = (props : SetStartingLineupProps) => {
 
     const setPlayer = (player : Player, index : number) => {
         const modifiedLineup = [...props.lineup];
-        modifiedLineup[index] = player;
+        modifiedLineup[index] = {id : player.id, firstName : player.firstName, lastName : player.lastName} as Player;
         props.setLineup(modifiedLineup);
     }
 

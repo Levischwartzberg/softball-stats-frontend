@@ -1,0 +1,33 @@
+/* RegionSelector.module.scss */
+.diamondContainer {
+  width: 300px;
+  margin: auto;
+}
+
+.diamond {
+  margin-top: 50px;
+  width: 100%;
+  height: auto;
+}
+
+.diamondShape {
+  fill: tan;
+  stroke: black;
+  stroke-width: 1;
+}
+
+.dividerLine {
+  stroke: black;
+  stroke-width: 1;
+}
+
+.radioLabel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input[type='radio'] {
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+}

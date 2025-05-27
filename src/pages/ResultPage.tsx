@@ -13,6 +13,10 @@ const ResultPage = () => {
     const getBoxscoreQuery = useGetBoxscoreQuery(parseInt(gameId!));
     const [getScoresheetTrigger, getScoresheetQuery] = useLazyGetScoresheetQuery();
 
+    if (getScoresheetQuery.data) {
+        console.log(getScoresheetQuery.data);
+    }
+
     const formatScore = (runsFor : number, runsAgainst : number) : string => {
 
         if (runsFor > runsAgainst) {

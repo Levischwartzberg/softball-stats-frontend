@@ -1,8 +1,10 @@
 import {TableCell} from "@mui/material";
-import {Inning, Player} from "../../types/types";
-import {JSX} from "react";
+import {AtBat, Inning, Player} from "../../types/types";
+import {JSX, useState} from "react";
 import css from "./Scoresheet.module.scss"
 import ScorekeepingAtBat from "@/components/ScorekeepingTable/ScorekeepingAtBat/ScorekeepingAtBat";
+import Button from "@mui/material/Button";
+import PlateAppearanceModal from "@/components/PlateAppearanceModal/PlateAppearanceModal";
 
 type ScorekeepingTableProps = {
     innings : Inning[],
@@ -10,12 +12,14 @@ type ScorekeepingTableProps = {
 
 function ScorekeepingTable(props : ScorekeepingTableProps) {
 
+    const [plateAppearanceViewerOpen, setPlateAppearanceViewerOpen] = useState(false);
+    const [selectedAtBat, setSelectedAtBat] = useState({runs : [] as Player[], outs : [] as Player[]} as AtBat);
+
     const lineup = [] as Player[];
     props.innings.forEach(inning => {
         inning.atBats.forEach(atBat => {
             const player = atBat.player;
 
-            //TODO : When players are skippable in a lineup, we need to check for player of previous atBat and insert after them instead of at the end
             if (!lineup.some(p => p.id === player.id)) {
                 lineup.push(player);
             }
@@ -28,6 +32,11 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
             return Math.ceil((inning.atBats.length + 1 - (outs / 3)) / lineup.length);
         }
         return 1;
+    }
+
+    const openPlateAppearanceViewer = (atBat : AtBat) => {
+        setSelectedAtBat(atBat);
+        setPlateAppearanceViewerOpen(true);
     }
 
     const playerAtBatRows = (player : Player) : JSX.Element[] => {
@@ -45,7 +54,9 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
                     const ab = playerAtBats[i];
                     playerPlateAppearanceRow.push(
                         <TableCell>
-                            <ScorekeepingAtBat atBat={ab} inningUpUntil={inning.atBats.filter(pa => pa.inningIndex <= ab.inningIndex)} canEdit={false} />
+                            <div onClick={() => openPlateAppearanceViewer(ab)}>
+                                <ScorekeepingAtBat atBat={ab} inningUpUntil={inning.atBats.filter(pa => pa.inningIndex <= ab.inningIndex)} canEdit={false} />
+                            </div>
                         </TableCell>
                     )
                 }
@@ -54,38 +65,41 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
         return playerPlateAppearanceRow;
     }
 
-    return <table>
-        <thead>
-            <tr>
-                <th>Lineup Spot</th>
-                <th>Player</th>
-                {props.innings.map(inning => {
-                    const inningHeaders = [] as JSX.Element[];
-                    for (let i = 0; i < timesBattedAround(inning); i++) {
-                        inningHeaders.push(
-                            <th>
-                                {inning.inning}
-                            </th>
-                        )
-                    }
-                    return inningHeaders;
-                })}
-            </tr>
-        </thead>
-        <tbody>
-        {lineup.map((player, index) => (
-            <tr key={index} className={css.scoresheetTable}>
-                <td>
-                    {index + 1}
-                </td>
-                <td>
-                    {`${player.firstName} ${player.lastName}`}
-                </td>
-                {playerAtBatRows(player)}
-            </tr>
-        ))}
-        </tbody>
-    </table>
+    return <>
+        <PlateAppearanceModal open={plateAppearanceViewerOpen} atBat={selectedAtBat} closeModal={() => setPlateAppearanceViewerOpen(false)} />
+        <table>
+            <thead>
+                <tr>
+                    <th>Lineup Spot</th>
+                    <th>Player</th>
+                    {props.innings.map(inning => {
+                        const inningHeaders = [] as JSX.Element[];
+                        for (let i = 0; i < timesBattedAround(inning); i++) {
+                            inningHeaders.push(
+                                <th>
+                                    {inning.inning}
+                                </th>
+                            )
+                        }
+                        return inningHeaders;
+                    })}
+                </tr>
+            </thead>
+            <tbody>
+            {lineup.map((player, index) => (
+                <tr key={index} className={css.scoresheetTable}>
+                    <td>
+                        {index + 1}
+                    </td>
+                    <td>
+                        {`${player.firstName} ${player.lastName}`}
+                    </td>
+                    {playerAtBatRows(player)}
+                </tr>
+            ))}
+            </tbody>
+        </table>
+    </>
 }
 
 export  default  ScorekeepingTable;

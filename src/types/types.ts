@@ -11,9 +11,9 @@ export type AtBat = {
     player : Player,
     result : AtBatResult,
     scoring : string,
-    region? : number,
-    angle? : number,
-    velocity? : number,
+    region? : RegionENUM,
+    launchAngle? : LaunchAngleENUM,
+    exitVelocity? : number,
     ballsAndStrikes? : string,
     baserunners : Baserunners,
     outs : Player[],
@@ -133,6 +133,23 @@ export type CreateOpponentDTO = {
 
 export type Scoresheet = {
     innings : Inning[];
+}
+
+export enum RegionENUM {
+    FOUL_LEFT = "Foul Left",
+    LEFT = "Left",
+    LEFT_CENTER = "Left Center",
+    CENTER = "Center",
+    RIGHT_CENTER = "Right Center",
+    RIGHT = "Right",
+    FOUL_RIGHT = "Foul Right"
+}
+
+export enum LaunchAngleENUM {
+    GROUNDBALL = "Groundball",
+    LINER = "Liner",
+    FLYBALL = "Flyball",
+    POPUP = "Popup"
 }
 
 export enum WeatherConditionENUM {
