@@ -5,6 +5,7 @@ import AsyncStateWrapper, {QueryState} from "@/components/common/AsyncStateWrapp
 import {useLazyGetScoresheetQuery} from "@/store/scoresheet/scoresheetApiSlice";
 import Button from "@mui/material/Button";
 import Scoresheet from "@/components/Scoresheet/Scoresheet";
+import LineScore from "@/components/LineScore/LineScore";
 
 const ResultPage = () => {
 
@@ -12,10 +13,6 @@ const ResultPage = () => {
 
     const getBoxscoreQuery = useGetBoxscoreQuery(parseInt(gameId!));
     const [getScoresheetTrigger, getScoresheetQuery] = useLazyGetScoresheetQuery();
-
-    if (getScoresheetQuery.data) {
-        console.log(getScoresheetQuery.data);
-    }
 
     const formatScore = (runsFor : number, runsAgainst : number) : string => {
 
@@ -48,6 +45,8 @@ const ResultPage = () => {
                     </h2>
                 </div>
             )}
+
+            <LineScore boxscoreDTO={getBoxscoreQuery.data!} />
 
             <Boxscore boxscore={getBoxscoreQuery.data!}/>
         </AsyncStateWrapper>

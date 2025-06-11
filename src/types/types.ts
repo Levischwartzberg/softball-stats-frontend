@@ -3,7 +3,8 @@ import {Dayjs} from "dayjs";
 export type Inning = {
     inning : number,
     atBats : AtBat[],
-    opponentRuns? : number
+    opponentRuns? : number,
+    mortsRuns? : number
 }
 
 export type AtBat = {

@@ -34,7 +34,7 @@ const SetStartingLineup = (props : SetStartingLineupProps) => {
                         <SelectPlayerAutocomplete players={getPlayersQuery.data!} player={player} index={index} setSelectedPlayer={setPlayer} />
                     </tr>
                 ))}
-                <tr><SelectPlayerAutocomplete players={getPlayersQuery.data! ? getPlayersQuery.data!.filter(player => !props.lineup.includes(player)) : []} index={props.lineup.length} setSelectedPlayer={setPlayer} /></tr>
+                <tr><SelectPlayerAutocomplete players={getPlayersQuery.data! ? getPlayersQuery.data!.filter(player => !props.lineup.map(player => player.id).includes(player.id)) : []} index={props.lineup.length} setSelectedPlayer={setPlayer} /></tr>
             </AsyncStateWrapper>
             </tbody>
         </table>
