@@ -9,6 +9,8 @@ type SeasonResultsTableProps = {
 
 const SeasonGamesTable = (props : SeasonResultsTableProps) => {
 
+    console.log(props.seasonGames);
+
     const formatScore = (runsFor : number, runsAgainst : number) : string => {
 
         if (runsFor > runsAgainst) {
@@ -32,18 +34,26 @@ const SeasonGamesTable = (props : SeasonResultsTableProps) => {
         <thead>
             <tr className={css.header}>
                 <th>
+                    Date
+                </th>
+                <th>
                     Result
                 </th>
                 <th>
                     Score
                 </th>
                 <th>
-                    Date
+                    Opponent
                 </th>
             </tr>
         </thead>
         {props.seasonGames.games.map(game =>
             <tr>
+                <td>
+                    <Link to={`/game/${game.gameInfoId}`}>
+                        {game.date.toString()}
+                    </Link>
+                </td>
                 <td>
                     {determineResult(game.runsFor, game.runsAgainst)}
                 </td>
@@ -51,9 +61,7 @@ const SeasonGamesTable = (props : SeasonResultsTableProps) => {
                     {formatScore(game.runsFor, game.runsAgainst)}
                 </td>
                 <td>
-                    <Link to={`/game/${game.gameInfoId}`}>
-                        {game.date.toString()}
-                    </Link>
+                    {game.opponent ? game.opponent.teamName : "Unavailable"}
                 </td>
             </tr>
         )}

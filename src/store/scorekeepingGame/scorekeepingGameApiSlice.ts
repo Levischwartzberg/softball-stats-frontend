@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import {CreateScorekeepingGameDTO, GameInfo} from "@/types/types";
+import {GameInfo} from "@/types/types";
+import {CreateScorekeepingGameDTO} from "@/store/scorekeepingGame/scorekeepingGamePostTypes";
 import {RootState} from "@/store/store";
 
 const baseURL = process.env.REACT_APP_API_BASE_URL;

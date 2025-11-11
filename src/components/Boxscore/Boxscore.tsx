@@ -18,7 +18,7 @@ const Boxscore = (props : BoxscoreProps) => {
 
     return (
         <div>
-            <h3 style={{fontWeight: "bold"}} className={css.tableHeader}>Boxscore</h3>
+            <h3 style={{fontWeight: "bold"}} className={css.tableHeader}>Boxscore:</h3>
             <table>
                 <tbody>
                 <tr>

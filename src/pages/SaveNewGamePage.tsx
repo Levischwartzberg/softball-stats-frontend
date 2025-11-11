@@ -23,15 +23,23 @@ function SaveNewGamePage() {
         // clean up and validate....
         gameInfo.runsFor = gameSequence.flatMap(inning => inning.atBats).map(atBat => atBat.runs.length).reduce((partialSum, a) => partialSum + a, 0);
 
-        if (gameSequence[gameSequence.length-1].atBats.length < 1) {
+        if (gameSequence[gameSequence.length-1].atBats.length < 1 && gameSequence[gameSequence.length-1].opponentRuns === undefined) {
             gameSequence.pop();
+        }
+
+        if (gameInfo.runsAgainst === undefined || gameInfo.runsAgainst === null) {
+            const opponentRuns = gameSequence.map(inning => inning.opponentRuns ? inning.opponentRuns : 0).reduce((partialSum, a) => partialSum + a, 0);
+            gameInfo.runsAgainst = opponentRuns;
+            setGameInfo(gameInfo);
         }
 
         const createScorekeepingGameDTO = {
             season : season,
-            gameInfo : gameInfo,
+            gameInfo : {...gameInfo, date : gameInfo.date.format("YYYY-MM-DDTHH:mm")},
             innings : gameSequence
         }
+
+        console.log(createScorekeepingGameDTO);
 
         await createScorekeepingGameTrigger(createScorekeepingGameDTO);
 

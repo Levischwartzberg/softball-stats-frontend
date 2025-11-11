@@ -1,7 +1,7 @@
 import {GameInfo, Inning} from "@/types/types";
 import {isNumber} from "@mui/base/unstable_useNumberInput/utils";
 import css from "./RunsByInning.module.scss";
-import {FormControl, InputAdornment, InputLabel, OutlinedInput} from "@mui/material";
+import {FormControl, InputLabel, OutlinedInput} from "@mui/material";
 
 type RunsByInningProps = {
     opponentName : string | undefined;
@@ -24,6 +24,15 @@ const OpponentRuns = (props : RunsByInningProps) => {
         } else return;
 
         props.setInnings(inningsCopy);
+
+        const totalOpponentRuns = inningsCopy.map(inning => inning.opponentRuns ? inning.opponentRuns : 0).reduce((partialSum, a) => partialSum + a, 0);
+
+        const modifiedGameInfo = {...props.gameInfo};
+        modifiedGameInfo.runsAgainst = totalOpponentRuns;
+
+        if (props.setGameInfo && props.gameInfo) {
+            props.setGameInfo(modifiedGameInfo as GameInfo);
+        }
     }
 
     return <tr>
@@ -47,6 +56,24 @@ const OpponentRuns = (props : RunsByInningProps) => {
 
 const RunsByInning = (props : RunsByInningProps) => {
 
+    const trimmedInnings = props.innings;
+
+    const totalOpponentRuns = props.innings.map(inning => inning.opponentRuns ? inning.opponentRuns : 0).reduce((partialSum, a) => partialSum + a, 0);
+    const totalMortsRuns = props.innings.flatMap(inning => inning.atBats).map(atBat => atBat.runs.length).reduce((partialSum, a) => partialSum + a, 0);
+
+    if (props.homeAway) {
+        const lastInning = trimmedInnings[trimmedInnings.length-1];
+        if (totalOpponentRuns >= totalMortsRuns && lastInning.atBats.length < 1) {
+            trimmedInnings.pop();
+        } else if (totalMortsRuns > totalOpponentRuns && lastInning.atBats.map(atBat => atBat.outs.length).reduce((partialSum, a) => partialSum + a, 0) === 3) {
+            trimmedInnings.push({inning : lastInning.inning+1, atBats : []});
+        }
+    } else {
+        if (trimmedInnings[trimmedInnings.length-1].atBats.length < 1) {
+            trimmedInnings.pop();
+        }
+    }
+
     const updateOpponentRuns = (runs : string) => {
         if (isNumber(parseInt(runs)) || runs === "") {
             const modifiedGameInfo = {...props.gameInfo};
@@ -64,7 +91,7 @@ const RunsByInning = (props : RunsByInningProps) => {
                 className="outlined-input"
                 id="outlined-adornment-opp-runs"
                 label="Total Opponent Runs"
-                value={props.gameInfo?.runsAgainst ? props.gameInfo.runsAgainst : ""}
+                value={(props.gameInfo?.runsAgainst || props.gameInfo?.runsAgainst! > -1) ? props.gameInfo?.runsAgainst : ""}
                 onChange={(event) => updateOpponentRuns(event.target.value)}
             />
         </FormControl>
@@ -75,7 +102,7 @@ const RunsByInning = (props : RunsByInningProps) => {
                 <th>
                     Innings
                 </th>
-                {props.innings.map(inning => <th>{inning.inning}</th>)}
+                {trimmedInnings.map(inning => <th>{inning.inning}</th>)}
                 <th>
                     Total
                 </th>
@@ -83,14 +110,21 @@ const RunsByInning = (props : RunsByInningProps) => {
         </thead>
         {props.homeAway ? (
             <tbody>
-                <OpponentRuns opponentName={props.opponentName} homeAway={props.homeAway} innings={props.innings} setInnings={props.setInnings} />
+                <OpponentRuns opponentName={props.opponentName} homeAway={props.homeAway} innings={trimmedInnings} setInnings={props.setInnings} setGameInfo={props.setGameInfo} gameInfo={props.gameInfo} />
                 <tr>
                     <td>
                         Morts
                     </td>
-                    {props.innings.map(inning => <td>{inning.atBats.map(atBat => atBat.runs.length).reduce((partialSum, a) => partialSum + a, 0)}</td>)}
+                    {trimmedInnings.map(inning => {
+                        if (inning.atBats.length < 1) {
+                            return <td>-</td>;
+                        } else {
+                            return <td>{inning.atBats.map(atBat => atBat.runs.length).reduce((partialSum, a) => partialSum + a, 0)}</td>;
+                        }
+                    }
+                    )}
                     <td>
-                        {props.innings.flatMap(inning => inning.atBats).map(atBat => atBat.runs.length).reduce((partialSum, a) => partialSum + a, 0)}
+                        {trimmedInnings.flatMap(inning => inning.atBats).map(atBat => atBat.runs.length).reduce((partialSum, a) => partialSum + a, 0)}
                     </td>
                 </tr>
             </tbody>
@@ -100,12 +134,12 @@ const RunsByInning = (props : RunsByInningProps) => {
                     <td>
                         Morts
                     </td>
-                    {props.innings.map(inning => <td>{inning.atBats.map(atBat => atBat.runs.length).reduce((partialSum, a) => partialSum + a, 0)}</td>)}
+                    {trimmedInnings.map(inning => <td>{inning.atBats.map(atBat => atBat.runs.length).reduce((partialSum, a) => partialSum + a, 0)}</td>)}
                     <td>
-                        {props.innings.flatMap(inning => inning.atBats).map(atBat => atBat.runs.length).reduce((partialSum, a) => partialSum + a, 0)}
+                        {trimmedInnings.flatMap(inning => inning.atBats).map(atBat => atBat.runs.length).reduce((partialSum, a) => partialSum + a, 0)}
                     </td>
                 </tr>
-                <OpponentRuns opponentName={props.opponentName} homeAway={props.homeAway} innings={props.innings} setInnings={props.setInnings} />
+                <OpponentRuns opponentName={props.opponentName} homeAway={props.homeAway} innings={props.innings} setInnings={props.setInnings} setGameInfo={props.setGameInfo} gameInfo={props.gameInfo} />
             </tbody>
         )}
     </table>

@@ -4,6 +4,8 @@ import css from "./EditPlateAppearanceModal.module.scss";
 import EditBase, {BaseENUM} from "./EditBase";
 import {useEffect, useState} from "react";
 import EditPlateAppearanceResultPopover from "./EditPlateAppearanceResultPopover";
+import EditBattedBallDataPopover
+    from "@/components/ScorekeepingTable/EditPlateAppearanceModal/EditBattedBallDataPopover";
 
 type EditPlateAppearanceModalProps = {
     open : boolean;
@@ -63,6 +65,7 @@ function EditPlateAppearanceModal(props : EditPlateAppearanceModalProps) {
             <Typography> Add Plate Appearance </Typography>
             <Button onClick={() => props.closeModal(false)}>X</Button>
             <EditPlateAppearanceResultPopover plateAppearance={plateAppearanceCopy} setPlateAppearance={setPlateAppearanceCopy} availablePlayers={props.availablePlayers}/>
+            <EditBattedBallDataPopover  plateAppearance={plateAppearanceCopy} setPlateAppearance={setPlateAppearanceCopy} />
             <Box>
                 <div className={css.diamond}>
                     <EditBase className={css.firstBase} base={BaseENUM.FIRST} runner={baserunners.first} availablePlayers={props.availablePlayers} setSelectedRunner={updateBaserunners}/>

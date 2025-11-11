@@ -10,7 +10,7 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import css from "./EditPlateAppearanceModal.module.scss";
 import {AtBat, AtBatResult, Player} from "@/types/types";
 import {NumberInput} from "@mui/base/Unstable_NumberInput/NumberInput";
@@ -30,6 +30,8 @@ function EditPlateAppearanceResultPopover(props : EditPlateAppearanceResultPopov
     const potentialAdditionalOuts = [AtBatResult.SINGLE, AtBatResult.DOUBLE, AtBatResult.TRIPLE, AtBatResult.HOMERUN, AtBatResult.ERROR];
     const [validationErrorMessage, setValidationErrorMessage] = useState("");
 
+    const leftAnchorRef = useRef<HTMLDivElement | null>(null);
+
     useEffect(() => {
         if (validationErrorMessage !== "" && runs === props.plateAppearance.runs.length) {
             setValidationErrorMessage("");
@@ -41,6 +43,12 @@ function EditPlateAppearanceResultPopover(props : EditPlateAppearanceResultPopov
             setValidationErrorMessage("");
         }
     }, [props.plateAppearance.outs]);
+
+    useEffect(() => {
+        if (validationErrorMessage !== "" && props.plateAppearance.result) {
+            setValidationErrorMessage("");
+        }
+    }, [props.plateAppearance.result]);
 
     const setPlayersScored = (players : Player[]) => {
 
@@ -61,6 +69,10 @@ function EditPlateAppearanceResultPopover(props : EditPlateAppearanceResultPopov
         const playersOut = props.plateAppearance.outs ? props.plateAppearance.outs.length : 0;
         if (props.plateAppearance.result === AtBatResult.OUT && playersOut === 0) {
             setValidationErrorMessage("If the result of the at bat is Out(s), you must select at least one player to be out of the play.")
+            return;
+        }
+        if (props.plateAppearance.result === undefined || props.plateAppearance.result === null) {
+            setValidationErrorMessage("You must select a result of the plate appearance!");
             return;
         }
         setOpen(false);
@@ -95,8 +107,15 @@ function EditPlateAppearanceResultPopover(props : EditPlateAppearanceResultPopov
             <Button onClick={() => setOpen(!open)}>
                 Result
             </Button>
-            <Popper open={open} className={css.popover}>
-                <Box className={css.popoverContent}>
+
+            <div ref={leftAnchorRef} style={{ position: 'absolute', top: 0, left: -75 }} />
+
+            <Popper open={open}
+                    className={css.popover}
+                    placement="left-end"
+                    anchorEl={leftAnchorRef.current}
+            >
+                <Box className={css.popoverContent} >
                     <Typography>
                         Result
                     </Typography>

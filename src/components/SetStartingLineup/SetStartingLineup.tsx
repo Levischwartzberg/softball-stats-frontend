@@ -14,7 +14,7 @@ const SetStartingLineup = (props : SetStartingLineupProps) => {
 
     const setPlayer = (player : Player, index : number) => {
         const modifiedLineup = [...props.lineup];
-        modifiedLineup[index] = player;
+        modifiedLineup[index] = {id : player.id, firstName : player.firstName, lastName : player.lastName} as Player;
         props.setLineup(modifiedLineup);
     }
 
@@ -34,7 +34,7 @@ const SetStartingLineup = (props : SetStartingLineupProps) => {
                         <SelectPlayerAutocomplete players={getPlayersQuery.data!} player={player} index={index} setSelectedPlayer={setPlayer} />
                     </tr>
                 ))}
-                <tr><SelectPlayerAutocomplete players={getPlayersQuery.data! ? getPlayersQuery.data!.filter(player => !props.lineup.includes(player)) : []} index={props.lineup.length} setSelectedPlayer={setPlayer} /></tr>
+                <tr><SelectPlayerAutocomplete players={getPlayersQuery.data! ? getPlayersQuery.data!.filter(player => !props.lineup.map(player => player.id).includes(player.id)) : []} index={props.lineup.length} setSelectedPlayer={setPlayer} /></tr>
             </AsyncStateWrapper>
             </tbody>
         </table>
