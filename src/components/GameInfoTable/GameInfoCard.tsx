@@ -1,7 +1,7 @@
 import {BoxscoreDTO} from "@/store/boxscore/boxscoreDTO";
 import {Accordion, AccordionDetails, AccordionSummary, Card, Typography} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import css from "./GameInfoTable.module.scss";
+import css from "./GameInfoCard.module.scss";
 
 type GameInfoTableProps = {
     boxscoreDTO : BoxscoreDTO;
