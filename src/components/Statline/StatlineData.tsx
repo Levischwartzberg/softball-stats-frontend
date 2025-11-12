@@ -5,7 +5,8 @@ type StatlineProps = {
     statline : Statline,
     season? : Season,
     gameInfo? : GameInfo,
-    player? : Player
+    player? : Player,
+    displayWrcPlus? : boolean
 }
 
 function StatlineData(props : StatlineProps) {
@@ -49,6 +50,9 @@ function StatlineData(props : StatlineProps) {
                     <td>{roundRates(stats.obp)}</td>
                     <td>{roundRates(stats.slg)}</td>
                     <td>{roundRates(stats.ops)}</td>
+                    {props.displayWrcPlus && (
+                        <td>{stats.wrcPlus}</td>
+                    )}
                 </>
     )
 }

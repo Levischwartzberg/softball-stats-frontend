@@ -19,9 +19,9 @@ export default function menuItems(navigate : NavigateFunction, location : Locati
         },
         {
             link: {
-                label: "Seasons",
-                selected: location.pathname.startsWith("/seasons"),
-                onClick: () => navigate("/seasons")
+                label: "Years / Seasons",
+                selected: location.pathname.startsWith("/yearsAndSeasons"),
+                onClick: () => navigate("/yearsAndSeasons")
             }
         },
         {

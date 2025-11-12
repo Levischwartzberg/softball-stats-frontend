@@ -4,7 +4,8 @@ import StatlineData from "@/components/Statline/StatlineData";
 import {useState} from "react";
 
 type TeamStatsTableProps = {
-    playerStatlines : PlayerStatline[]
+    playerStatlines : PlayerStatline[],
+    displayWrcPlus : boolean
 }
 
 type StatlineKey = keyof Statline;
@@ -29,13 +30,13 @@ const TeamStatsTable = (props : TeamStatsTableProps) => {
         <thead>
             <tr className="sortable"
                 onClick={(e) => sortColumn((e.target as HTMLTableHeaderCellElement).id)}>
-                <StatlineHeader games={true} playerName={true} sortedColumn={sortedColumn} />
+                <StatlineHeader games={true} playerName={true} sortedColumn={sortedColumn} displayWrcPlus={props.displayWrcPlus} />
             </tr>
         </thead>
         <tbody>
             {sortedStatlines.map(playerStatline => (
                 <tr>
-                    <StatlineData statline={playerStatline.statline} player={playerStatline.player} />
+                    <StatlineData statline={playerStatline.statline} player={playerStatline.player} displayWrcPlus={props.displayWrcPlus} />
                 </tr>
             ))}
         </tbody>

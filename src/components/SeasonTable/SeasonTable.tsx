@@ -42,23 +42,23 @@ const SeasonTable = (props : SeasonTableProps) => {
                 </tr>
                 <tr className={css.header}>
                     <th>
-                        Session
+                        Year
                     </th>
                     <th>
-                        Year
+                        Session
                     </th>
                 </tr>
             </thead>
             {filteredSeasons.map(season =>
                 <tr>
                     <td>
-                        <Link to={`/season/${season.id}`}>
-                            {season.session}
+                        <Link to={`/yearlyStats/${season.year}`}>
+                            {season.year}
                         </Link>
                     </td>
                     <td>
                         <Link to={`/season/${season.id}`}>
-                            {season.year}
+                            {season.session}
                         </Link>
                     </td>
                 </tr>

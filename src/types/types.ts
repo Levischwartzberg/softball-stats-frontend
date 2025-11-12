@@ -93,7 +93,8 @@ export type Statline = {
     avg : number,
     obp : number,
     slg : number,
-    ops : number
+    ops : number,
+    wrcPlus? : number
 }
 
 export type Result = {
