@@ -1,13 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {PlayerStatline} from "@/types/types";
-import {TeamLifetimeStatsQueryParams} from "@/store/teamLifetimeStats/teamLifetimeStatsTypes";
 import {RootState} from "@/store/store";
 
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
-export const teamLifetimeStatsApiSlice = createApi({
+export const yearlyTeamStatsApiSlice = createApi({
 
-    reducerPath: "teamLifetimeStats",
+    reducerPath: "yearlyTeamStats",
 
     baseQuery: fetchBaseQuery({
         baseUrl: baseURL,
@@ -22,13 +21,13 @@ export const teamLifetimeStatsApiSlice = createApi({
 
     endpoints: (build) => ({
 
-        getTeamLifetimeStats: build.query<PlayerStatline[], void>({
-            query: (params) => `/teamLifetimeStats`,
+        getYearlyTeamStats: build.query<PlayerStatline[], number>({
+            query: (year) => `/yearlyTeamStats/${year}`,
         }),
     }),
 
 });
 
 export const {
-    useGetTeamLifetimeStatsQuery
-} = teamLifetimeStatsApiSlice;
+    useGetYearlyTeamStatsQuery
+} = yearlyTeamStatsApiSlice;

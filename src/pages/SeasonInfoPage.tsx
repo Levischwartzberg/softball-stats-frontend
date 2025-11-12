@@ -27,7 +27,7 @@ const SeasonInfoPage = () => {
                 </AsyncStateWrapper>
 
                 <AsyncStateWrapper query={getSeasonTeamStatsQuery as QueryState} >
-                    <TeamStatsTable playerStatlines={getSeasonTeamStatsQuery.data!} />
+                    <TeamStatsTable playerStatlines={getSeasonTeamStatsQuery.data!} displayWrcPlus={false}/>
                 </AsyncStateWrapper>
             </div>
         </AsyncStateWrapper>

@@ -2,6 +2,7 @@ type StatlineProps = {
     games? : boolean,
     season? : boolean,
     result? : boolean,
+    displayWrcPlus? : boolean,
     lineupSpot? : boolean,
     playerName? : boolean,
     sortedColumn? : string
@@ -45,6 +46,9 @@ function StatlineHeader(props : StatlineProps) {
                 <th id={"obp"}>OBP {addSortIcon("obp") && <span>&#8681;</span>} </th>
                 <th id={"slg"}>SLG {addSortIcon("slg") && <span>&#8681;</span>} </th>
                 <th id={"ops"}>OPS {addSortIcon("ops") && <span>&#8681;</span>} </th>
+                {props.displayWrcPlus && (
+                    <th id={"wrcPlus"}>WRC+ {addSortIcon("wrcPlus") && <span>&#8681;</span>} </th>
+                )}
     </>
 }
 
