@@ -15,7 +15,8 @@ import PlayerBattedBallSLGTable from "@/components/PlayerBattedBallSLGTable/Play
 import PlayerBattedBallAVGTable from "@/components/PlayerBattedBallAVGTable/PlayerBattedBallAVGTable";
 import BattedBallBoxPlot from "@/components/BattedBallBoxPlot/BattedBallBoxPlot";
 import BattedBallScatterPlot from "@/components/BattedBallScatterPlot/BattedBallScatterPlot";
-
+import LaunchAnglePieChart from "@/components/LaunchAnglePieChart/LaunchAnglePieChart";
+import RegionPieChart from "@/components/RegionPieChart/RegionPieChart";
 
 const AdvancedPlayerDataPage = () => {
     const { playerId } = useParams();
@@ -74,6 +75,15 @@ const AdvancedPlayerDataPage = () => {
                             <BattedBallScatterPlot data={getPlayerBattedBallDataQuery.data!} filter={selectedFilter}/>
                             <BattedBallBoxPlot data={getPlayerBattedBallDataQuery.data!} filter={selectedFilter}/>
                         </Box>
+                    </Box>
+                    <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="flex-start"
+                        sx={{ marginTop: 2 }}
+                    >
+                        <LaunchAnglePieChart data={getPlayerBattedBallDataQuery.data!} filter={selectedFilter}/>
+                        <RegionPieChart data={getPlayerBattedBallDataQuery.data!} filter={selectedFilter}/>
                     </Box>
                 </AsyncStateWrapper>
             </AsyncStateWrapper>
