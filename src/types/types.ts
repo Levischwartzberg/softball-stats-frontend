@@ -1,4 +1,5 @@
 import {Dayjs} from "dayjs";
+import {LaunchAngle, Region} from "@/components/PlayerBattedBallDataTable/PlayerBattedBallDataTable";
 
 export type Inning = {
     inning : number,
@@ -169,5 +170,18 @@ export enum OperationENUM {
     EQUAL = "=",
     GREATER_THAN_OR_EQUAL = ">=",
     GREATER_THAN = ">"
+}
+
+export type PlayerBattedBallData = {
+    playerId : number,
+    battedBallData : BattedBallData[]
+}
+
+export type BattedBallData = {
+    exitVelocity : number,
+    launchAngle : LaunchAngle,
+    result : AtBatResult,
+    region : Region;
+    runsAboveAverage : number;
 }
 

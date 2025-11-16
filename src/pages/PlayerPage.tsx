@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import AsyncStateWrapper, {QueryState} from "../components/common/AsyncStateWrapper";
-import {Select, MenuItem} from "@mui/material";
-import { useParams } from 'react-router-dom';
+import {Select, MenuItem, Button} from "@mui/material";
+import {Link, useParams} from 'react-router-dom';
 import {useGetLifetimeStatsQuery} from "../store/playerLifetimeStats/playerLifetimeStatsApiSlice";
 import StatlineData from "../components/Statline/StatlineData";
 import {useGetSeasonStatsQuery} from "../store/playerSeasonStats/playerSeasonStatsApiSlice";
@@ -85,6 +85,10 @@ const PlayerPage = () => {
                     <PlayerGameLog games={getPlayerGameLogsQuery.data!} />
                 </AsyncStateWrapper>
             )}
+            <br/>
+            <br/>
+
+            <Link to={`/advancedPlayerData/${playerId}`}>Advanced Player Data</Link>
         </div>
     )
 }
