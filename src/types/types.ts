@@ -1,5 +1,5 @@
 import {Dayjs} from "dayjs";
-import {LaunchAngle, Region} from "@/components/PlayerBattedBallDataTable/PlayerBattedBallDataTable";
+import {LaunchAngle, Region} from "@/components/PlayerBattedBallWRCPlusTable/PlayerBattedBallWRCPlusTable";
 
 export type Inning = {
     inning : number,

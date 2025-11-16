@@ -1,16 +1,12 @@
 import {PlayerBattedBallData} from "@/types/types";
-import css from "./PlayerBattedBallDataTable.module.scss";
-import {Typography} from "@mui/material";
+import css from "./PlayerBattedBallAVGTable.module.scss";
+import {LaunchAngle, Region} from "@/components/PlayerBattedBallWRCPlusTable/PlayerBattedBallWRCPlusTable";
 
 type PlayerBattedBallDataTableProps = {
     data: PlayerBattedBallData;
 }
 
-
-export type LaunchAngle = 'POPUP' | 'FLYBALL' | 'LINER' | 'GROUNDBALL';
-export type Region = 'LEFT' | 'LEFT_CENTER' | 'CENTER' | 'RIGHT_CENTER' | 'RIGHT';
-
-const PlayerBattedBallDataTable = ({data}: PlayerBattedBallDataTableProps) => {
+const PlayerBattedBallAVGTable = ({data}: PlayerBattedBallDataTableProps) => {
 
     type Grid = Record<Region, Record<LaunchAngle, { exitVelocity: number; result: string; runsAboveAverage: number; }[]>>;
     const grid = {
@@ -30,47 +26,29 @@ const PlayerBattedBallDataTable = ({data}: PlayerBattedBallDataTableProps) => {
     const regions: Region[] = ['LEFT', 'LEFT_CENTER', 'CENTER', 'RIGHT_CENTER', 'RIGHT'];
     const angles: LaunchAngle[] = ['GROUNDBALL', 'LINER', 'FLYBALL', 'POPUP'];
 
-    const calculateSluggingPercentage = (battedBalls: { exitVelocity: number; result: string }[]) : string => {
+    const calculateBattingAverage = (battedBalls: { exitVelocity: number; result: string }[]) : string => {
         if (battedBalls.length === 0) {
             return "N/A";
         }
-        let totalBases = 0;
+        let hits = 0;
         battedBalls.forEach(bb => {
             switch (bb.result) {
                 case 'SINGLE':
-                    totalBases += 1;
-                    break;
                 case 'DOUBLE':
-                    totalBases += 2;
-                    break;
                 case 'TRIPLE':
-                    totalBases += 3;
-                    break;
                 case 'HOMERUN':
-                    totalBases += 4;
+                    hits += 1;
                     break;
                 default:
                     break;
             }
         });
-        const sluggingPercentage = totalBases / battedBalls.length;
-        return sluggingPercentage.toFixed(3);
+        const battingAverage = hits / battedBalls.length;
+        return battingAverage.toFixed(3);
     };
 
-    const calculateWRCPlus = (battedBalls: { exitVelocity: number; result: string; runsAboveAverage: number }[]) : string => {
-        if (battedBalls.length === 0) {
-            return "N/A";
-        }
-
-        const cumulativeRunsAboveAverage = battedBalls.reduce((sum, bb) => sum + bb.runsAboveAverage, 0);
-        const wRCPlus = 100 + (cumulativeRunsAboveAverage / battedBalls.length) * 100;
-        return wRCPlus.toFixed(0);
-    };
-
-    return <>
-        <Typography variant="h6">WRC+ By Region and Launch Angle</Typography>
-        <table>
-            <thead>
+    return <table>
+        <thead>
             <tr className={css.header}>
                 <th>
                     Angle \ Region
@@ -101,10 +79,10 @@ const PlayerBattedBallDataTable = ({data}: PlayerBattedBallDataTableProps) => {
                     <td>{angle}</td>
                     {regions.map(region => {
                         const battedBalls = grid[region][angle];
-                        return <td>{calculateWRCPlus(battedBalls)}</td>;
+                        return <td>{calculateBattingAverage(battedBalls)}</td>;
                     })}
                     <td className={css.aggregatedData}>
-                        {calculateWRCPlus([
+                        {calculateBattingAverage([
                             ...grid['LEFT'][angle],
                             ...grid['LEFT_CENTER'][angle],
                             ...grid['CENTER'][angle],
@@ -123,15 +101,14 @@ const PlayerBattedBallDataTable = ({data}: PlayerBattedBallDataTableProps) => {
                         ...grid[region]['FLYBALL'],
                         ...grid[region]['POPUP']
                     ];
-                    return <td className={css.aggregatedData}>{calculateWRCPlus(battedBalls)}</td>;
+                    return <td className={css.aggregatedData}>{calculateBattingAverage(battedBalls)}</td>;
                 })}
                 <td className={css.aggregatedData}>
-                    {calculateWRCPlus(data.battedBallData)}
+                    {calculateBattingAverage(data.battedBallData)}
                 </td>
             </tr>
-            </tbody>
-        </table>
-    </>
+        </tbody>
+    </table>
 }
 
-export default PlayerBattedBallDataTable;
+export default PlayerBattedBallAVGTable;
