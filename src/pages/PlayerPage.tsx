@@ -31,24 +31,24 @@ const PlayerPage = () => {
         <div className="content">
             <AsyncStateWrapper query={getPlayerInfo as QueryState} >
                 <PlayerInfo player={getPlayerInfo.data!} />
-            </AsyncStateWrapper>
 
-            <AsyncStateWrapper query={getPlayerLifetimeStatsQuery as QueryState} >
-                <h3>
-                    Lifetime Stats
-                </h3>
-                <table className="table">
-                    <thead className="table-header">
+                <AsyncStateWrapper query={getPlayerLifetimeStatsQuery as QueryState} >
+                    <h3>
+                        Lifetime Stats
+                    </h3>
+                    <table className="table">
+                        <thead className="table-header">
                         <tr>
                             <StatlineHeader games={true}/>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         <tr>
                             <StatlineData statline={getPlayerLifetimeStatsQuery.data!} />
                         </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </AsyncStateWrapper>
             </AsyncStateWrapper>
 
             {

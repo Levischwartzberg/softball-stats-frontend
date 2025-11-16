@@ -47,11 +47,15 @@ const BattedBallBoxPlot: React.FC<Props> = ({ data, filter}) => {
     const maxEV = Math.max(...exitVelocities);
 
     const layout: Partial<Layout> = {
-        title: { text: 'Exit Velocity Distribution' },
+        title: {
+            text: `Exit Velocities ${
+                filter ? `(${[filter.region, filter.launchAngle].filter(Boolean).join(", ")})` : "(All)"
+            }`
+        },
         xaxis: { title: { text: 'Exit Velocity (mph)' }, range: [minEV - 5, maxEV + 5] },
         yaxis: { visible: false },
         showlegend: true,
-        height: 400
+        height: 300
     };
 
     return <Plot data={[boxTrace, avgTrace]} layout={layout} config={{ responsive: true }} />;

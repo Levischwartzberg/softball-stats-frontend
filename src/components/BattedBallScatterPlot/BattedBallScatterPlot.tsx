@@ -45,13 +45,40 @@ const BattedBallScatterPlot: React.FC<Props> = ({ data, filter }) => {
     const maxEV = Math.max(...exitVelocities);
 
     const layout: Partial<Layout> = {
-        title: { text: 'Exit Velocity Distribution' },
+        title: {
+            text: `Exit Velocities ${
+                filter ? `(${[filter.region, filter.launchAngle].filter(Boolean).join(", ")})` : "(All)"
+            }`
+        },
         xaxis: { title: { text: 'Exit Velocity (mph)' }, range: [minEV - 5, maxEV + 5] },
         yaxis: { visible: false },
         showlegend: true,
-        height: 400
+        height: 300
     };
 
+    const counts = resultTypes.reduce((acc, result) => {
+        acc[result] = filteredData.filter(d => d.result === result.toString()).length;
+        return acc;
+    }, {} as Record<typeof resultTypes[number], number>);
+
+    layout.annotations = [
+        {
+            x: 0.5,
+            y: -0.3,
+            xref: 'paper',
+            yref: 'paper',
+            text: `
+      <b>OUT:</b> ${counts.OUT} &nbsp;&nbsp;
+      <b>SINGLE:</b> ${counts.SINGLE} &nbsp;&nbsp;
+      <b>DOUBLE:</b> ${counts.DOUBLE} &nbsp;&nbsp;
+      <b>TRIPLE:</b> ${counts.TRIPLE} &nbsp;&nbsp;
+      <b>HR:</b> ${counts.HOMERUN}
+    `,
+            showarrow: false,
+            align: 'center',
+            font: { size: 14 }
+        }
+    ];
     return <Plot data={[...scatterTraces]} layout={layout} config={{ responsive: true }} />;
 };
 
