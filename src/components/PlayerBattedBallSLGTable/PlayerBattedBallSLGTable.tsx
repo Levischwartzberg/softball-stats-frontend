@@ -82,7 +82,7 @@ const PlayerBattedBallSLGTable = ({data}: PlayerBattedBallDataTableProps) => {
             <tbody>
             {angles.map(angle => (
                 <tr>
-                    <td>{angle}</td>
+                    <th>{angle}</th>
                     {regions.map(region => {
                         const battedBalls = grid[region][angle];
                         return <td>{calculateSluggingPercentage(battedBalls)}</td>;
@@ -99,7 +99,7 @@ const PlayerBattedBallSLGTable = ({data}: PlayerBattedBallDataTableProps) => {
                 </tr>
             ))}
             <tr>
-                <td className={css.aggregatedData}>Total</td>
+                <th>Total</th>
                 {regions.map(region => {
                     const battedBalls = [
                         ...grid[region]['GROUNDBALL'],

@@ -1,4 +1,6 @@
 import {RunExpectancyData, SituationRunExpectancy} from "@/types/types";
+import InfoIcon from '@mui/icons-material/Info';
+import {Tooltip} from "@mui/material";
 
 type RunExpectancyMatrixProps = {
     runExpectancyData: RunExpectancyData;
@@ -53,27 +55,31 @@ const RunExpectancyMatrix = ({ runExpectancyData }: RunExpectancyMatrixProps) =>
         return situation ? situation.runExpectancy.toFixed(3) : "-";
     };
 
-    return (
-        <table>
-            <thead>
-            <tr>
-                <th>Baserunner State</th>
-                <th>0 Outs</th>
-                <th>1 Out</th>
-                <th>2 Outs</th>
-            </tr>
-            </thead>
-            <tbody>
-            {Object.values(baserunnerSituationMap).map(({code, label}) => (
-                <tr key={code}>
-                    <td>{label}</td>
-                    <td>{getRunExpectancy(code, 0)}</td>
-                    <td>{getRunExpectancy(code, 1)}</td>
-                    <td>{getRunExpectancy(code, 2)}</td>
+    const tooltipContent = "Values determined by finding average number of runs scored after each instance of the given scenario for all games."
+
+    return (<div>
+            <h3>Run Expectancy Matrix <Tooltip title={tooltipContent}><InfoIcon/></Tooltip></h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Baserunner State</th>
+                    <th>0 Outs</th>
+                    <th>1 Out</th>
+                    <th>2 Outs</th>
                 </tr>
-            ))}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {Object.values(baserunnerSituationMap).map(({code, label}) => (
+                    <tr key={code}>
+                        <td>{label}</td>
+                        <td>{getRunExpectancy(code, 0)}</td>
+                        <td>{getRunExpectancy(code, 1)}</td>
+                        <td>{getRunExpectancy(code, 2)}</td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+        </div>
     );
 }
 export default RunExpectancyMatrix;

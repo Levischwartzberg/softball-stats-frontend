@@ -77,7 +77,7 @@ const PlayerBattedBallWRCPlusTable = ({data, setSelectedFilter}: PlayerBattedBal
             <tbody>
             {angles.map(angle => (
                 <tr>
-                    <td>{angle}</td>
+                    <th>{angle}</th>
                     {regions.map(region => {
                         const battedBalls = grid[region][angle];
                         return<td className={css.clickable} onClick={() => setFilter({region : region, launchAngle : angle})}>{calculateWRCPlus(battedBalls)}</td>;
@@ -94,7 +94,7 @@ const PlayerBattedBallWRCPlusTable = ({data, setSelectedFilter}: PlayerBattedBal
                 </tr>
             ))}
             <tr>
-                <td className={css.aggregatedData}>Total</td>
+                <th>Total</th>
                 {regions.map(region => {
                     const battedBalls = [
                         ...grid[region]['GROUNDBALL'],
