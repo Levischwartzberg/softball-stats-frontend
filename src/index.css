@@ -236,3 +236,11 @@ tbody tr:hover td {
   text-align: left;
 }
 
+.basicPaper {
+    padding: 10px;
+    background-color: var(--lightestGray) !important;
+    border-radius: 8px;
+    box-shadow: none;
+    margin: 16px 0;
+}
+

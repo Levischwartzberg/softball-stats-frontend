@@ -10,8 +10,9 @@ import PlayerBattedBallWRCPlusTable, {
 import {useState} from "react";
 import PlayerBattedBallSLGTable from "@/components/PlayerBattedBallSLGTable/PlayerBattedBallSLGTable";
 import PlayerBattedBallAVGTable from "@/components/PlayerBattedBallAVGTable/PlayerBattedBallAVGTable";
-import {Box} from "@mui/material";
+import {Box, Paper} from "@mui/material";
 import BattedBallBoxPlot from "@/components/BattedBallBoxPlot/BattedBallBoxPlot";
+import BattedBallScatterPlot from "@/components/BattedBallScatterPlot/BattedBallScatterPlot";
 
 const TeamMetricsPage = () => {
 
@@ -23,36 +24,44 @@ const TeamMetricsPage = () => {
     return <div className="content">
         <AsyncStateWrapper query={getRunExpectancyDataQuery as QueryState}>
             <AsyncStateWrapper query={getTeamBattedBallDataQuery as QueryState}>
-                <Box display="flex" gap={4}>
-                    <RunExpectancyMatrix runExpectancyData={getRunExpectancyDataQuery.data!} />
-                    <ResultRunValueTable runExpectancyData={getRunExpectancyDataQuery.data!} />
-                </Box>
-                <Box
-                    display="flex"
-                    flexDirection={{ xs: 'column', md: 'row' }}
-                    gap={2}
-                >
-                    <Box display="flex"
-                         flexDirection="column"
-                         justifyContent="space-between"
-                         flex={1}
-                         minHeight="600px"
-                    >
-                        <h3>WRC By Region And Launch Angle</h3>
-                        <PlayerBattedBallWRCPlusTable data={getTeamBattedBallDataQuery.data!} setSelectedFilter={setSelectedFilter} />
-                        <h3>SLG By Region And Launch Angle</h3>
-                        <PlayerBattedBallSLGTable data={getTeamBattedBallDataQuery.data!} />
-                        <h3>AVG By Region And Launch Angle</h3>
-                        <PlayerBattedBallAVGTable data={getTeamBattedBallDataQuery.data!} />
+                <Paper className="basicPaper">
+                    <h1>Run Expectancy Data</h1>
+                    <Box display="flex" gap={4}>
+                        <RunExpectancyMatrix runExpectancyData={getRunExpectancyDataQuery.data!} />
+                        <ResultRunValueTable runExpectancyData={getRunExpectancyDataQuery.data!} />
                     </Box>
-                    <Box display="flex"
-                         flexDirection="column"
-                         gap={4}
-                         flex={1}
+                </Paper>
+                <Paper className="basicPaper">
+                    <h1>Batted Ball Data</h1>
+                    <Box
+                        display="flex"
+                        flexDirection={{ xs: 'column', md: 'row' }}
+                        gap={2}
                     >
-                        <BattedBallBoxPlot data={getTeamBattedBallDataQuery.data!} filter={selectedFilter} />
+                        <Box display="flex"
+                             flexDirection="column"
+                             justifyContent="space-between"
+                             flex={1}
+                             minHeight="600px"
+                        >
+                            <h3>WRC By Region And Launch Angle</h3>
+                            <PlayerBattedBallWRCPlusTable data={getTeamBattedBallDataQuery.data!} setSelectedFilter={setSelectedFilter} />
+                            <h3>SLG By Region And Launch Angle</h3>
+                            <PlayerBattedBallSLGTable data={getTeamBattedBallDataQuery.data!} />
+                            <h3>AVG By Region And Launch Angle</h3>
+                            <PlayerBattedBallAVGTable data={getTeamBattedBallDataQuery.data!} />
+                        </Box>
+                        <Box display="flex"
+                             flexDirection="column"
+                             gap={4}
+                             flex={1}
+                             minWidth={0}
+                        >
+                            <BattedBallBoxPlot data={getTeamBattedBallDataQuery.data!} filter={selectedFilter} />
+                            <BattedBallScatterPlot data={getTeamBattedBallDataQuery.data!} filter={selectedFilter} />
+                        </Box>
                     </Box>
-                </Box>
+                </Paper>
             </AsyncStateWrapper>
         </AsyncStateWrapper>
     </div>

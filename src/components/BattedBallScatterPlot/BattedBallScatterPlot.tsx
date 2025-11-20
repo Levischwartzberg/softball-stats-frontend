@@ -12,11 +12,11 @@ type Props = {
 const BattedBallScatterPlot: React.FC<Props> = ({ data, filter }) => {
     const resultTypes = ['OUT', 'SINGLE', 'DOUBLE', 'TRIPLE', 'HOMERUN'] as const;
     const colors: Record<typeof resultTypes[number], string> = {
-        OUT: 'blue',
-        SINGLE: 'green',
-        DOUBLE: 'orange',
-        TRIPLE: 'purple',
-        HOMERUN: 'red'
+            OUT: '#4A6FA5',
+            SINGLE: '#FFCBA4',
+            DOUBLE: '#FF9966',
+            TRIPLE: '#FF6347',
+            HOMERUN: '#B22222'
     };
 
     const filteredData = filter !== null ?
@@ -64,7 +64,7 @@ const BattedBallScatterPlot: React.FC<Props> = ({ data, filter }) => {
     layout.annotations = [
         {
             x: 0.5,
-            y: -0.3,
+            y: -0.65,
             xref: 'paper',
             yref: 'paper',
             text: `
