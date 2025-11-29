@@ -188,6 +188,8 @@ export type BattedBallData = {
     result : AtBatResult,
     region : Region;
     runsAboveAverage : number;
+    player?: Player;
+    gameInfoId?: number;
 }
 
 export type BattingResultsByExitVelocity = {
