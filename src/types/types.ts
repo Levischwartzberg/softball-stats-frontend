@@ -54,6 +54,11 @@ export type SeasonStatline = {
     statline : Statline
 }
 
+export type YearlyStatline = {
+    year : number,
+    statline : Statline
+}
+
 export type PlayerStatline = {
     player : Player,
     statline : Statline
