@@ -15,6 +15,7 @@ import {yearlyTeamStatsApiSlice} from "@/store/yearlyTeamStats/yearlyTeamStatsAp
 import {playerBattedBallDataApiSlice} from "@/store/playerBattedBallData/playerBattedBallDataApiSlice";
 import {runExpectancyApiSlice} from "@/store/runExpectancy/runExpectancyApiSlice";
 import {teamBattedBallDataApiSlice} from "@/store/teamBattedBallData/teamBattedBallDataApiSlice";
+import {teamBattingByExitVelocityApiSlice} from "@/store/teamBattingByExitVelocity/teamBattingByExitVelocityApiSlice";
 
 export const store = configureStore({
     reducer: {
@@ -33,6 +34,7 @@ export const store = configureStore({
         [yearlyTeamStatsApiSlice.reducerPath]: yearlyTeamStatsApiSlice.reducer,
         [playerBattedBallDataApiSlice.reducerPath]: playerBattedBallDataApiSlice.reducer,
         [teamBattedBallDataApiSlice.reducerPath]: teamBattedBallDataApiSlice.reducer,
+        [teamBattingByExitVelocityApiSlice.reducerPath]: teamBattingByExitVelocityApiSlice.reducer,
         [runExpectancyApiSlice.reducerPath]: runExpectancyApiSlice.reducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
@@ -52,6 +54,7 @@ export const store = configureStore({
         .concat(yearlyTeamStatsApiSlice.middleware)
         .concat(playerBattedBallDataApiSlice.middleware)
         .concat(teamBattedBallDataApiSlice.middleware)
+        .concat(teamBattingByExitVelocityApiSlice.middleware)
         .concat(runExpectancyApiSlice.middleware)
 });
 
