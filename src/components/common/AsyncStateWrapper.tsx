@@ -14,16 +14,17 @@ export interface QueryState<T = unknown> {
 
 type AsyncStateWrapperProps = {
     query: QueryState,
-    prefixText?: string
+    prefixText?: string,
+    heightPadding?: number
 }
 
-const AsyncStateWrapper : React.FC<React.PropsWithChildren<AsyncStateWrapperProps>> = ({ query, prefixText, children }) => {
+const AsyncStateWrapper : React.FC<React.PropsWithChildren<AsyncStateWrapperProps>> = ({ query, prefixText, heightPadding, children }) => {
 
     if (query.isUninitialized) {
         return null;
 
     } else if (query.isLoading || query.isFetching) {
-        return <Box>
+        return <Box style={{padding: heightPadding ? heightPadding : 0}} display="flex" justifyContent="center" alignItems="center">
             <CircularProgress />
         </Box>
 

@@ -76,7 +76,7 @@ const PlayerBattedBallAVGTable = ({data}: PlayerBattedBallDataTableProps) => {
             <tbody>
             {angles.map(angle => (
                 <tr>
-                    <td>{angle}</td>
+                    <th>{angle}</th>
                     {regions.map(region => {
                         const battedBalls = grid[region][angle];
                         return <td>{calculateBattingAverage(battedBalls)}</td>;
@@ -93,7 +93,7 @@ const PlayerBattedBallAVGTable = ({data}: PlayerBattedBallDataTableProps) => {
                 </tr>
             ))}
             <tr>
-                <td className={css.aggregatedData}>Total</td>
+                <th>Total</th>
                 {regions.map(region => {
                     const battedBalls = [
                         ...grid[region]['GROUNDBALL'],

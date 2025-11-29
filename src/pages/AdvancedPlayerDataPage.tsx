@@ -9,7 +9,7 @@ import PlayerBattedBallWRCPlusTable, {
     LaunchAngle,
     Region
 } from "@/components/PlayerBattedBallWRCPlusTable/PlayerBattedBallWRCPlusTable";
-import {Box, Typography} from "@mui/material";
+import {Box, Tooltip, Typography} from "@mui/material";
 import {useGetPlayerInfoQuery} from "@/store/players/playerApiSlice";
 import PlayerBattedBallSLGTable from "@/components/PlayerBattedBallSLGTable/PlayerBattedBallSLGTable";
 import PlayerBattedBallAVGTable from "@/components/PlayerBattedBallAVGTable/PlayerBattedBallAVGTable";
@@ -17,6 +17,7 @@ import BattedBallBoxPlot from "@/components/BattedBallBoxPlot/BattedBallBoxPlot"
 import BattedBallScatterPlot from "@/components/BattedBallScatterPlot/BattedBallScatterPlot";
 import LaunchAnglePieChart from "@/components/LaunchAnglePieChart/LaunchAnglePieChart";
 import RegionPieChart from "@/components/RegionPieChart/RegionPieChart";
+import InfoIcon from "@mui/icons-material/Info";
 
 const AdvancedPlayerDataPage = () => {
     const { playerId } = useParams();
@@ -24,6 +25,8 @@ const AdvancedPlayerDataPage = () => {
     const getPlayerInfo = useGetPlayerInfoQuery(parseInt(playerId!));
 
     const [selectedFilter, setSelectedFilter] = useState(null as { region : Region | null, launchAngle: LaunchAngle | null } | null);
+
+    const wrcPlusTooltip = 'WRC+ uses the expected runs for each result which are then applied to all results in the sample set, normalizing to an average of 100.';
 
     return (
         <div className="content">
@@ -51,7 +54,7 @@ const AdvancedPlayerDataPage = () => {
                             minHeight="600px"
                         >
                             <Box>
-                                <Typography variant="h6" sx={{ mb: 1 }}>WRC+ By Region and Launch Angle</Typography>
+                                <Typography variant="h6" sx={{ mb: 1 }}>WRC+ <Tooltip title={wrcPlusTooltip}><InfoIcon/></Tooltip> By Region and Launch Angle</Typography>
                                 <PlayerBattedBallWRCPlusTable data={getPlayerBattedBallDataQuery.data!} setSelectedFilter={setSelectedFilter} />
                             </Box>
 
@@ -78,7 +81,7 @@ const AdvancedPlayerDataPage = () => {
                     </Box>
                     <Box
                         display="flex"
-                        justifyContent="center"
+                        justifyContent="left"
                         alignItems="flex-start"
                         sx={{ marginTop: 2 }}
                     >

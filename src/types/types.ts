@@ -185,3 +185,28 @@ export type BattedBallData = {
     runsAboveAverage : number;
 }
 
+export type BattingResultsByExitVelocity = {
+    exitVelocity: number,
+    atBats: number,
+    hits: number,
+    totalBases: number,
+}
+
+export type RunExpectancyData = {
+    situationRunExpectancy : SituationRunExpectancy[],
+    resultRunExpectancy : ResultRunExpectancy
+}
+
+export type SituationRunExpectancy = {
+    firstBaseOccupied : boolean,
+    secondBaseOccupied : boolean,
+    thirdBaseOccupied : boolean,
+    outs : number,
+    runExpectancy : number
+}
+
+export type ResultRunExpectancy = {
+    runExpectancyByResult: { [key in AtBatResult]: number }
+}
+
+

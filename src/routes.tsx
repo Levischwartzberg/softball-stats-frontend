@@ -8,6 +8,7 @@ import ResultPage from "@/pages/ResultPage";
 import LifetimeStatsPage from "@/pages/LifetimeStatsPage";
 import YearlyTeamStatsPage from "@/pages/YearlyTeamStatsPage";
 import AdvancedPlayerDataPage from "@/pages/AdvancedPlayerDataPage";
+import TeamMetricsPage from "@/pages/TeamMetricsPage";
 
 export const routes = [
 
@@ -20,6 +21,7 @@ export const routes = [
     { path: "/game/:gameId", element: <ResultPage />},
     { path: "/lifetimeStats", element: <LifetimeStatsPage />},
     { path: "/yearlyStats/:year", element: <YearlyTeamStatsPage />},
-    { path: "/advancedPlayerData/:playerId", element: <AdvancedPlayerDataPage /> }
+    { path: "/advancedPlayerData/:playerId", element: <AdvancedPlayerDataPage /> },
+    { path: "/teamMetrics", element: <TeamMetricsPage /> },
 
 ];
