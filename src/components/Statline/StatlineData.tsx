@@ -6,7 +6,8 @@ type StatlineProps = {
     season? : Season,
     gameInfo? : GameInfo,
     player? : Player,
-    displayWrcPlus? : boolean
+    displayWrcPlus? : boolean,
+    year? : number
 }
 
 function StatlineData(props : StatlineProps) {
@@ -30,6 +31,9 @@ function StatlineData(props : StatlineProps) {
                     )}
                     {props.season && (
                         <td>{`${props.season.session} ${props.season.year}`}</td>
+                    )}
+                    {props.year && (
+                        <td>{props.year}</td>
                     )}
                     {props.player && (
                         <td>{`${props.player.lastName}, ${props.player.firstName}`}</td>

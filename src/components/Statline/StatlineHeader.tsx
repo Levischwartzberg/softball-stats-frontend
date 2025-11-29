@@ -1,6 +1,7 @@
 type StatlineProps = {
     games? : boolean,
     season? : boolean,
+    year? : boolean,
     result? : boolean,
     displayWrcPlus? : boolean,
     lineupSpot? : boolean,
@@ -26,6 +27,9 @@ function StatlineHeader(props : StatlineProps) {
                 )}
                 {props.season && (
                     <th>Season</th>
+                )}
+                {props.year && (
+                    <th>Year</th>
                 )}
                 {props.playerName && (
                     <th>Player</th>

@@ -16,12 +16,14 @@ import {playerBattedBallDataApiSlice} from "@/store/playerBattedBallData/playerB
 import {runExpectancyApiSlice} from "@/store/runExpectancy/runExpectancyApiSlice";
 import {teamBattedBallDataApiSlice} from "@/store/teamBattedBallData/teamBattedBallDataApiSlice";
 import {teamBattingByExitVelocityApiSlice} from "@/store/teamBattingByExitVelocity/teamBattingByExitVelocityApiSlice";
+import {playerYearlyStatsApiSlice} from "@/store/playerYearlyStats/playerLifetimeStatsApiSlice";
 
 export const store = configureStore({
     reducer: {
         token: tokenSlice,
         [playerApiSlice.reducerPath]: playerApiSlice.reducer,
         [playerLifetimeStatsApiSlice.reducerPath]: playerLifetimeStatsApiSlice.reducer,
+        [playerYearlyStatsApiSlice.reducerPath]: playerYearlyStatsApiSlice.reducer,
         [playerSeasonStatsApiSlice.reducerPath]: playerSeasonStatsApiSlice.reducer,
         [seasonApiSlice.reducerPath]: seasonApiSlice.reducer,
         [boxscoreApiSlice.reducerPath]: boxscoreApiSlice.reducer,
@@ -42,6 +44,7 @@ export const store = configureStore({
     })
         .concat(playerApiSlice.middleware)
         .concat(playerLifetimeStatsApiSlice.middleware)
+        .concat(playerYearlyStatsApiSlice.middleware)
         .concat(playerSeasonStatsApiSlice.middleware)
         .concat(seasonApiSlice.middleware)
         .concat(boxscoreApiSlice.middleware)

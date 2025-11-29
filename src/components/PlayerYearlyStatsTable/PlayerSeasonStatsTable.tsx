@@ -1,25 +1,25 @@
 import css from "../Statline/Statline.module.scss";
-import {SeasonStatline} from "../../types/types";
+import {YearlyStatline} from "@/types/types";
 import StatlineHeader from "../../components/Statline/StatlineHeader";
 import StatlineData from "../../components/Statline/StatlineData";
 
-type PlayerSeasonStatsProps = {
-    seasonStats : SeasonStatline[]
+type PlayerYearlyStatsProps = {
+    yearlyStats : YearlyStatline[];
 }
 
-const PlayerSeasonStatsTable = (props : PlayerSeasonStatsProps) => {
+const PlayerYearlyStatsTable = (props : PlayerYearlyStatsProps) => {
 
     return (
         <table className={css.statsTable}>
             <thead>
                 <tr>
-                    <StatlineHeader games={true} season={true} />
+                    <StatlineHeader games={true} year={true} displayWrcPlus={true} />
                 </tr>
             </thead>
             <tbody>
-                {props.seasonStats.map(seasonStatline => (
+                {props.yearlyStats.map(yearlyStatline => (
                     <tr>
-                        <StatlineData statline={seasonStatline.statline} season={seasonStatline.season} />
+                        <StatlineData statline={yearlyStatline.statline} year={yearlyStatline.year} displayWrcPlus={true} />
                     </tr>
                     )
                 )}
@@ -28,4 +28,4 @@ const PlayerSeasonStatsTable = (props : PlayerSeasonStatsProps) => {
     )
 }
 
-export default PlayerSeasonStatsTable;
+export default PlayerYearlyStatsTable;

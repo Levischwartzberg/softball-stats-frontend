@@ -11,6 +11,8 @@ import PlayerSeasonStatsTable from "../components/PlayerSeasonStatsTable/PlayerS
 import {useGetPlayerInfoQuery} from "../store/players/playerApiSlice";
 import {useLazyGetPlayerGameLogsQuery} from "@/store/playerGameLog/playerGameLogApiSlice";
 import PlayerGameLog from "@/components/PlayerGameLog/PlayerGameLog";
+import {useGetYearlyStatsQuery} from "@/store/playerYearlyStats/playerLifetimeStatsApiSlice";
+import PlayerYearlyStatsTable from "@/components/PlayerYearlyStatsTable/PlayerSeasonStatsTable";
 
 const PlayerPage = () => {
 
@@ -19,6 +21,7 @@ const PlayerPage = () => {
 
     const getPlayerInfo = useGetPlayerInfoQuery(parseInt(playerId!));
     const getPlayerLifetimeStatsQuery = useGetLifetimeStatsQuery(parseInt(playerId!));
+    const getPlayerYearlyStatsQuery = useGetYearlyStatsQuery(parseInt(playerId!));
     const getPlayerSeasonStatsQuery = useGetSeasonStatsQuery(parseInt(playerId!));
     const [getPlayerGameLogsTrigger, getPlayerGameLogsQuery] = useLazyGetPlayerGameLogsQuery();
 
@@ -39,15 +42,21 @@ const PlayerPage = () => {
                     <table className="table">
                         <thead className="table-header">
                         <tr>
-                            <StatlineHeader games={true}/>
+                            <StatlineHeader games={true} displayWrcPlus={true} />
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <StatlineData statline={getPlayerLifetimeStatsQuery.data!} />
+                            <StatlineData statline={getPlayerLifetimeStatsQuery.data!} displayWrcPlus={true} />
                         </tr>
                         </tbody>
                     </table>
+                </AsyncStateWrapper>
+                <AsyncStateWrapper query={getPlayerYearlyStatsQuery as QueryState} >
+                    <h3>
+                        Yearly Stats
+                    </h3>
+                    <PlayerYearlyStatsTable yearlyStats={getPlayerYearlyStatsQuery.data!} />
                 </AsyncStateWrapper>
             </AsyncStateWrapper>
 
