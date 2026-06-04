@@ -34,5 +34,5 @@ export const opponentTeamStatsApiSlice = createApi({
 });
 
 export const {
-    useLazyGetTeamStatsByOpponentQuery,
+    useGetTeamStatsByOpponentQuery
 } = opponentTeamStatsApiSlice;

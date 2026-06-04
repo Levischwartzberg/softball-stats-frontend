@@ -10,6 +10,7 @@ import YearlyTeamStatsPage from "@/pages/YearlyTeamStatsPage";
 import AdvancedPlayerDataPage from "@/pages/AdvancedPlayerDataPage";
 import TeamMetricsPage from "@/pages/TeamMetricsPage";
 import OpponentsPage from "@/pages/OpponentsPage";
+import OpponentPage from "@/pages/OpponentPage";
 
 export const routes = [
 
@@ -25,5 +26,6 @@ export const routes = [
     { path: "/advancedPlayerData/:playerId", element: <AdvancedPlayerDataPage /> },
     { path: "/teamMetrics", element: <TeamMetricsPage /> },
     { path: "/opponents", element: <OpponentsPage /> },
+    { path: "/opponents/:opponentId", element: <OpponentPage /> },
 
 ];
