@@ -34,5 +34,5 @@ export const opponentGameLogApiSlice = createApi({
 });
 
 export const {
-    useLazyGetGamesByOpponentQuery
+    useGetGamesByOpponentQuery
 } = opponentGameLogApiSlice;
