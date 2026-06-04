@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import {CreateOpponentDTO, CreatePlayerDTO, Opponent, Player} from "@/types/types";
+import {CreateOpponentDTO, Opponent} from "@/types/types";
 import {RootState} from "@/store/store";
 
 const baseURL = process.env.REACT_APP_API_BASE_URL;

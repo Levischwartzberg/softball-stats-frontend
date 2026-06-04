@@ -17,6 +17,8 @@ import {runExpectancyApiSlice} from "@/store/runExpectancy/runExpectancyApiSlice
 import {teamBattedBallDataApiSlice} from "@/store/teamBattedBallData/teamBattedBallDataApiSlice";
 import {teamBattingByExitVelocityApiSlice} from "@/store/teamBattingByExitVelocity/teamBattingByExitVelocityApiSlice";
 import {playerYearlyStatsApiSlice} from "@/store/playerYearlyStats/playerLifetimeStatsApiSlice";
+import {opponentGameLogApiSlice} from "@/store/opponentGameLog/opponentGameLogApiSlice";
+import {opponentTeamStatsApiSlice} from "@/store/opponentTeamStats/opponentTeamStatsApiSlice";
 
 export const store = configureStore({
     reducer: {
@@ -38,6 +40,8 @@ export const store = configureStore({
         [teamBattedBallDataApiSlice.reducerPath]: teamBattedBallDataApiSlice.reducer,
         [teamBattingByExitVelocityApiSlice.reducerPath]: teamBattingByExitVelocityApiSlice.reducer,
         [runExpectancyApiSlice.reducerPath]: runExpectancyApiSlice.reducer,
+        [opponentGameLogApiSlice.reducerPath]: opponentGameLogApiSlice.reducer,
+        [opponentTeamStatsApiSlice.reducerPath]: opponentTeamStatsApiSlice.reducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false,
@@ -59,6 +63,8 @@ export const store = configureStore({
         .concat(teamBattedBallDataApiSlice.middleware)
         .concat(teamBattingByExitVelocityApiSlice.middleware)
         .concat(runExpectancyApiSlice.middleware)
+        .concat(opponentGameLogApiSlice.middleware)
+        .concat(opponentTeamStatsApiSlice.middleware)
 });
 
 export type RootState = ReturnType<typeof store.getState>;
