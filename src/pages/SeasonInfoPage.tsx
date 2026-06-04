@@ -1,7 +1,7 @@
 import {useParams} from "react-router-dom";
 import {useGetSeasonGamesQuery} from "@/store/seasons/seasonApiSlice";
 import AsyncStateWrapper, {QueryState} from "@/components/common/AsyncStateWrapper";
-import SeasonGamesTable from "@/components/SeasonGamesTable/SeasonGamesTable";
+import GamesTable from "@/components/SeasonGamesTable/GamesTable";
 import {useGetSeasonTeamStatsQuery} from "@/store/seasonTeamStats/seasonTeamStatsApiSlice";
 import TeamStatsTable from "@/components/TeamStatsTable/TeamStatsTable";
 
@@ -23,7 +23,7 @@ const SeasonInfoPage = () => {
             )}
             <div style={{display : "flex", gap : "20px", alignContent : "space-between", justifyContent : "space-between"}}>
                 <AsyncStateWrapper query={getSeasonGamesQuery as QueryState}>
-                    <SeasonGamesTable seasonGames={getSeasonGamesQuery.data!} />
+                    <GamesTable games={getSeasonGamesQuery.data!} />
                 </AsyncStateWrapper>
 
                 <AsyncStateWrapper query={getSeasonTeamStatsQuery as QueryState} >

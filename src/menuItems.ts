@@ -40,6 +40,13 @@ export default function menuItems(navigate : NavigateFunction, location : Locati
         },
         {
             link: {
+                label: "Opponents",
+                selected: location.pathname.startsWith("/opponents"),
+                onClick: () => navigate("/opponents")
+            }
+        },
+        {
+            link: {
                 label: "Scorekeeping",
                 selected: location.pathname.startsWith("/scorekeeping"),
                 onClick: () => navigate("/scorekeeping")

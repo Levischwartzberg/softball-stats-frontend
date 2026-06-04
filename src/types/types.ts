@@ -115,6 +115,11 @@ export type SeasonGames = {
     games : GameInfo[]
 }
 
+export type OpponentGames = {
+    opponent : Opponent,
+    games : GameInfo[]
+}
+
 export type GameInfo = {
     gameInfoId : number,
     date : Dayjs,
@@ -131,7 +136,7 @@ export type GameInfo = {
 }
 
 export type Opponent = {
-    opponentId : number,
+    id : number,
     teamName : string
 }
 
