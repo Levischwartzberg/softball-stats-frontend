@@ -1,32 +1,30 @@
 import {useParams} from "react-router-dom";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
-    useGetPlayerBattedBallDataQuery,
+    useGetPlayerBattedBallDataQuery, useLazyGetPlayerBattedBallDataQuery,
 } from "@/store/playerBattedBallData/playerBattedBallDataApiSlice";
 import AsyncStateWrapper, {QueryState} from "@/components/common/AsyncStateWrapper";
-
-import PlayerBattedBallWRCPlusTable, {
-    LaunchAngle,
-    Region
-} from "@/components/PlayerBattedBallWRCPlusTable/PlayerBattedBallWRCPlusTable";
-import {Box, Tooltip, Typography} from "@mui/material";
+import {Autocomplete, Typography, TextField} from "@mui/material";
 import {useGetPlayerInfoQuery} from "@/store/players/playerApiSlice";
-import PlayerBattedBallSLGTable from "@/components/PlayerBattedBallSLGTable/PlayerBattedBallSLGTable";
-import PlayerBattedBallAVGTable from "@/components/PlayerBattedBallAVGTable/PlayerBattedBallAVGTable";
-import BattedBallBoxPlot from "@/components/BattedBallBoxPlot/BattedBallBoxPlot";
-import BattedBallScatterPlot from "@/components/BattedBallScatterPlot/BattedBallScatterPlot";
-import LaunchAnglePieChart from "@/components/LaunchAnglePieChart/LaunchAnglePieChart";
-import RegionPieChart from "@/components/RegionPieChart/RegionPieChart";
-import InfoIcon from "@mui/icons-material/Info";
+import BattedBallCharts from "@/components/BattedBallCharts/BattedBallCharts";
+import GenericAccordion from "@/components/common/GenericAccordion/GenericAccordion";
 
 const AdvancedPlayerDataPage = () => {
     const { playerId } = useParams();
-    const getPlayerBattedBallDataQuery = useGetPlayerBattedBallDataQuery(parseInt(playerId!));
+    const [selectedYear, setSelectedYear] = useState(2025);
+    const getPlayerBattedBallDataQuery = useGetPlayerBattedBallDataQuery({
+        playerId : parseInt(playerId!),
+        year : undefined
+    });
+    const [getPlayerBattedBallDataByYearTrigger, getPlayerBattedBallDataByYearQuery] = useLazyGetPlayerBattedBallDataQuery();
     const getPlayerInfo = useGetPlayerInfoQuery(parseInt(playerId!));
 
-    const [selectedFilter, setSelectedFilter] = useState(null as { region : Region | null, launchAngle: LaunchAngle | null } | null);
-
-    const wrcPlusTooltip = 'WRC+ uses the expected runs for each result which are then applied to all results in the sample set, normalizing to an average of 100.';
+    useEffect(() => {
+        getPlayerBattedBallDataByYearTrigger({
+            playerId : parseInt(playerId!),
+            year : selectedYear
+        });
+    }, []);
 
     return (
         <div className="content">
@@ -40,55 +38,44 @@ const AdvancedPlayerDataPage = () => {
                     </Typography>
                 )}
 
-                <AsyncStateWrapper query={getPlayerBattedBallDataQuery as QueryState}>
-                    <Box
-                        display="flex"
-                        flexDirection={{ xs: 'column', md: 'row' }}
-                        gap={4}
-                    >
-                        <Box
-                            display="flex"
-                            flexDirection="column"
-                            justifyContent="space-between"
-                            flex={1}
-                            minHeight="600px"
-                        >
-                            <Box>
-                                <Typography variant="h6" sx={{ mb: 1 }}>WRC+ <Tooltip title={wrcPlusTooltip}><InfoIcon/></Tooltip> By Region and Launch Angle</Typography>
-                                <PlayerBattedBallWRCPlusTable data={getPlayerBattedBallDataQuery.data!} setSelectedFilter={setSelectedFilter} />
-                            </Box>
+                <GenericAccordion
+                    title={<h1>All Years</h1>}
+                    content={
+                        <AsyncStateWrapper query={getPlayerBattedBallDataQuery as QueryState}>
+                            <BattedBallCharts data={getPlayerBattedBallDataQuery.data!} />
+                        </AsyncStateWrapper>
+                    }
+                    defaultExpanded={true}
+                />
 
-                            <Box>
-                                <Typography variant="h6" sx={{ mb: 1 }}>SLG% By Region and Launch Angle</Typography>
-                                <PlayerBattedBallSLGTable data={getPlayerBattedBallDataQuery.data!} />
-                            </Box>
-
-                            <Box>
-                                <Typography variant="h6" sx={{ mb: 1 }}>AVG By Region and Launch Angle</Typography>
-                                <PlayerBattedBallAVGTable data={getPlayerBattedBallDataQuery.data!} />
-                            </Box>
-                        </Box>
-
-                        <Box
-                            display="flex"
-                            flexDirection="column"
-                            gap={4}
-                            flex={1}
-                        >
-                            <BattedBallScatterPlot data={getPlayerBattedBallDataQuery.data!} filter={selectedFilter}/>
-                            <BattedBallBoxPlot data={getPlayerBattedBallDataQuery.data!} filter={selectedFilter}/>
-                        </Box>
-                    </Box>
-                    <Box
-                        display="flex"
-                        justifyContent="left"
-                        alignItems="flex-start"
-                        sx={{ marginTop: 2 }}
-                    >
-                        <LaunchAnglePieChart data={getPlayerBattedBallDataQuery.data!} filter={selectedFilter}/>
-                        <RegionPieChart data={getPlayerBattedBallDataQuery.data!} filter={selectedFilter}/>
-                    </Box>
-                </AsyncStateWrapper>
+                <GenericAccordion
+                    title={<h1>Batted Ball Data : {selectedYear}</h1>}
+                    content={
+                    <>
+                        <Autocomplete
+                            disableClearable
+                            disablePortal
+                            blurOnSelect={true}
+                            options={[2025, 2026]}
+                            sx={{ width: 300 }}
+                            value={selectedYear}
+                            onChange={(event, value) => {
+                                setSelectedYear(value!);
+                                getPlayerBattedBallDataByYearTrigger({
+                                    playerId : parseInt(playerId!),
+                                    year : value!
+                                });
+                            }
+                        }
+                            renderInput={(params) => <TextField {...params} label="Year" />}
+                        />
+                        <AsyncStateWrapper query={getPlayerBattedBallDataByYearQuery as QueryState}>
+                            <BattedBallCharts data={getPlayerBattedBallDataByYearQuery.data!} />
+                        </AsyncStateWrapper>
+                    </>
+                    }
+                    defaultExpanded={false}
+                />
             </AsyncStateWrapper>
         </div>
     );
