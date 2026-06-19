@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {RootState} from "@/store/store";
-import {PlayerBattedBallData} from "@/types/types";
+import {PlayerBattedBallData, PlayerBattedBallDataQueryParams} from "@/types/types";
 
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
@@ -21,13 +21,14 @@ export const playerBattedBallDataApiSlice = createApi({
 
     endpoints: (build) => ({
 
-        getPlayerBattedBallData: build.query<PlayerBattedBallData, number>({
-            query: (playerId : number) => `/playerBattedBallData/${playerId}`,
+        getPlayerBattedBallData: build.query<PlayerBattedBallData, PlayerBattedBallDataQueryParams>({
+            query: (params : PlayerBattedBallDataQueryParams) => `/playerBattedBallData/${params.playerId}${params.year ? "?year=" + params.year : ""}`,
         }),
     }),
 
 });
 
 export const {
-    useGetPlayerBattedBallDataQuery
+    useGetPlayerBattedBallDataQuery,
+    useLazyGetPlayerBattedBallDataQuery
 } = playerBattedBallDataApiSlice;

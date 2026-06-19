@@ -197,6 +197,11 @@ export type BattedBallData = {
     gameInfoId?: number;
 }
 
+export type PlayerBattedBallDataQueryParams = {
+    playerId : number,
+    year : number | undefined,
+}
+
 export type BattingResultsByExitVelocity = {
     exitVelocity: number,
     atBats: number,
