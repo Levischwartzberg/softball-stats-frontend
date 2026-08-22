@@ -102,4 +102,4 @@ function ScorekeepingTable(props : ScorekeepingTableProps) {
     </>
 }
 
-export  default  ScorekeepingTable;
+export default ScorekeepingTable;

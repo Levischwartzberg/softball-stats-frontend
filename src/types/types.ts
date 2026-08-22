@@ -19,7 +19,8 @@ export type AtBat = {
     ballsAndStrikes? : string,
     baserunners : Baserunners,
     outs : Player[],
-    runs : Player[]
+    runs : Player[],
+    videoUrl? : string
 }
 
 export enum AtBatResult {
